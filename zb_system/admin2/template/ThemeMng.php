@@ -3,8 +3,7 @@
 {php}<?php
 $csrfToken = $zbp->GetCSRFToken();
 ?>{/php}
-<form id="frmTheme" method="post" action="../cmd.php?act=ThemeSet">
-  <input type="hidden" name="csrfToken" value="{$csrfToken}">
+<form id="frmTheme" method="post" action="{BuildSafeCmdURL('act=ThemeSet')}">
   <input type="hidden" name="theme" id="theme" value="" />
   <input type="hidden" name="style" id="style" value="" />
 
@@ -19,9 +18,11 @@ $csrfToken = $zbp->GetCSRFToken();
   ?>{/php}
   <div class="theme {$cls}" data-themeid="{$themeIdEscaped}" data-themename="{$themeNameEscaped}">
     <div class="theme-name">
-      {if isset($zbp.lang[$curTheme.id]['theme_name'])}
-      {php}$curTheme->name = $zbp->lang[$curTheme.id]['theme_name'];{/php}
-      {/if}
+      {php}<?php
+      if (isset($zbp->lang[$curTheme->id]['theme_name'])) {
+        $curTheme->name = $zbp->lang[$curTheme->id]['theme_name'];
+      }
+      ?>{/php}
 
       {if $curTheme.IsUsed() && $curTheme.path && !in_array('AppCentre', $zbp.GetPreActivePlugin())}
       <a href="{$curTheme.GetManageUrl()}" title="{$zbp.lang['msg']['manage']}"><i class="icon-tools"></i></a>&nbsp;&nbsp;
@@ -43,7 +44,7 @@ $csrfToken = $zbp->GetCSRFToken();
       <select class="edit" size="1" title="{$zbp.lang['msg']['style']}">
         {foreach $curTheme.GetCssFiles() as $curKey => $curValue}
         {php}$keyEscaped = htmlspecialchars($curKey);{/php}
-        <option value="{$keyEscaped}" {if $curTheme.IsUsed()}{if $key==$zbp.style}selected="selected" {/if}{/if}>{basename($curValue)}</option>
+        <option value="{$keyEscaped}" {if $curTheme->IsUsed() && $curKey === $zbp->style}selected="selected"{/if}>{basename($curValue)}</option>
         {/foreach}
       </select>
       <input type="button" onclick="$('#style').val($(this).prev().val());$('#theme').val('{$curTheme.id}');$('#frmTheme').submit();" class="theme-activate button" value="{$zbp.lang['msg']['enable']}">
