@@ -1,4 +1,4 @@
-<form method="post" action="{$zbp->host}zb_system/cmd.php?act=SettingSav">
+<form method="post" action="{BuildSafeCmdURL('act=SettingSav')}">
 
   <div class="content-box">
     <div class="content-box-header">

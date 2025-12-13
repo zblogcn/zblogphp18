@@ -3,6 +3,6 @@ nologin*
 zb_users/cache/
 zb_users/c_option.php
 zb_users/logs/
+vendor/
 zb_users/data/
-test.php
 web.config

@@ -1001,6 +1001,7 @@ class ZBlogPHP
 
         if ($this->ismanage && $this->option['ZC_MANAGE_UI'] == 2) {
             $this->template_admin = $this->PrepareTemplateAdmin();
+            Add_Filter_Plugin("Filter_Plugin_Admin_Header", "Include_Admin2_RedirectEdt");
         }
 
         Add_Filter_Plugin('Filter_Plugin_Login_Header', 'Include_AddonAdminFont');

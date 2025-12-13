@@ -7,6 +7,7 @@ require __DIR__ . "/admin2_misc.php";
 
 $zbp->ismanage = true;
 
+// 管理页面
 function zbp_admin2_GetActionInfo($action, $lang)
 {
   $main = (object) array(
@@ -113,12 +114,14 @@ function zbp_admin2_GetActionInfo($action, $lang)
       $main->HeaderIcon = 'icon-gear-fill';
       break;
     default:
+      return zbp_admin2_GetEditInfo($action, $lang);
       break;
   }
   $main->SubMenu = zbp_admin2_GenSubMenu($action);
   return array($blogtitle, $main);
 }
 
+// 编辑页面
 function zbp_admin2_GetEditInfo($action, $lang)
 {
   $main = (object) array(
