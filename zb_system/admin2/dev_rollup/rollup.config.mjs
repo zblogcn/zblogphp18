@@ -1,4 +1,5 @@
 
+import { config } from 'dotenv';
 import browsersync from 'rollup-plugin-browsersync'
 import copy from 'rollup-plugin-copy'
 import postcss from "rollup-plugin-postcss";
@@ -12,6 +13,9 @@ const appName = appPath.replace(/.*\//, "");
 // 产物复制到的目录
 // const distJS = `${appPath}/script/`;
 const distCSS = `${appPath}/style/`;
+
+// 加载环境变量
+const envConfig = config({ path: `${curPath}/.env` }).parsed;
 
 const defConfig = {
   input: `src/main.js`,
@@ -55,7 +59,7 @@ const defConfig = {
 if (process.env.NODE_ENV === "dev") {
   defConfig.plugins.push(
     browsersync({
-      proxy: "http://127.0.0.1:8081/",
+      proxy: envConfig.PROXY || 'http://localhost',
       files: [
         `${appPath}/**/*.php`,
         `${appPath}/var-style/**/*.css`,
