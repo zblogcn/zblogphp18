@@ -62,8 +62,8 @@ if (process.env.NODE_ENV === "dev") {
       proxy: envConfig.PROXY || 'http://localhost',
       files: [
         `${appPath}/**/*.php`,
-        `${appPath}/var-style/**/*.css`,
-        // `${appPath}/var-script/**/*.js`,
+        `${appPath}/style/**/*.css`,
+        // `${appPath}/script/**/*.js`,
       ],
     }),
   );
