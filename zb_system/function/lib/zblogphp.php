@@ -2378,6 +2378,10 @@ class ZBlogPHP
         $this->template->LoadTemplates();
         //$forcebuild = true 强制跳过比较
         if ($forcebuild == true) {
+            $s = implode($this->template->templates);
+            $md5 = md5($s);
+            $this->cache->templates_md5_array = serialize(array($this->template->template_dirname => $md5));
+            $this->SaveCache();
             $this->BuildTemplate();
             return true;
         }
@@ -2451,6 +2455,10 @@ class ZBlogPHP
         $this->template_admin = $this->PrepareTemplateAdmin();
         //$forcebuild = true 强制跳过比较直接Build
         if ($forcebuild == true) {
+            $s = implode($this->template_admin->templates);
+            $md5 = md5($s);
+            $this->cache->templates_admin_md5_array = serialize(array($this->template_admin->template_dirname => $md5));
+            $this->SaveCache();
             $this->BuildTemplateAdmin();
             return true;
         }
@@ -2460,7 +2468,7 @@ class ZBlogPHP
         if (!is_array($array_files_hash_md5)) {
             $array_files_hash_md5 = array();
         }
-        foreach ($array_files_hash_md5 as $file=>$md5_file){
+        foreach ($array_files_hash_md5 as $file => $md5_file){
             if (!file_exists($this->template_admin->GetPath() . $file . '.php')) {
                 //缺编译后的文件
                 if ($onlycheck == true) {
