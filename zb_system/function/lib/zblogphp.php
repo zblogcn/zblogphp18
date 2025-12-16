@@ -642,7 +642,7 @@ class ZBlogPHP
     {
         global $option, $lang, $langs, $blogpath, $bloghost, $cookiespath, $cachedir,
             $logsdir, $datadir, $table, $datainfo, $actions, $action, $blogversion,
-            $blogtitle, $blogname, $blogsubname, $routes, $blogtheme, $blogstyle,$currenturl,
+            $blogtitle, $blogname, $blogsubname, $routes, $blogtheme, $blogstyle, $currenturl,
             $fullcurrenturl, $currentscript, $fullcurrentscript, $activedapps, $posttype,
             $usersdir, $systemdir, $admindir, $usersurl, $systemurl, $adminurl,
             $option_user_file, $apimodsdir;

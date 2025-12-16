@@ -81,7 +81,12 @@ switch ($zbp->action) {
         ViewComments((int) GetVars('postid', 'GET'), (int) GetVars('page', 'GET'));
         break;
     case 'ArticleEdt':
-        Redirect_cmd_end('admin/edit.php?' . GetVars('QUERY_STRING', 'SERVER'));
+        if ($zbp->option['ZC_MANAGE_UI'] == 2) {
+            Redirect_cmd_end('admin2/index.php?' . GetVars('QUERY_STRING', 'SERVER'));
+        } else {
+            Redirect_cmd_end('admin/edit.php?' . GetVars('QUERY_STRING', 'SERVER'));
+        }
+
         break;
     case 'ArticleDel':
         CheckIsRefererValid();

@@ -7,7 +7,7 @@ require __DIR__ . "/admin2_misc.php";
 
 $zbp->ismanage = true;
 
-// 管理页面
+// admin2 后台主要函数 管理页面
 function zbp_admin2_GetActionInfo($action, $lang)
 {
   $main = (object) array(
@@ -133,6 +133,13 @@ function zbp_admin2_GetEditInfo($action, $lang)
   );
 
   switch ($action) {
+    case 'ArticleEdt':
+      $blogtitle = $lang['msg']['article_edit'];
+      $main->ActiveLeftMenu = 'aArticleMng';
+      $main->Content = zbp_admin2_ArticleEdt();
+      $main->Header = $blogtitle;
+      $main->HeaderIcon = 'icon-pencil-square-fill';
+      break;
     case 'CategoryEdt':
       $blogtitle = $lang['msg']['category_edit'];
       $main->ActiveLeftMenu = 'aCategoryMng';
