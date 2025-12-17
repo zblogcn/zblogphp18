@@ -662,14 +662,14 @@ function Include_ViewListPost_CheckRights_View($route)
 /**
  * admin2 编辑页拦截跳转
  */
-function Include_Admin2_RedirectEdt()
-{
-    global $action;
-    if (HasNameInString("CategoryPst|TagPst|MemberNew|MemberEdt|ModuleEdt", $action)) {
-        $args = GetVars('QUERY_STRING', 'SERVER');
-        Redirect("../admin2/index.php?{$args}");
-    }
-}
+//function Include_Admin2_RedirectEdt()
+//{
+    //global $action;
+    //if (HasNameInString("CategoryPst|TagPst|MemberNew|MemberEdt|ModuleEdt|ArticleEdt|PageEdt", $action)) {
+        //$args = GetVars('QUERY_STRING', 'SERVER');
+        //Redirect("../admin2/index.php?{$args}");
+    //}
+//}
 
 //###############################################################################################################
 
