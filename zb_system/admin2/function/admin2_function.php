@@ -8,8 +8,9 @@ require __DIR__ . "/admin2_misc.php";
 $zbp->ismanage = true;
 
 // admin2 后台主要函数 管理页面
-function zbp_admin2_GetActionInfo($action, $lang)
+function zbp_admin2_GetActionInfo($action)
 {
+  global $lang;
   $main = (object) array(
     "Header" => "",
     "HeaderIcon" => "",
@@ -113,26 +114,6 @@ function zbp_admin2_GetActionInfo($action, $lang)
       $main->Header = $blogtitle;
       $main->HeaderIcon = 'icon-gear-fill';
       break;
-    default:
-      return zbp_admin2_GetEditInfo($action, $lang);
-      break;
-  }
-  $main->SubMenu = zbp_admin2_GenSubMenu($action);
-  return array($blogtitle, $main);
-}
-
-// 编辑页面
-function zbp_admin2_GetEditInfo($action, $lang)
-{
-  $main = (object) array(
-    "Header" => "",
-    "HeaderIcon" => "",
-    "SubMenu" => "",
-    "ActiveTopMenu" => "",
-    "ActiveLeftMenu" => "",
-  );
-
-  switch ($action) {
     case 'ArticleEdt':
       $blogtitle = $lang['msg']['article_edit'];
       $main->ActiveLeftMenu = 'aArticleMng';
@@ -180,3 +161,4 @@ function zbp_admin2_GetEditInfo($action, $lang)
   $main->SubMenu = zbp_admin2_GenSubMenu($action);
   return array($blogtitle, $main);
 }
+

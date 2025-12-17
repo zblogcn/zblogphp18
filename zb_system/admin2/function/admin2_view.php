@@ -917,11 +917,8 @@ function zbp_admin2_ArticleEdt()
       }
   }
 
-
   $zbp->template_admin->SetTags('article', $article);
   $zbp->template_admin->SetTags('ispage', $ispage);
-  $zbp->template_admin->SetTags('action', $action);
-  $zbp->template_admin->SetTags('lang', $lang);
 
   $rlt = $zbp->template_admin->Output("ArticleEdt");
 
