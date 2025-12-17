@@ -2528,6 +2528,22 @@ class ZBlogPHP
         return $template;
     }
 
+
+    /**
+     * 获取当前Admin模板对像
+     */
+    public function &GetTemplateAdmin()
+    {
+        if (IS_CLI && (IS_WORKERMAN || IS_SWOOLE)) {
+            $template = clone $this->template_admin;
+        } else {
+            $template = &$this->template_admin;
+        }
+
+        return $template;
+    }
+
+
     /**
      * 模块处理类函数**************************************************************.
      */

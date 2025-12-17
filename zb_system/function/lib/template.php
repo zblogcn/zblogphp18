@@ -991,6 +991,7 @@ class Template
         $this->templateTags['option'] = &$option;
         $this->templateTags['lang'] = &$zbp->lang;
         $this->templateTags['langs'] = &$zbp->langs;
+        $this->templateTags['action'] = &$zbp->action;
         $this->templateTags['version'] = &$zbp->version;
         $this->templateTags['categorys'] = &$zbp->categories;
         $this->templateTags['categories'] = &$zbp->categories;
