@@ -2420,8 +2420,16 @@ class ZBlogPHP
         $template = new Template();
         $template->MakeTemplateTags();
 
-        $template->theme = 'system/admin2';
-        $template->template_dirname = '';
+        $theme = 'system/admin2';
+        $template_dirname = '';
+
+        //只改templateTags的
+        foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_MakeTemplatetags_Admin'] as $fpname => &$fpsignal) {
+            $fpname($template->templateTags);
+        }
+
+        $template->theme = $theme;
+        $template->template_dirname = $template_dirname;
 
         $template->SetPath($this->cachedir . 'compiled/system/admin2/');
         $template->LoadAdminTemplates();
@@ -2436,6 +2444,13 @@ class ZBlogPHP
      */
     public function BuildTemplateAdmin()
     {
+
+        $this->template->LoadAdminTemplates();
+
+        foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_BuildTemplate_Admin'] as $fpname => &$fpsignal) {
+            $fpname($this->template->templates);
+        }
+
         $b = $this->template_admin->BuildTemplate();
         $this->cache->templates_admin_files_hash_array = serialize($this->template_admin->compileFiles_hash);
         $this->SaveCache();
@@ -2452,7 +2467,7 @@ class ZBlogPHP
      */
     public function CheckTemplateAdmin($onlycheck = false, $forcebuild = false)
     {
-        $this->template_admin = $this->PrepareTemplateAdmin();
+
         //$forcebuild = true 强制跳过比较直接Build
         if ($forcebuild == true) {
             $s = implode($this->template_admin->templates);
@@ -2488,6 +2503,7 @@ class ZBlogPHP
             }
         }
 
+        $this->template_admin->LoadAdminTemplates();
         $s = implode($this->template_admin->templates);
         $md5 = md5($s);
         $array_md5 = @unserialize($this->cache->templates_admin_md5_array);
