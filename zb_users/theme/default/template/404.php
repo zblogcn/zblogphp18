@@ -1,14 +1,12 @@
 {* Template Name:404错误页 *}
-<!DOCTYPE HTML>
-<html lang="zh-cn">
+<!DOCTYPE html>
+<html lang="{$lang['lang_bcp47']}">
 <head>
     <meta charset="UTF-8"/>
     <title>{if isset($zbp)}{$zbp.name}-{/if}公益404</title>
     <style type="text/css">
         body,div,p,h1,h2,h3,h4{ margin: 0; padding: 0;}
-        body{font:400 14px/1.333 "Tahoma",microsoft yahei; color: #333; /*background:url(images/bg_grey.png);*/ }
-
-        /*.nf-header,.nf-footer{ background: #333; height: 30px; width: 100%; margin-bottom: 30px;}*/
+        body{font:400 14px/1.333 "Tahoma",microsoft yahei; color: #333;}
         .nf-conect{ width:960px; margin: 0 auto;}
         .c-banner{ margin-bottom: 20px;}
 
@@ -22,11 +20,11 @@
         .box-item .box-bd .ui-wrap{padding:0 10px;margin:0px 0 20px 0;}
 		.box-item .box-bd  .ui-wrap-pic{padding:0 10px;margin:0;}
 
-        .fn-idt{ text-indent: 2em;}              /* 内容缩进2em */
-        .ui-mgb15{ margin-bottom: 15px;}         /* 下margin 15px */
-        .ui-mgb30{margin-bottom: 30px;}          /* 下margin 15px */
-		.ui-mgb25{margin: 0 0 25px 20px;}          /* 下margin 10px */
-        .ui-tc{ text-align: center;}             /* 内容居中 */
+        .fn-idt{ text-indent: 2em;}
+        .ui-mgb15{ margin-bottom: 15px;}
+        .ui-mgb30{margin-bottom: 30px;}
+		.ui-mgb25{margin: 0 0 25px 20px;}
+        .ui-tc{ text-align: center;}
 
         textarea{width:600px;height:40px;border:1px solid #7F9DB9;resize:0;padding:10px}
         .icon_err{display:inline-block;width:113px;height:117px;overflow:hidden;line-height:500px;background-image:url(//mat1.gtimg.com/www/404/404.png);}

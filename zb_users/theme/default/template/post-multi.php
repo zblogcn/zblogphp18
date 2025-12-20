@@ -1,11 +1,9 @@
 {* Template Name:列表页普通文章 *}
-<article class="post-card">
+<div class="post multi">
 	<h2 class="post-title"><a href="{$article.Url}">{$article.Title}</a></h2>
-    <div class="post-meta">
-        <span class="date">{$article.Time('Y-m-d')}</span>
-        <span class="author">{$article.Author.StaticName}</span>
-        <span class="views">{$article.ViewNums} Views</span>
-    </div>
-	<div class="post-excerpt">{$article.Intro}</div>
-    <a href="{$article.Url}" class="btn-readmore">Read More</a>
-</article>
+	<div class="post-date">{$article.Time()}</div>
+	<div class="post-body">{$article.Intro}</div>
+	<p class="post-footer">
+		{$lang['msg']['author']}:{$article.Author.StaticName} <small>|</small> {$lang['msg']['category']}:{$article.Category.Name} <small>|</small> {$lang['default']['view']}:{$article.ViewNums} <small>|</small> {$lang['msg']['comment']}:{$article.CommNums}
+	</p>
+</div>

@@ -4,5 +4,4 @@
   <p id="BlogCopyRight">{$copyright}</p>
 </div>
 <div class="clear"></div>
-
 {$footer}

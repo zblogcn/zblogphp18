@@ -1,18 +1,15 @@
 {* Template Name:文章页文章内容 *}
-<article class="post-single">
-	<h1 class="post-title">{$article.Title}</h1>
-    <div class="post-meta">
-        <span class="date">{$article.Time('Y-m-d')}</span>
-        <span class="category">{$article.Category.Name}</span>
-        <span class="views">{$article.ViewNums} Views</span>
-    </div>
+<div class="post single">
+	<h2 class="post-title">{$article.Title}</h2>
+	<div class="post-date">{$article.Time()}</div>
 	<div class="post-body">{$article.Content}</div>
-	<div class="post-tags">
-        {foreach $article.Tags as $tag}
-            <a href='{$tag.Url}' title='{$tag.Name}'>#{$tag.Name}</a>
-        {/foreach}
-	</div>
-</article>
+	<p class="post-tags">
+    {if count($article.Tags)>0}{$lang['msg']['tags']}:{foreach $article.Tags as $i => $tag}&nbsp;<a href='{$tag.Url}' title='{$tag.Name}'>{$tag.Name}</a>&nbsp;{if count($article.Tags) > $i}<small>,</small>{/if}{/foreach}{/if}
+	</p>
+	<p class="post-footer">
+		{$lang['msg']['author']}:{$article.Author.StaticName} <small>|</small> {$lang['msg']['category']}:{$article.Category.Name} <small>|</small> {$lang['default']['view']}:{$article.ViewNums} <small>|</small> {$lang['msg']['comment']}:{$article.CommNums}
+	</p>
+</div>
 
 {if !$article.IsLock}
 {template:comments}

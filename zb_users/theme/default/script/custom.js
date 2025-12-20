@@ -1,15 +1,21 @@
-﻿$(document).ready(function() {
+﻿$(document).ready(function () {
   var s = document.location
-  $("#divNavBar a").each(function() {
+  $("#divNavBar a").each(function () {
     if (this.href == s.toString().split("#")[0]) {
       $(this).addClass("on")
       return false
     }
   })
+
+  // 移动端菜单切换
+  $(".menu-toggle").click(function () {
+    $(this).toggleClass("open");
+    $("#divNavBar ul").toggleClass("active");
+  });
 })
 
 zbp.plugin.unbind("comment.reply.start", "system")
-zbp.plugin.on("comment.reply.start", "default", function(id) {
+zbp.plugin.on("comment.reply.start", "default", function (id) {
   var i = id
   $("#inpRevID").val(i)
   var frm = $('#divCommentPost')
@@ -19,7 +25,7 @@ zbp.plugin.on("comment.reply.start", "default", function(id) {
     frm.before($("<div id='temp-frm' style='display:none'>")).addClass("reply-frm")
   $('#AjaxComment' + i).before(frm)
 
-  cancel.show().click(function() {
+  cancel.show().click(function () {
     var temp = $('#temp-frm')
     $("#inpRevID").val(0)
     if (!temp.length || !frm.length) return
