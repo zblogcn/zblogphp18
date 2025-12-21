@@ -999,11 +999,6 @@ class ZBlogPHP
         //创建模板类
         $this->template = $this->PrepareTemplate();
 
-        if ($this->ismanage && $this->option['ZC_MANAGE_UI'] == 2) {
-            $this->template_admin = $this->PrepareTemplateAdmin();
-            //Add_Filter_Plugin("Filter_Plugin_Admin_Header", "Include_Admin2_RedirectEdt");
-        }
-
         Add_Filter_Plugin('Filter_Plugin_Login_Header', 'Include_AddonAdminFont');
         Add_Filter_Plugin('Filter_Plugin_Other_Header', 'Include_AddonAdminFont');
         Add_Filter_Plugin('Filter_Plugin_Admin_Header', 'Include_AddonAdminFont');
@@ -1063,6 +1058,11 @@ class ZBlogPHP
 
         if (isset($GLOBALS['zbpvers'])) {
             $GLOBALS['zbpvers'][$GLOBALS['blogversion']] = ZC_VERSION_DISPLAY . ' Build ' . $GLOBALS['blogversion'];
+        }
+
+        if ($this->ismanage && $this->option['ZC_MANAGE_UI'] == 2) {
+            $this->template_admin = $this->PrepareTemplateAdmin();
+            //Add_Filter_Plugin("Filter_Plugin_Admin_Header", "Include_Admin2_RedirectEdt");
         }
 
         foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_LoadManage'] as $fpname => &$fpsignal) {
@@ -2327,6 +2327,11 @@ class ZBlogPHP
             $fpname($this->template->templates);
         }
 
+        $s = implode($this->template->templates);
+        $md5 = md5($s);
+        $this->cache->templates_md5_array = serialize(array($this->template->template_dirname => $md5));
+        $this->SaveCache();
+
         return $this->template->BuildTemplate();
     }
 
@@ -2349,6 +2354,11 @@ class ZBlogPHP
             $fpname($this->template->templates);
         }
 
+        $s = implode($this->template->templates);
+        $md5 = md5($s);
+        $this->cache->templates_md5_array = serialize(array($this->template->template_dirname => $md5));
+        $this->SaveCache();
+
         return $this->template->BuildTemplate();
     }
 
@@ -2365,10 +2375,6 @@ class ZBlogPHP
 
         //$forcebuild = true 强制跳过比较
         if ($forcebuild == true) {
-            $s = implode($this->template->templates);
-            $md5 = md5($s);
-            $this->cache->templates_md5_array = serialize(array($this->template->template_dirname => $md5));
-            $this->SaveCache();
             $this->BuildTemplate();
             return true;
         }
@@ -2387,9 +2393,6 @@ class ZBlogPHP
             //$onlycheck = false时
             if ($md5 != $new_md5) {
                 $this->BuildTemplate();
-                $array_md5[$this->template->template_dirname] = $md5;
-                $this->cache->templates_md5_array = serialize($array_md5);
-                $this->SaveCache();
                 return true;
             }
         }
@@ -2404,25 +2407,30 @@ class ZBlogPHP
      */
     public function PrepareTemplateAdmin()
     {
-        $template = new Template();
-        $template->MakeTemplateTags();
+        $template_admin = new Template();
+        $template_admin->MakeTemplateTags();
 
         $theme = 'system/admin2';
-        $template_dirname = '';
+        $template_admin_dirname = '';
 
         //只改templateTags的
         foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_MakeTemplatetags_Admin'] as $fpname => &$fpsignal) {
-            $fpname($template->templateTags);
+            $fpname($template_admin->templateTags);
         }
 
-        $template->theme = $theme;
-        $template->template_dirname = $template_dirname;
+        //此处增加接口可以在Load时，对$theme, $template_dirname参数可以进行修改
+        foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_PrepareTemplate_Admin'] as $fpname => &$fpsignal) {
+            $fpname($theme, $template_admin_dirname);
+        }
 
-        $template->SetPath($this->cachedir . 'compiled/system/admin2/');
-        $template->LoadAdminTemplates();
+        $template_admin->theme = $theme;
+        $template_admin->template_dirname = $template_admin_dirname;
+
+        $template_admin->SetPath($this->cachedir . 'compiled/system/admin2/');
+        $template_admin->LoadAdminTemplates();
         $this->autofill_template_htmltags = false;
 
-        return $template;
+        return $template_admin;
     }
 
     /**
@@ -2432,14 +2440,17 @@ class ZBlogPHP
     public function BuildTemplateAdmin()
     {
 
-        $this->template->LoadAdminTemplates();
+        $this->template_admin->LoadAdminTemplates();
 
         foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_BuildTemplate_Admin'] as $fpname => &$fpsignal) {
-            $fpname($this->template->templates);
+            $fpname($this->template_admin->templates);
         }
 
         $b = $this->template_admin->BuildTemplate();
         $this->cache->templates_admin_files_hash_array = serialize($this->template_admin->compileFiles_hash);
+        $s = implode($this->template_admin->templates);
+        $md5 = md5($s);
+        $this->cache->templates_admin_md5_array = serialize(array($this->template_admin->template_dirname => $md5));
         $this->SaveCache();
         return $b;
     }
@@ -2457,10 +2468,6 @@ class ZBlogPHP
 
         //$forcebuild = true 强制跳过比较直接Build
         if ($forcebuild == true) {
-            $s = implode($this->template_admin->templates);
-            $md5 = md5($s);
-            $this->cache->templates_admin_md5_array = serialize(array($this->template_admin->template_dirname => $md5));
-            $this->SaveCache();
             $this->BuildTemplateAdmin();
             return true;
         }
@@ -2499,14 +2506,11 @@ class ZBlogPHP
         $new_md5 = GetValueInArray($array_md5, $this->template_admin->template_dirname);
 
         if ($onlycheck == true) {
-            return ($md5 == $new_md5);
-        } elseif ($onlycheck == false) {
+            return (($md5 == $new_md5) && ($hash_compare !== false));
+        } else {
             //$onlycheck = false时
             if (($md5 != $new_md5) || ($hash_compare === false)) {
                 $this->BuildTemplateAdmin();
-                $array_md5[$this->template_admin->template_dirname] = $md5;
-                $this->cache->templates_admin_md5_array = serialize($array_md5);
-                $this->SaveCache();
                 return true;
             }
         }
