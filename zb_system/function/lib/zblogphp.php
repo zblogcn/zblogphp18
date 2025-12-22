@@ -2418,9 +2418,17 @@ class ZBlogPHP
         $template_admin = new Template();
         $template_admin->MakeTemplateTags();
 
-        $theme = 'backend-legacy';
         $template_dirname = 'template';
+        $theme = 'backend-legacy';
         $backend_app_dirname = $this->systemdir . 'admin2/' . $theme . '/';
+        //从ZC_BACKEND_ID取值
+        $backend_apps = &$this->backend_apps;
+        foreach ($backend_apps as $backend_app) {
+            if ($this->option['ZC_BACKEND_ID'] === $backend_app->id) {
+                $theme = $backend_app->id;
+                $backend_app_dirname = $backend_app->app_path;
+            }
+        }
 
         //只改templateTags的
         foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_MakeTemplatetags_Admin'] as $fpname => &$fpsignal) {
