@@ -92,7 +92,7 @@ class Template
     /**
      * @var string 主题应用的根目录
      */
-    public $app_dirname = '';
+    protected $app_path = '';
 
     /**
      * @var bool 是否已显示过了
@@ -101,6 +101,25 @@ class Template
 
     public function __construct()
     {
+    }
+
+    public function SetAppPath($path = null)
+    {
+        if ($path === null) {
+            $this->app_path = $zbp->usersdir . 'theme/' . $this->theme . '/';
+            return;
+        }
+        $this->app_path = $path;
+        $this->app_path = rtrim($this->app_path, '/') . '/';
+    }
+
+
+    /**
+     * @return null
+     */
+    public function GetAppPath()
+    {
+        return $this->app_path;
     }
 
     /**
@@ -112,6 +131,7 @@ class Template
     public function SetPath($path = null)
     {
         global $zbp;
+
         $template_dirname = $this->template_dirname;
 
         if ($path == null) {
@@ -127,6 +147,7 @@ class Template
             $path = substr($path, 0, (strlen($path) - 1)) . '___' . $template_dirname . '/';
         }
         $this->path = $path;
+        $this->path = rtrim($this->path, '/') . '/';
     }
 
     /**
@@ -218,8 +239,12 @@ class Template
     {
         global $zbp;
 
+        if ($this->app_path === '') {
+            $this->SetAppPath();
+        }
+
         foreach ($this->dirs as $key => $value) {
-            $value = str_ireplace($zbp->usersdir . 'theme/' . $this->theme . '/' . $this->template_dirname . '/', $this->path, $value);
+            $value = str_ireplace($this->app_path . $this->template_dirname . '/', $this->path, $value);
             if (!file_exists($value)) {
                 mkdir($value, 0755, true);
             }
@@ -240,6 +265,10 @@ class Template
     {
         global $zbp;
 
+        if ($this->app_path === '') {
+            $this->SetAppPath();
+        }
+
         // 初始化模板
         if (!file_exists($this->path)) {
             @mkdir($this->path, 0755, true);
@@ -258,7 +287,7 @@ class Template
             $this->dirs = array_reverse($this->dirs);
 
             foreach ($this->dirs as $key => $value) {
-                $s = str_replace($zbp->usersdir . 'theme/' . $this->theme . '/' . $this->template_dirname . '/', $this->path, $value);
+                $s = str_replace($this->app_path . '/' . $this->template_dirname . '/', $this->path, $value);
                 if (file_exists($s)) {
                     foreach (GetFilesInDir($s, 'php') as $t) {
                         if (file_exists($t)) {

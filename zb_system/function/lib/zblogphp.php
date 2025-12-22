@@ -2312,7 +2312,6 @@ class ZBlogPHP
         $template->template_dirname = $template_dirname;
 
         $template->SetPath();
-
         $template->LoadTemplates();
 
         return $template;
@@ -2415,7 +2414,8 @@ class ZBlogPHP
         $template_admin->MakeTemplateTags();
 
         $theme = 'backend-legacy';
-        $template_admin_dirname = 'template';
+        $template_dirname = 'template';
+        $backend_app_dirname = $this->systemdir . 'admin2/' . $theme . '/';
 
         //只改templateTags的
         foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_MakeTemplatetags_Admin'] as $fpname => &$fpsignal) {
@@ -2424,13 +2424,14 @@ class ZBlogPHP
 
         //此处增加接口可以在Load时，对$theme, $template_dirname参数可以进行修改
         foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_PrepareTemplate_Admin'] as $fpname => &$fpsignal) {
-            $fpname($theme, $template_admin_dirname);
+            $fpname($theme, $template_dirname, $backend_app_dirname);
         }
 
         $template_admin->theme = $theme;
-        $template_admin->template_dirname = $template_admin_dirname;
+        $template_admin->template_dirname = $template_dirname;
 
         $template_admin->SetPath($this->cachedir . 'compiled/system/' . $theme . '/');
+        $template_admin->SetAppPath($backend_app_dirname);
         $template_admin->LoadAdminTemplates();
         $this->autofill_template_htmltags = false;
         $this->backend_theme = $template_admin->theme;
