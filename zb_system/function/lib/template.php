@@ -105,6 +105,7 @@ class Template
 
     public function SetAppPath($path = null)
     {
+        global $zbp;
         if ($path === null) {
             $this->app_path = $zbp->usersdir . 'theme/' . $this->theme . '/';
             return;
@@ -823,12 +824,6 @@ class Template
 
         foreach ($this->files as $key => $value) {
             $templates[$key] = $value;
-        }
-
-        for ($i = 2; $i < 10; $i++) {
-            if (!isset($templates['sidebar' . $i])) {
-                $templates['sidebar' . $i] = str_replace('$sidebar', '$sidebar' . $i, $templates['sidebar']);
-            }
         }
 
         $this->templates = $templates;
