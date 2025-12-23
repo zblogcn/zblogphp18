@@ -2431,7 +2431,6 @@ class ZBlogPHP
         $template_admin = new Template();
         $template_admin->MakeTemplateTags();
 
-        $template_dirname = 'template';
         $theme = 'backend-legacy';
         $backendapp_dirname = $this->systemdir . 'admin2/' . $theme . '/';
 
@@ -2454,7 +2453,7 @@ class ZBlogPHP
         }
 
         $template_admin->theme = $theme;
-        $template_admin->template_dirname = $template_dirname;
+        $template_admin->template_dirname = 'template';
 
         $template_admin->SetPath($this->cachedir . 'compiled/system/' . $theme . '/');
         $template_admin->SetAppPath($backendapp_dirname);
