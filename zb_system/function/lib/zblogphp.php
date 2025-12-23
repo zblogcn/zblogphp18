@@ -298,7 +298,17 @@ class ZBlogPHP
     /**
      * @var App 所有后台主题类
      */
-    public $backend_apps = null;
+    public $backend_apps = array();
+
+    /**
+     * @var App 当前后台主题类
+     */
+    public $backend_app = null;
+
+    /**
+     * @var array() 当前后台主题版本信息
+     */
+    public $backendinfo = array();
 
     /**
      * @var array() 当前主题版本信息
@@ -2421,23 +2431,21 @@ class ZBlogPHP
         $template_dirname = 'template';
         $theme = 'backend-legacy';
         $backend_app_dirname = $this->systemdir . 'admin2/' . $theme . '/';
+
         //从ZC_BACKEND_ID取值
-        $backend_apps = &$this->backend_apps;
-        foreach ($backend_apps as $backend_app) {
-            if ($this->option['ZC_BACKEND_ID'] === $backend_app->id) {
-                $theme = $backend_app->id;
-                $backend_app_dirname = $backend_app->app_path;
-            }
+        $backend_id = $this->option['ZC_BACKEND_ID'];
+        if (isset($this->backend_apps[$backend_id]) && is_object($this->backend_apps[$backend_id])) {
+            $backend_app = $this->backend_apps[$backend_id];
+            $theme = $backend_app->id;
+            $backend_app_dirname = $backend_app->app_path;
+
+            $this->backendapp = $backend_app;
+            $this->backendinfo = $backend_app->GetInfoArray();
         }
 
         //只改templateTags的
         foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_MakeTemplatetags_Admin'] as $fpname => &$fpsignal) {
             $fpname($template_admin->templateTags);
-        }
-
-        //此处增加接口可以在Load时，对$theme, $template_dirname参数可以进行修改
-        foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_PrepareTemplate_Admin'] as $fpname => &$fpsignal) {
-            $fpname($theme, $template_dirname, $backend_app_dirname);
         }
 
         $template_admin->theme = $theme;

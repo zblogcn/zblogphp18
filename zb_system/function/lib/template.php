@@ -149,6 +149,7 @@ class Template
         }
         $this->path = $path;
         $this->path = rtrim($this->path, '/') . '/';
+        return $this->path;
     }
 
     /**
