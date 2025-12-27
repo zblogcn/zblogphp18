@@ -821,10 +821,21 @@ class Template
         // 读取Backend模板
         $this->dirs = array();
         $this->files = array();
-        $this->GetAllFileDir($zbp->systemdir . 'admin2/' . $this->theme . "/{$this->template_dirname}");
-
-        foreach ($this->files as $key => $value) {
-            $templates[$key] = $value;
+        if (isset($zbp->backendapps[$this->theme]) && is_object($zbp->backendapps[$this->theme])) {
+            $backendapp = &$zbp->backendapps[$this->theme];
+            $backendapp_dirname = $backendapp->app_path;
+            $files2 = GetFilesInDir($backendapp_dirname . "{$this->template_dirname}/", 'php');
+        } else {
+            $files2 = GetFilesInDir($zbp->systemdir . 'admin2/' . $this->theme . "/{$this->template_dirname}/", 'php');
+        }
+        foreach ($files2 as $sortname => $fullname) {
+            $s = file_get_contents($fullname);
+            if (substr($s, 0, 2) == '{*' && strstr($s, '*}') !== false) {
+                $s = strstr($s, '*}');
+                $s = substr($s, 2);
+            }
+            $templates[$sortname] = $s;
+            $s = null;
         }
 
         $this->templates = $templates;

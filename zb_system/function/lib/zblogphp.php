@@ -2173,10 +2173,19 @@ class ZBlogPHP
      */
     public function GetPreActivePlugin()
     {
-        $ap = explode("|", $this->option['ZC_USING_PLUGIN_LIST']);
-        $ap = array_unique($ap);
+        $aps = explode("|", $this->option['ZC_USING_PLUGIN_LIST']);
+        $aps = array_unique($aps);
 
-        return $ap;
+        $aps2 = array();
+        //剔除掉admin2后台禁用的插件
+        foreach ($aps as $key => $ap) {
+            if ($ap == 'AdminColor1' || $ap == 'LinksManage1' || $ap == 'STACentre1') {
+                continue;
+            }
+            $aps2[] = $ap;
+        }
+
+        return $aps2;
     }
 
     /**
@@ -2217,6 +2226,14 @@ class ZBlogPHP
             case 'theme':
                 $languagePath .= 'zb_users/' . $type . '/' . $id . '/language/';
                 $languagePtr = &$this->lang[$id];
+                break;
+            case 'backend':
+                $backend_id = $id;
+                if (isset($this->backendapps[$backend_id]) && is_object($this->backendapps[$backend_id])) {
+                    $this->backendapp = &$this->backendapps[$backend_id];
+                    $languagePath = $this->backendapp->GetPath() . 'language/';
+                    $languagePtr = &$this->lang[$id];
+                }
                 break;
             default:
                 $languagePath .= $type . '/language/';
@@ -2444,6 +2461,9 @@ class ZBlogPHP
             $this->backendinfo = $this->backendapp->GetInfoArray();
             if (is_readable($this->backendapp->GetPath() . $this->backendapp->include)) {
                 require_once($this->backendapp->GetPath() . $this->backendapp->include);
+            }
+            if (function_exists($funcname = ('ActivePlugin_' . str_replace('-', '_', $backend_id)))) {
+                call_user_func($funcname);
             }
         }
 
