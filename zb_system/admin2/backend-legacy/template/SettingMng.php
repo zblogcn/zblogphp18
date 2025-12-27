@@ -4,7 +4,6 @@ table select {max-width:600px;width:90%;}
 table textarea {max-width:600px;width:90%;}
 table {margin:0;}
 </style>
-
 <form method="post" action="{BuildSafeCmdURL('act=SettingSav')}">
 
   <div class="content-box">
