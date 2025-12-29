@@ -96,7 +96,7 @@ function Admin_SiteInfo()
     $s = str_replace('感谢', $zbp->lang['msg']['thanks'], $s);
     $s = str_replace('相关链接', $zbp->lang['msg']['website'], $s);
     echo $s;
-    echo '<script>ActiveTopMenu("topmenu1");</script>';
+    echo '<script>ActiveTopMenu("topmenu_dashboard");</script>';
     echo '<script>AddHeaderFontIcon("icon-house-door-fill");</script>';
 }
 

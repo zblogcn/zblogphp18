@@ -253,8 +253,8 @@ function ResponseAdmin_TopMenu()
     global $zbp;
     global $topmenus;
 
-    $topmenus[] = MakeTopMenu("admin", $zbp->lang['msg']['dashboard'], $zbp->cmdurl . "?act=admin", "", "", "icon-house-door-fill");
-    $topmenus[] = MakeTopMenu("SettingMng", @$zbp->lang['msg']['web_settings'], $zbp->cmdurl . "?act=SettingMng", "", "", "icon-gear-fill");
+    $topmenus[] = MakeTopMenu("admin", $zbp->lang['msg']['dashboard'], $zbp->cmdurl . "?act=admin", "", "topmenu_dashboard", "icon-house-door-fill");
+    $topmenus[] = MakeTopMenu("SettingMng", @$zbp->lang['msg']['web_settings'], $zbp->cmdurl . "?act=SettingMng", "", "topmenu_setting", "icon-gear-fill");
 
     foreach ($GLOBALS['hooks']['Filter_Plugin_Admin_TopMenu'] as $fpname => &$fpsignal) {
         $fpname($topmenus);
@@ -265,7 +265,7 @@ function ResponseAdmin_TopMenu()
         $u = "https://www.zblogcn.net/";
     }
 
-    $topmenus[] = MakeTopMenu("misc", $zbp->lang['msg']['official_website'], $u, "_blank", "", "icon-zblog-circle-fill");
+    $topmenus[] = MakeTopMenu("misc", $zbp->lang['msg']['official_website'], $u, "_blank", "topmenu_official", "icon-zblog-circle-fill");
 
     foreach ($topmenus as $m) {
         echo $m;
