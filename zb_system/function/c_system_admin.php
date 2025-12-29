@@ -1711,6 +1711,6 @@ function checkDomain(){
         </div>
     </form>
     <?php
-    echo '<script>ActiveTopMenu("topmenu2");</script>';
+    echo '<script>ActiveTopMenu("topmenu_setting");</script>';
     echo '<script>AddHeaderFontIcon("icon-gear-fill");</script>';
 }

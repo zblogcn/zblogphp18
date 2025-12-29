@@ -27,6 +27,8 @@ function zbp_admin2_GetActionInfo($action)
       $main->Content = zbp_admin2_SiteInfo();
       $main->Header = $lang['msg']['info_intro'];
       $main->HeaderIcon = 'icon-house-door-fill';
+      $main->ActiveLeftMenu = 'aDashboard';
+      $main->ActiveTopMenu = 'topmenu_dashboard';
       $main->Title = $blogtitle;
       break;
     case 'ArticleMng':
