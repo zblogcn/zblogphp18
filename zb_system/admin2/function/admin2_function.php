@@ -133,7 +133,11 @@ function zbp_admin2_GetActionInfo($action)
       break;
     case 'ArticleEdt':
       $blogtitle = $lang['msg']['article_edit'];
-      $main->ActiveLeftMenu = 'aArticleMng';
+      if (empty(GetVars('id'))) {
+        $main->ActiveLeftMenu = 'aArticleEdt';
+      } else {
+        $main->ActiveLeftMenu = 'aArticleMng';
+      }
       $main->Content = zbp_admin2_ArticleEdt();
       $main->Header = $blogtitle;
       $main->HeaderIcon = 'icon-pencil-square-fill';

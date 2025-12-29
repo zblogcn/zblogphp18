@@ -41,16 +41,25 @@ function backend_toyean_MakeLeftMenu($requireAction, $strName, $strUrl, $strLiId
     $tmp = null;
 
     if ($strIconClass != "") {
-        $tmp = "<li id=\"" . $strLiId . "\"><a id=\"" . $strAId . "\" href=\"" . $strUrl . "\" title=\"" . strip_tags($strName) . "\"><span><i class=\"" . $strIconClass . "\"></i>" . $strName . "</span></a></li>";
+        $tmp = "<li id=\"" . $strLiId . "\"><a id=\"" . $strAId . "\" href=\"" . $strUrl . "\" title=\"" . strip_tags($strName) . "\"><span><i class=\"ico " . $strIconClass . "\"></i>" . $strName . "</span></a></li>";
     } elseif ($strImgUrl != "") {
         $tmp = "<li id=\"" . $strLiId . "\"><a id=\"" . $strAId . "\" href=\"" . $strUrl . "\" title=\"" . strip_tags($strName) . "\"><span class=\"bgicon\" style=\"background-image:url('" . $strImgUrl . "')\">" . $strName . "</span></a></li>";
     } else {
-        $tmp = "<li id=\"" . $strLiId . "\"><a id=\"" . $strAId . "\" href=\"" . $strUrl . "\" title=\"" . strip_tags($strName) . "\"><span><i class=\"icon-window-fill\"></i>" . $strName . "</span></a></li>";
+        $tmp = "<li id=\"" . $strLiId . "\"><a id=\"" . $strAId . "\" href=\"" . $strUrl . "\" title=\"" . strip_tags($strName) . "\"><span><i class=\"ico icon-window-fill\"></i>" . $strName . "</span></a></li>";
     }
 
     return $tmp;
 }
 
+function MakeLeftMenu($requireAction, $strName, $strUrl, $strLiId, $strAId, $strImgUrl, $strIconClass = "")
+{
+    global $zbp;
+    if ($zbp->isbackend_ui === false) {
+        return _MakeLeftMenu($requireAction, $strName, $strUrl, $strLiId, $strAId, $strImgUrl, $strIconClass);
+    }
+
+    return backend_toyean_MakeLeftMenu($requireAction, $strName, $strUrl, $strLiId, $strAId, $strImgUrl, $strIconClass);
+}
 
 //覆盖ResponseAdmin_LeftMenu
 function ResponseAdmin_LeftMenu()
@@ -68,28 +77,26 @@ function ResponseAdmin_LeftMenu()
 
     $leftmenus[] = '<li class="menutitle">内容管理</li>';
 
-    $leftmenus['nav_new'] = backend_toyean_MakeLeftMenu("ArticleEdt", $zbp->lang['msg']['new_article'], $zbp->cmdurl . "?act=ArticleEdt", "nav_new", "aArticleEdt", "", "icon-pencil-square-fill");
-
-    $leftmenus['nav_new'] = backend_toyean_MakeLeftMenu("ArticleEdt", $zbp->lang['msg']['new_article'], $zbp->cmdurl . "?act=ArticleEdt", "nav_new", "aArticleEdt", "", "icon-pencil-square-fill");
-    $leftmenus['nav_article'] = backend_toyean_MakeLeftMenu("ArticleMng", $zbp->lang['msg']['article_manage'], $zbp->cmdurl . "?act=ArticleMng", "nav_article", "aArticleMng", "", "icon-stickies");
-    $leftmenus['nav_page'] = backend_toyean_MakeLeftMenu("PageMng", $zbp->lang['msg']['page_manage'], $zbp->cmdurl . "?act=PageMng", "nav_page", "aPageMng", "", "icon-stickies-fill");
+    $leftmenus['nav_new'] = backend_toyean_MakeLeftMenu("ArticleEdt", $zbp->lang['msg']['new_article'], $zbp->cmdurl . "?act=ArticleEdt", "nav_new", "aArticleEdt", "", "ico ico-newpost");
+    $leftmenus['nav_article'] = backend_toyean_MakeLeftMenu("ArticleMng", $zbp->lang['msg']['article_manage'], $zbp->cmdurl . "?act=ArticleMng", "nav_article", "aArticleMng", "", "ico ico-article");
+    $leftmenus['nav_page'] = backend_toyean_MakeLeftMenu("PageMng", $zbp->lang['msg']['page_manage'], $zbp->cmdurl . "?act=PageMng", "nav_page", "aPageMng", "", "ico ico-page");
 
     //$leftmenus[] = "<li class='split'><hr/></li>";
 
-    $leftmenus['nav_category'] = backend_toyean_MakeLeftMenu("CategoryMng", $zbp->lang['msg']['category_manage'], $zbp->cmdurl . "?act=CategoryMng", "nav_category", "aCategoryMng", "", "icon-folder-fill");
-    $leftmenus['nav_tags'] = backend_toyean_MakeLeftMenu("TagMng", $zbp->lang['msg']['tag_manage'], $zbp->cmdurl . "?act=TagMng", "nav_tags", "aTagMng", "", "icon-tags-fill");
-    $leftmenus['nav_comment1'] = backend_toyean_MakeLeftMenu("CommentMng", $zbp->lang['msg']['comment_manage'], $zbp->cmdurl . "?act=CommentMng", "nav_comment", "aCommentMng", "", "icon-chat-text-fill");
-    $leftmenus['nav_upload'] = backend_toyean_MakeLeftMenu("UploadMng", $zbp->lang['msg']['upload_manage'], $zbp->cmdurl . "?act=UploadMng", "nav_upload", "aUploadMng", "", "icon-inboxes-fill");
+    $leftmenus['nav_category'] = backend_toyean_MakeLeftMenu("CategoryMng", $zbp->lang['msg']['category_manage'], $zbp->cmdurl . "?act=CategoryMng", "nav_category", "aCategoryMng", "", "ico ico-category");
+    $leftmenus['nav_tags'] = backend_toyean_MakeLeftMenu("TagMng", $zbp->lang['msg']['tag_manage'], $zbp->cmdurl . "?act=TagMng", "nav_tags", "aTagMng", "", "ico ico-tag");
+    $leftmenus['nav_comment1'] = backend_toyean_MakeLeftMenu("CommentMng", $zbp->lang['msg']['comment_manage'], $zbp->cmdurl . "?act=CommentMng", "nav_comment", "aCommentMng", "", "ico ico-cmt");
+    $leftmenus['nav_upload'] = backend_toyean_MakeLeftMenu("UploadMng", $zbp->lang['msg']['upload_manage'], $zbp->cmdurl . "?act=UploadMng", "nav_upload", "aUploadMng", "", "ico ico-file");
 
     $leftmenus[] = '<li class="menutitle">系统管理</li>';
 
-    $leftmenus['nav_setting'] = backend_toyean_MakeLeftMenu("SettingMng", $zbp->lang['msg']['web_settings'], $zbp->cmdurl . "?act=SettingMng", "nav_setting", "aSettingMng", "", "icon-gear-fill");
-    $leftmenus['nav_member'] = backend_toyean_MakeLeftMenu("MemberMng", $zbp->lang['msg']['member_manage'], $zbp->cmdurl . "?act=MemberMng", "nav_member", "aMemberMng", "", "icon-people-fill");
+    $leftmenus['nav_setting'] = backend_toyean_MakeLeftMenu("SettingMng", $zbp->lang['msg']['web_settings'], $zbp->cmdurl . "?act=SettingMng", "nav_setting", "aSettingMng", "", "ico ico-setting");
+    $leftmenus['nav_member'] = backend_toyean_MakeLeftMenu("MemberMng", $zbp->lang['msg']['member_manage'], $zbp->cmdurl . "?act=MemberMng", "nav_member", "aMemberMng", "", "ico ico-user");
 
     //$leftmenus[] = "<li class='split'><hr/></li>";
-    $leftmenus['nav_theme'] = backend_toyean_MakeLeftMenu("ThemeMng", $zbp->lang['msg']['theme_manage'], $zbp->cmdurl . "?act=ThemeMng", "nav_theme", "aThemeMng", "", "icon-grid-1x2-fill");
-    $leftmenus['nav_module'] = backend_toyean_MakeLeftMenu("ModuleMng", $zbp->lang['msg']['module_manage'], $zbp->cmdurl . "?act=ModuleMng", "nav_module", "aModuleMng", "", "icon-grid-3x3-gap-fill");
-    $leftmenus['nav_plugin'] = backend_toyean_MakeLeftMenu("PluginMng", $zbp->lang['msg']['plugin_manage'], $zbp->cmdurl . "?act=PluginMng", "nav_plugin", "aPluginMng", "", "icon-puzzle-fill");
+    $leftmenus['nav_theme'] = backend_toyean_MakeLeftMenu("ThemeMng", $zbp->lang['msg']['theme_manage'], $zbp->cmdurl . "?act=ThemeMng", "nav_theme", "aThemeMng", "", "ico ico-theme");
+    $leftmenus['nav_module'] = backend_toyean_MakeLeftMenu("ModuleMng", $zbp->lang['msg']['module_manage'], $zbp->cmdurl . "?act=ModuleMng", "nav_module", "aModuleMng", "", "ico ico-module");
+    $leftmenus['nav_plugin'] = backend_toyean_MakeLeftMenu("PluginMng", $zbp->lang['msg']['plugin_manage'], $zbp->cmdurl . "?act=PluginMng", "nav_plugin", "aPluginMng", "", "ico ico-plugin");
     $leftmenus[] = '<li class="menutitle">其它</li>';
 
     foreach ($GLOBALS['hooks']['Filter_Plugin_Admin_LeftMenu'] as $fpname => &$fpsignal) {
