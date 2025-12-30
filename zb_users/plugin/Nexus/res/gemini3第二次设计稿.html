@@ -1,0 +1,543 @@
+<html lang="zh-CN" data-theme="light"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus CMS - Dark Mode Capable</title>
+    <script>
+        // 在页面渲染前立即执行主题初始化，防止闪烁
+        const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+    <style>
+        /* --- 核心变量定义 (Theming Layer) --- */
+        :root {
+            /* 浅色模式默认值 */
+            --primary: #4f46e5;          /* Indigo 600 */
+            --primary-hover: #4338ca;
+            --primary-light: #eef2ff;    /* Indigo 50 用于激活态背景 */
+            
+            --bg-body: #f3f4f6;          /* 整体背景 */
+            --bg-surface: #ffffff;       /* 卡片和侧边栏背景 */
+            --bg-surface-hover: #f9fafb; /* 列表项Hover背景 */
+            --bg-header: rgba(255,255,255,0.8); /* 头部半透明背景 */
+            
+            --text-main: #111827;        /* 主要文字 */
+            --text-secondary: #6b7280;   /* 次要文字 */
+            --border: #e5e7eb;           /* 边框颜色 */
+            
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            
+            /* 图表专用颜色变量 (供JS读取) */
+            --chart-stroke: #4f46e5;
+            --chart-grad-start: rgba(79, 70, 229, 0.2);
+            --chart-grad-end: rgba(79, 70, 229, 0);
+
+            /* 其他通用变量 */
+            --success: #10b981;
+            --sidebar-width: 260px;
+            --radius: 12px;
+            --transition-speed: 0.3s;
+        }
+
+        /* 深色模式覆盖值 */
+        [data-theme="dark"] {
+            --primary: #818cf8;          /* Indigo 400 (深色模式下更亮一点) */
+            --primary-hover: #a5b4fc;
+            --primary-light: rgba(99, 102, 241, 0.15); /* 低透明度 Indigo */
+
+            --bg-body: #111827;          /* Gray 900 */
+            --bg-surface: #1f2937;       /* Gray 800 */
+            --bg-surface-hover: #374151; /* Gray 700 */
+            --bg-header: rgba(31, 41, 55, 0.8); /* 深色半透明 */
+
+            --text-main: #f9fafb;        /* Gray 50 */
+            --text-secondary: #9ca3af;   /* Gray 400 */
+            --border: #374151;           /* Gray 700 */
+
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+
+            /* 图表深色适配 */
+            --chart-stroke: #818cf8;
+            --chart-grad-start: rgba(129, 140, 248, 0.3);
+            --chart-grad-end: rgba(129, 140, 248, 0);
+        }
+
+
+        /* --- 基础重置 --- */
+        * { box-sizing: border-box; outline: none; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+        }
+
+
+        /* --- 侧边栏 --- */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--bg-surface);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 40px;
+            color: var(--primary);
+        }
+
+        .nav-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            padding-left: 10px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border-radius: var(--radius);
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+            margin-bottom: 4px;
+            cursor: pointer;
+        }
+
+        .nav-item:hover { background-color: var(--bg-surface-hover); color: var(--text-main); }
+        .nav-item.active {
+            background-color: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .nav-icon { width: 20px; height: 20px; margin-right: 12px; fill: currentColor; }
+
+        /* --- 主内容区 --- */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .header {
+            height: 70px;
+            background: var(--bg-header);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            z-index: 10;
+            transition: background-color var(--transition-speed), border-color var(--transition-speed);
+        }
+
+        .header-right { display: flex; align-items: center; gap: 20px; }
+
+        /* 主题切换按钮 */
+        .theme-toggle-btn {
+            background: transparent; border: 1px solid var(--border);
+            color: var(--text-secondary);
+            width: 36px; height: 36px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition:all 0.2s;
+        }
+        .theme-toggle-btn:hover { background: var(--bg-surface-hover); color: var(--text-main); }
+        
+        /* 根据主题显示不同图标 */
+        .icon-sun { display: none; }
+        .icon-moon { display: block; }
+        [data-theme="dark"] .icon-sun { display: block; }
+        [data-theme="dark"] .icon-moon { display: none; }
+
+        .user-profile { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .avatar {
+            width: 36px; height: 36px; border-radius: 50%;
+            background-color: var(--primary-light);
+            /* 使用 CSS 变量动态改变 SVG 颜色 */
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%234f46e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H4a4 4 0 0 0-4 2v2"></path><circle cx="12" cy="7" r="4"></circle></svg>');
+            background-size: 20px; background-repeat: no-repeat; background-position: center;
+            border: 2px solid var(--bg-surface);
+            box-shadow: 0 0 0 1px var(--border);
+        }
+        /* 深色模式下修改头像 SVG 颜色 (通过替换 Base64 中的颜色值) */
+        [data-theme="dark"] .avatar {
+             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23818cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H4a4 4 0 0 0-4 2v2"></path><circle cx="12" cy="7" r="4"></circle></svg>');
+        }
+
+        /* --- 页面内容 --- */
+        .content-scroll { padding: 30px; overflow-y: auto; height: 100%; }
+        .page-title { font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--text-main); }
+        /* 卡片 */
+        .card {
+            background: var(--bg-surface);
+            border-radius: 16px; padding: 24px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: background-color var(--transition-speed), border-color var(--transition-speed), box-shadow var(--transition-speed);
+        }
+		/* ===== 质感卡片 ===== */
+		.glass-card {
+			background: rgba(255, 255, 255, 0.18);
+			background: linear-gradient(135deg, #f3f3f3 0%, #fffcfd 35%, #e6e9f2 65%, #ffffff 100%);
+			backdrop-filter: blur(18px);
+			-webkit-backdrop-filter: blur(18px);
+			border-radius: 18px;
+			border: 1px solid rgb(255 255 255 / 77%);
+			transition: all 0.25s ease;
+		}
+		.glass-card:hover {
+			transform: translateY(-2px);
+		}
+		.sidebar {
+			background: rgba(255, 255, 255, 0.7);
+			backdrop-filter: blur(14px);
+			-webkit-backdrop-filter: blur(14px);
+			border-right: 1px solid rgba(255,255,255,0.4);
+		}
+
+		[data-theme="dark"] .sidebar {
+			background: rgba(17, 24, 39, 0.75);
+			border-right: 1px solid rgba(255,255,255,0.08);
+		}
+		.btn-glass {
+			background: rgba(255, 255, 255, 0.2);
+			backdrop-filter: blur(10px);
+			border: 1px solid rgba(255,255,255,0.35);
+			color: var(--text-main);
+			box-shadow: 0 8px 20px rgba(0,0,0,.2);
+		}
+
+		[data-theme="dark"] .btn-glass {
+			background: rgba(31,41,55,0.6);
+			border: 1px solid rgba(255,255,255,0.08);
+		}
+
+		.btn-glass:hover {
+			background: rgba(255,255,255,0.3);
+		}
+
+        .stat-label { font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; font-weight: 500; }
+        .stat-value { font-size: 28px; font-weight: 700; color: var(--text-main); }
+        .trend-up { color: var(--success); }
+        
+        /* 表格 */
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; font-size: 12px; color: var(--text-secondary); padding: 16px; border-bottom: 1px solid var(--border); font-weight: 600; text-transform: uppercase; }
+        td { padding: 16px; font-size: 14px; border-bottom: 1px solid var(--border); color: var(--text-main); }
+        
+        .status-badge { padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+        .status-published { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+        .status-draft { background: var(--bg-surface-hover); color: var(--text-secondary); }
+
+        /* 按钮 */
+        .btn {
+            background: var(--primary); color: white; border: none;
+            padding: 10px 20px; border-radius: 8px; font-weight: 500; cursor: pointer;
+            transition: background 0.2s; font-size: 14px; display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn:hover { background: var(--primary-hover); }
+        .btn-secondary { background: var(--bg-surface); border: 1px solid var(--border); color: var(--text-main); }
+        .btn-secondary:hover { background: var(--bg-surface-hover); }
+
+        /* 画布图表 */
+        canvas { width: 100%; height: 250px; display: block; }
+
+        /* 编辑器 */
+        .editor-title {
+            width: 100%; font-size: 32px; font-weight: 800; border: none; 
+            margin-bottom: 20px; color: var(--text-main); background: transparent;
+        }
+        .editor-title::placeholder { color: var(--text-secondary); opacity: 0.5; }
+        .editor-content { min-height: 400px; font-size: 18px; line-height: 1.6; color: var(--text-main); }
+
+        /* 通用工具类 */
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-bottom: 24px; }
+        .flex-between { display: flex; justify-content: space-between; align-items: center; }
+        .text-secondary { color: var(--text-secondary); }
+        
+        .page-view { display: none; animation: fadeIn 0.3s ease; }
+        .page-view.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+		/* ===== 渐变背景 ===== */
+		.ambient-bg {
+			position: fixed;
+			inset: 0;
+			z-index: 0;
+			pointer-events: none;
+			animation: ambientMove 22s ease-in-out infinite alternate;
+			background: linear-gradient(135deg, #ffffff40 0%, #f1f1f1 35%, #004dff17 65%, #ffffff 100%);
+		}
+
+
+    </style>
+</head>
+<body>
+
+    <div class="ambient-bg"></div>
+
+<nav class="sidebar">
+        <div class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+            </svg>
+            NEXUS CMS
+        </div>
+
+        <div class="nav-group">
+            <div class="nav-title">概览</div>
+            <a onclick="router('dashboard')" class="nav-item active" id="nav-dashboard">
+                <svg class="nav-icon" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"></path></svg>
+                仪表盘
+            </a>
+        </div>
+
+        <div class="nav-group">
+            <div class="nav-title">内容管理</div>
+            <a onclick="router('content')" class="nav-item" id="nav-content">
+                <svg class="nav-icon" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"></path></svg>
+                所有文章
+            </a>
+        </div>
+    </nav>
+
+    <main class="main">
+        <header class="header">
+            <div class="text-secondary" style="font-size: 14px;">Dashboard / Overview</div>
+            
+            <div class="header-right">
+                <button class="theme-toggle-btn" onclick="toggleTheme()" title="切换主题">
+                    <svg class="icon-sun" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path></svg>
+                    <svg class="icon-moon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+
+                <div class="user-profile">
+                    <span style="font-size: 14px; font-weight: 500;">Admin</span>
+                    <div class="avatar"></div>
+                </div>
+            </div>
+        </header>
+
+        
+<div class="content-scroll">
+            
+            <div id="view-dashboard" class="page-view active">
+                <div class="page-title">仪表盘</div>
+                
+                <div class="grid-3">
+                    <div class="card glass-card" style="
+">
+                        <div class="stat-label">总访问量</div>
+                        <div class="stat-value">45,231</div>
+                        <div class="trend-up" style="font-size: 12px; margin-top: 8px;">
+                            ↑ 12.5% 较上周
+                        </div>
+                    </div><div class="card glass-card">
+                        <div class="stat-label">总访问量</div>
+                        <div class="stat-value">45,231</div>
+                        <div class="trend-up" style="font-size: 12px; margin-top: 8px;">
+                            ↑ 12.5% 较上周
+                        </div>
+                    </div>
+                
+                    <div class="card glass-card">
+                        <div class="stat-label">活跃文章</div>
+                        <div class="stat-value">128</div>
+                    </div>
+                
+                    <div class="card glass-card">
+                        <div class="stat-label">用户评论</div>
+                        <div class="stat-value">892</div>
+                    </div>
+                </div>
+
+
+                <div class="card glass-card">
+                    <div class="flex-between" style="margin-bottom: 20px;">
+                        <div style="font-weight: 600;">流量趋势 (近30天)</div>
+                    </div>
+                    <canvas id="trafficChart" width="734" height="500"></canvas>
+                </div>
+            </div>
+
+            <div id="view-content" class="page-view">
+                <div class="flex-between" style="margin-bottom: 24px;">
+                    <div class="page-title" style="margin-bottom: 0;">文章管理</div>
+                    <button class="btn" onclick="router('editor')">新建文章</button>
+                </div>
+
+                <div class="card" style="padding: 0; overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>标题</th><th>作者</th><th>状态</th><th>发布时间</th><th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="font-weight: 500;">2024年设计趋势展望</td>
+                                <td>Admin</td>
+                                <td><span class="status-badge status-published">已发布</span></td>
+                                <td>2024-03-15</td>
+                                <td><button class="btn-secondary" style="padding: 4px 8px; font-size: 12px;">编辑</button></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 500;">如何构建高性能 Web 应用</td>
+                                <td>DevTeam</td>
+                                <td><span class="status-badge status-draft">草稿</span></td>
+                                <td>2024-03-18</td>
+                                <td><button class="btn-secondary" style="padding: 4px 8px; font-size: 12px;">编辑</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="view-editor" class="page-view">
+                <div style="margin-bottom: 20px;" class="flex-between">
+                    <button class="btn-secondary" onclick="router('content')">← 返回列表</button>
+                    <button class="btn">发布文章</button>
+                </div>
+                <div class="card" style="max-width: 800px; margin: 0 auto;">
+                    <input type="text" class="editor-title" placeholder="输入文章标题...">
+                    <div class="editor-content" contenteditable="true">
+                        <p>在这里开始撰写您的精彩内容...</p>
+                        <p>这是一个支持深色模式的沉浸式编辑器。</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // --- 主题切换逻辑 ---
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            // 切换主题后需要重绘图表以获取新的 CSS 变量颜色
+            initChart();
+        }
+
+        // --- 路由逻辑 (简化版) ---
+        function router(viewId) {
+            document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            
+            const target = document.getElementById('view-' + viewId);
+            if(target) target.classList.add('active');
+            
+            const nav = document.getElementById('nav-' + viewId);
+            if(nav) nav.classList.add('active');
+            
+            if(viewId === 'editor') document.getElementById('nav-content').classList.add('active');
+        }
+
+        // --- Canvas 图表绘制 (支持主题色) ---
+        // 辅助函数：获取 CSS 变量值
+        function getCSSVar(variable) {
+            return getComputedStyle(document.documentElement).getPropertyValue(variable).trim();
+        }
+
+        function initChart() {
+            const canvas = document.getElementById('trafficChart');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            
+            const dpr = window.devicePixelRatio || 1;
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            ctx.scale(dpr, dpr);
+
+            const width = rect.width;
+            const height = rect.height;
+            
+            // 模拟数据
+            const dataPoints = [20, 45, 30, 60, 55, 80, 70, 90, 85, 110];
+            const maxVal = 120;
+            const stepX = width / (dataPoints.length - 1);
+            
+            ctx.clearRect(0, 0, width, height); // 清除画布
+
+            // --- 关键点：从 CSS 变量获取当前主题的颜色 ---
+            const strokeColor = getCSSVar('--chart-stroke');
+            const gradStart = getCSSVar('--chart-grad-start');
+            const gradEnd = getCSSVar('--chart-grad-end');
+
+            // 绘制渐变填充
+            const gradient = ctx.createLinearGradient(0, 0, 0, height);
+            gradient.addColorStop(0, gradStart);
+            gradient.addColorStop(1, gradEnd);
+
+            ctx.beginPath();
+            ctx.moveTo(0, height);
+            
+            let x = 0;
+            let y = height - (dataPoints[0] / maxVal) * height;
+            ctx.lineTo(x, y);
+
+            for (let i = 0; i < dataPoints.length - 1; i++) {
+                const x_mid = (x + (x + stepX)) / 2;
+                const y_next = height - (dataPoints[i+1] / maxVal) * height;
+                const y_mid = (y + y_next) / 2;
+                ctx.quadraticCurveTo(x + stepX / 2, y, x + stepX, y_next); 
+                x += stepX;
+                y = y_next;
+            }
+            
+            ctx.lineTo(width, height);
+            ctx.closePath();
+            ctx.fillStyle = gradient;
+            ctx.fill();
+
+            // 绘制线条
+            ctx.beginPath();
+            x = 0;
+            y = height - (dataPoints[0] / maxVal) * height;
+            ctx.moveTo(x, y);
+            for (let i = 0; i < dataPoints.length - 1; i++) {
+                const y_next = height - (dataPoints[i+1] / maxVal) * height;
+                ctx.quadraticCurveTo(x + stepX / 2, y, x + stepX, y_next);
+                x += stepX;
+                y = y_next;
+            }
+            ctx.strokeStyle = strokeColor;
+            ctx.lineWidth = 3;
+            ctx.stroke();
+        }
+
+        // 初始化
+        window.addEventListener('load', initChart);
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(initChart, 200);
+        });
+    </script>
+
+</body></html>

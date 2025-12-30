@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevSpace - 个人资料</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+        .sidebar-item-active { color: #3b82f6; background-color: #eff6ff; border-radius: 0.5rem; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="flex items-center justify-between px-4 py-2 bg-white border-b border-gray-200 text-sm text-gray-600">
+        <div class="flex items-center space-x-4">
+            <div class="flex items-center space-x-2">
+                <i class="fa-regular fa-address-card"></i>
+                <span>PersonalCenter</span>
+            </div>
+            <i class="fa-solid fa-cloud text-gray-400"></i>
+            <i class="fa-solid fa-rotate-left"></i>
+            <i class="fa-solid fa-rotate-right"></i>
+        </div>
+        <div class="flex items-center space-x-3">
+            <i class="fa-solid fa-terminal"></i>
+            <i class="fa-solid fa-rotate-right"></i>
+            <div class="flex bg-gray-100 rounded-lg p-1">
+                <button class="px-3 py-1">Code</button>
+                <button class="px-3 py-1 bg-white shadow-sm rounded-md text-blue-600 font-medium flex items-center">
+                    <i class="fa-solid fa-check mr-1 text-xs"></i> Preview
+                </button>
+            </div>
+            <button class="bg-blue-100 text-blue-600 px-4 py-1.5 rounded-full font-medium flex items-center">
+                <i class="fa-solid fa-share-nodes mr-2"></i> Share
+            </button>
+            <i class="fa-solid fa-xmark ml-2 cursor-pointer"></i>
+        </div>
+    </div>
+
+    <div class="flex min-h-screen">
+        <aside class="w-64 bg-white border-r border-gray-100 p-6 flex flex-col">
+            <div class="flex items-center space-x-2 mb-10 px-2">
+                <div class="bg-blue-600 w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold">D</div>
+                <span class="text-xl font-bold tracking-tight">DevSpace</span>
+            </div>
+
+            <nav class="flex-1 space-y-2">
+                <a href="#" class="sidebar-item-active flex items-center space-x-3 px-4 py-3">
+                    <i class="fa-regular fa-user"></i>
+                    <span>个人资料</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 text-gray-500 hover:text-gray-700">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>账号设置</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 text-gray-500 hover:text-gray-700">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>密码与安全</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 text-gray-500 hover:text-gray-700">
+                    <i class="fa-regular fa-bell"></i>
+                    <span>通知偏好</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 text-gray-500 hover:text-gray-700">
+                    <i class="fa-regular fa-credit-card"></i>
+                    <span>账单与订阅</span>
+                </a>
+            </nav>
+
+            <div class="mt-auto border-t pt-4">
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 text-red-500 hover:bg-red-50 rounded-lg">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <span>退出登录</span>
+                </a>
+            </div>
+        </aside>
+
+        <main class="flex-1 p-12 bg-white m-4 rounded-3xl shadow-sm border border-gray-100 overflow-hidden relative">
+            
+            <div class="absolute top-8 right-12 flex items-center space-x-4">
+                <i class="fa-regular fa-bell text-gray-400 text-lg"></i>
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alex" alt="Avatar" class="w-10 h-10 rounded-full border border-gray-200">
+            </div>
+
+            <header class="mb-10">
+                <h1 class="text-2xl font-bold mb-2">公开资料</h1>
+                <p class="text-gray-400 text-sm">其他人将看到此信息，请谨慎填写。</p>
+            </header>
+
+            <div class="flex space-x-16">
+                <div class="flex-1 max-w-2xl space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">昵称</label>
+                        <input type="text" value="AlexDev" class="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all">
+                        <p class="mt-2 text-xs text-gray-300">这将是您在社区中显示的名称。</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">个人简介</label>
+                        <textarea rows="4" class="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all">全栈开发者，热爱开源和 UI 设计。正在学习 Rust 和 WebAssembly。</textarea>
+                        <p class="mt-2 text-xs text-gray-300">简短介绍一下你自己（最多 200 字）。</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">公司 / 组织</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                    <i class="fa-solid fa-gear text-xs"></i>
+                                </span>
+                                <input type="text" value="Acme Inc." class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">所在地</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                    <i class="fa-solid fa-location-dot text-xs"></i>
+                                </span>
+                                <input type="text" value="上海, 中国" class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">个人网站</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                <i class="fa-solid fa-link text-xs"></i>
+                            </span>
+                            <input type="text" value="https://alex.dev" class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">社交账号</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                <i class="fa-brands fa-github text-sm"></i>
+                            </span>
+                            <input type="text" value="alex-design" class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-48 text-center">
+                    <label class="block text-sm font-medium text-gray-700 mb-4 text-left">头像</label>
+                    <div class="relative inline-block group">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alex" alt="Large Avatar" class="w-32 h-32 rounded-full border-4 border-gray-50 shadow-sm">
+                        <div class="absolute bottom-1 right-1 bg-white border border-gray-200 w-8 h-8 rounded-full flex items-center justify-center shadow-sm cursor-pointer hover:bg-gray-50">
+                            <i class="fa-solid fa-gear text-gray-400 text-xs"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <button class="text-blue-600 font-medium text-sm hover:underline">更换头像</button>
+                        <p class="text-[10px] text-gray-400 mt-2 leading-relaxed">支持 JPG, GIF 或 PNG。<br>最大 1MB。</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="fixed bottom-10 right-10 flex flex-col space-y-4 bg-white border border-gray-200 shadow-xl rounded-2xl p-2">
+        <div class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-blue-500 cursor-pointer">
+            <i class="fa-solid fa-grip-vertical"></i>
+        </div>
+        <div class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-blue-500 cursor-pointer">
+            <i class="fa-solid fa-wand-magic-sparkles text-xs"></i>
+        </div>
+        <div class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-blue-500 cursor-pointer">
+            <i class="fa-solid fa-up-right-and-down-left-from-center text-xs"></i>
+        </div>
+    </div>
+
+</body>
+</html>
