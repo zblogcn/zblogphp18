@@ -510,12 +510,15 @@ div.post .post-date, div.post .post-tags, div.post .post-footer {
   color: var(--text-muted);
   font-size: 0.875rem;
 }
+div.post .post-tags {
+  margin-bottom: 0.5rem
+}
 div.post .post-date {
   margin-bottom: 1rem;
 }
 div.post div.post-body {
   width: 100%;
-  margin: 0;
+  margin: 1.25rem 0;
   padding: 0;
   font-size: 1rem;
   line-height: 1.8;
