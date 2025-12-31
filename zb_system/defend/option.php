@@ -225,7 +225,7 @@ return array(
     'ZC_POST_ALIAS_USE_ID_NOT_TITLE' => false,
     'ZC_COMPATIBLE_ASP_URL'          => true,
     'ZC_LARGE_DATA'                  => false,
-    'ZC_VERSION_IN_HEADER'           => true,
+    'ZC_VERSION_IN_HEADER'           => false,
     'ZC_ADDITIONAL_SECURITY'         => true,
     'ZC_XMLRPC_ENABLE'               => false,
     'ZC_XMLRPC_USE_WEBTOKEN'         => false,
