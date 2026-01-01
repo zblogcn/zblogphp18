@@ -9,3 +9,4 @@ zb_users/data/
 web.config
 test.php
 *.htaccess
+.php-cs-fixer.cache
