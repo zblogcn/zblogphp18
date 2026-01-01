@@ -21,6 +21,9 @@ function zbp_admin2_GetActionInfo($action)
     "ActiveLeftMenu" => "",
     "Action" => $action,
   );
+  if (empty($action)) {
+    return $main;
+  }
   switch ($action) {
     case 'admin':
       // $admin_function = 'Admin_SiteInfo';
