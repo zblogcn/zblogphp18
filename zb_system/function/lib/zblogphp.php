@@ -2180,7 +2180,7 @@ class ZBlogPHP
         $aps2 = array();
         //剔除掉admin2后台禁用的插件
         foreach ($aps as $key => $ap) {
-            if ($ap == 'AdminColor' || $ap == 'LinksManage' || $ap == '1STACentre') {
+            if ($ap == 'AdminColor' || $ap == 'LinksManage' || $ap == 'STACentre') {
                 continue;
             }
             $aps2[] = $ap;

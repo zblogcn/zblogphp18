@@ -25,7 +25,7 @@ AdminColor_SaveConfig();
 $ActionInfo = (object) array(
     "Title" => '后台配色器-设置',
     "Header" => "后台配色器-设置",
-    "HeaderIcon" => "",
+    "HeaderIcon" => "icon-brush-fill",
     "SubMenu" => "",
     "ActiveTopMenu" => "",
     "ActiveLeftMenu" => "",

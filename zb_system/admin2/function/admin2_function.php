@@ -190,7 +190,7 @@ function zbp_admin2_GetActionInfo($action)
       $main->ActiveLeftMenu = '';
       $main->Content = zbp_admin2_RewriteMng();
       $main->Header = $blogtitle;
-      $main->HeaderIcon = 'icon-puzzle-fill';
+      $main->HeaderIcon = 'icon-diagram-3-fill';
       $main->Title = $blogtitle;
       break;
     default:
