@@ -109,6 +109,7 @@ return array(
         'theme_manage'                      => '佈景主題',
         'plugin_manage'                     => '外掛管理',
         'module_manage'                     => '模組管理',
+        'rewrite_manage'                    => '僞靜態管理',
         'site_analyze'                      => '網站資訊',
         'info_intro'                        => '控制台',
         'refresh_cache'                     => '清除快取並重新編譯模板',

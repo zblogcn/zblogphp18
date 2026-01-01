@@ -20,6 +20,7 @@ function zbp_admin2_GetActionInfo($action)
     "ActiveTopMenu" => "",
     "ActiveLeftMenu" => "",
     "Action" => $action,
+    "Content" => "",
   );
   if (empty($action)) {
     return $main;
@@ -183,6 +184,15 @@ function zbp_admin2_GetActionInfo($action)
       $main->Title = $blogtitle;
       break;
 
+    case 'RewriteMng':
+      // $admin_function = 'Admin_PluginMng';
+      $blogtitle = $lang['msg']['rewrite_manage'];
+      $main->ActiveLeftMenu = '';
+      $main->Content = zbp_admin2_RewriteMng();
+      $main->Header = $blogtitle;
+      $main->HeaderIcon = 'icon-puzzle-fill';
+      $main->Title = $blogtitle;
+      break;
     default:
       break;
   }

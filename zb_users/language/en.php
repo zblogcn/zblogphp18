@@ -106,6 +106,7 @@ return array(
         'theme_manage'                      => 'Themes',
         'plugin_manage'                     => 'Plugins',
         'module_manage'                     => 'Modules',
+        'rewrite_manage'                    => 'Rewrite',
         'site_analyze'                      => 'Site Information',
         'info_intro'                        => 'Dashboard',
         'refresh_cache'                     => 'Refresh Cache &amp; Compile Template',

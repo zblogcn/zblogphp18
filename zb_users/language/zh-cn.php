@@ -105,6 +105,7 @@ return array(
         'theme_manage'                      => '主题管理',
         'plugin_manage'                     => '插件管理',
         'module_manage'                     => '模块管理',
+        'rewrite_manage'                    => '伪静态管理',
         'site_analyze'                      => '网站信息',
         'info_intro'                        => '网站摘要',
         'refresh_cache'                     => '清空缓存并重新编译模板',
