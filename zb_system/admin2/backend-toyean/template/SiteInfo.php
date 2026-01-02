@@ -91,22 +91,26 @@
 {if (time() - (int) $zbp->cache->reload_statistic_time) > (3600 * 23)}
 <script>
   const $btnStatistic = document.getElementById('statistic');
-  $btnStatistic.style.color = 'red';
-  // 自动点击刷新
-  setTimeout(() => {
-    statistic('{$reload_url}');
-  }, 1000);
+  if ($btnStatistic) {
+    $btnStatistic.style.color = 'red';
+    // 自动点击刷新
+    setTimeout(() => {
+        statistic('{$reload_url}');
+    }, 1000);
+  }
 </script>
 {/if}
 <!-- 公告信息更新 -->
 {if (time() - (int) $zbp->cache->reload_updateinfo_time) > (3600 * 47)}
 <script>
   const $btnUpdateInfo = document.getElementById('updateinfo');
-  $btnUpdateInfo.style.color = 'red';
-  // 自动点击刷新
-  setTimeout(() => {
-    updateinfo('{$reload_reload_updateinfo_url}');
-  }, 1000);
+  if ($btnUpdateInfo) {
+    $btnUpdateInfo.style.color = 'red';
+    // 自动点击刷新
+    setTimeout(() => {
+        updateinfo('{$reload_reload_updateinfo_url}');
+    }, 1000);
+  }
 </script>
 {/if}
 
