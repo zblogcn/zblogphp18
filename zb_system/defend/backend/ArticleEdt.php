@@ -360,14 +360,14 @@ HookFilterPlugin('Filter_Plugin_Edit_Begin');
 
     $('#showtags').click(function(event) {
         event.stopPropagation();
-        var offset = $(event.target).offset();
+        const offset = $(event.target).offset();
         $('#ulTag').css({
             top: offset.top + $(event.target).height() + 20 + "px",
             left: offset.left
         });
         $('#ulTag').slideDown("fast");
         if (tag_loaded === false) {
-            var tag = ',' + $('#edtTag').val() + ',';
+            const tag = ',' + $('#edtTag').val() + ',';
             $.getScript("{BuildSafeCmdURL('act=misc&type=showtags')}", function() {
                 $('#ajaxtags a').each(function() {
                     if (tag.indexOf($(this).text()) != -1) {
@@ -381,8 +381,8 @@ HookFilterPlugin('Filter_Plugin_Edit_Begin');
     });
 
     function AddKey(i) {
-        var strKey = $('#edtTag').val();
-        var strNow = "," + i
+        const strKey = $('#edtTag').val();
+        const strNow = "," + i
         if (strKey == "") {
             strNow = i
         }
@@ -393,7 +393,7 @@ HookFilterPlugin('Filter_Plugin_Edit_Begin');
     }
 
     function DelKey(i) {
-        var strKey = $('#edtTag').val().replace(/[;，、\s]/, ',');
+        const strKey = $('#edtTag').val().replace(/[;，、\s]/, ',');
         strKey = ',' + strKey + ',';
         strKey = strKey.replace(',' + i + ',', ',').replace(/^,(.*?),$/, '$1');
         $('#edtTag').val(strKey);
@@ -401,7 +401,7 @@ HookFilterPlugin('Filter_Plugin_Edit_Begin');
 
     // 提取摘要
     function AutoIntro() {
-        var s = editor_api.editor.content.get();
+        const s = editor_api.editor.content.get();
         if (s.indexOf("<hr class=\"more\" />") > -1) {
             editor_api.editor.intro.put(s.split("<hr class=\"more\" />")[0]);
         } else {
@@ -446,19 +446,19 @@ HookFilterPlugin('Filter_Plugin_Edit_Begin');
 
     // Auto-save module
     (function() {
-        var $idElement = $('#edtID');
-        var articleKey = 'zblogphp_article_' + $idElement.val();
-        var isFirstOpenPage = true;
-        var hint = "{$lang['error']['93']}";
-        var currentStatus = {
+        const $idElement = $('#edtID');
+        const articleKey = 'zblogphp_article_' + $idElement.val();
+        const isFirstOpenPage = true;
+        const hint = "{$lang['error']['93']}";
+        const currentStatus = {
             time: new Date().getTime(),
             random: 0,
             data: {},
             content: '',
             intro: ''
         };
-        var updateStatus = function() {
-            var prevStatus = parseSavedStatus();
+        const updateStatus = function() {
+            const prevStatus = parseSavedStatus();
             currentStatus.content = editor_api.editor.content.get();
             currentStatus.intro = editor_api.editor.intro.get();
 
@@ -493,8 +493,8 @@ HookFilterPlugin('Filter_Plugin_Edit_Begin');
             // currentStatus.data = $('#edit').serializeJson();
             localStorage.setItem(articleKey, JSON.stringify(currentStatus));
         };
-        var parseSavedStatus = function() {
-            var content = localStorage.getItem(articleKey);
+        const parseSavedStatus = function() {
+            const content = localStorage.getItem(articleKey);
             if (!content) return null;
             try {
                 return JSON.parse(content);
@@ -502,8 +502,8 @@ HookFilterPlugin('Filter_Plugin_Edit_Begin');
                 return null;
             }
         };
-        var readStatus = function() {
-            var status = parseSavedStatus();
+        const readStatus = function() {
+            const status = parseSavedStatus();
             if (isFirstOpenPage && status !== null) {
                 currentStatus = status;
                 editor_api.editor.content.put(currentStatus.content);
