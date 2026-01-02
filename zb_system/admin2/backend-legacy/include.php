@@ -14,7 +14,6 @@ function ActivePlugin_backend_legacy()
     Add_Filter_Plugin('Filter_Plugin_Other_Header', 'AdminColor_Css');
     Add_Filter_Plugin('Filter_Plugin_Admin_Header', 'AdminColor_Css');
     Add_Filter_Plugin('Filter_Plugin_Admin_Js_Add', 'AdminColor_AddJS');
-    $zbp->LoadLanguage('backend', 'backend-legacy');
     if($zbp->HasConfig('AdminColor') && isset($zbp->admin_js_hash)){
         $zbp->admin_js_hash .= hash('crc32b', (string)$zbp->Config('AdminColor'));
     }
@@ -42,7 +41,7 @@ function AdminColor_Css()
 
     list($fontsize, $leftwidth, $rightwidth, $background_positionX, $background_color) = AdminColor_GetValue();
 
-    echo '<script>var lang_admincolor_closemenu2 = "' . $zbp->lang['backend-legacy']['closemenu'] . '";var lang_admincolor_closemenu = "<i class=icon-caret-left-fill></i>' . $zbp->lang['backend-legacy']['closemenu'] . '";var lang_admincolor_expandmenu2 = "' . $zbp->lang['backend-legacy']['expandmenu'] . '";var lang_admincolor_expandmenu = "<i class=icon-caret-right-fill></i>' . $zbp->lang['backend-legacy']['expandmenu'] . '"</script>' . "\r\n";
+    echo '<script>var lang_admincolor_closemenu2 = "' . $zbp->lang['msg']['closemenu'] . '";var lang_admincolor_closemenu = "<i class=icon-caret-left-fill></i>' . $zbp->lang['msg']['closemenu'] . '";var lang_admincolor_expandmenu2 = "' . $zbp->lang['msg']['expandmenu'] . '";var lang_admincolor_expandmenu = "<i class=icon-caret-right-fill></i>' . $zbp->lang['msg']['expandmenu'] . '"</script>' . "\r\n";
 
     if ($zbp->Config('AdminColor')->ColorID < 10) {
         Add_Filter_Plugin('Filter_Plugin_Admin_LeftMenu', 'AdminColor_Add_Button');
@@ -79,9 +78,9 @@ function AdminColor_Add_Button(&$leftmenus)
     }
     $hm = GetVars('admincolor_hm', 'COOKIE');
     if ($hm == '1') {
-        $leftmenus['nav_admincolor'] = MakeLeftMenu(5, $zbp->lang['backend-legacy']['expandmenu'], "javascript:admincolor_showMenu();", "nav_admincolor", "aAdminColor", $zbp->host . "zb_system/admin2/backend-legacy/images/arror2.png", 'icon-caret-right-fill');
+        $leftmenus['nav_admincolor'] = MakeLeftMenu(5, $zbp->lang['msg']['expandmenu'], "javascript:admincolor_showMenu();", "nav_admincolor", "aAdminColor", $zbp->host . "zb_system/admin2/backend-legacy/images/arror2.png", 'icon-caret-right-fill');
     } else {
-        $leftmenus['nav_admincolor'] = MakeLeftMenu(5, $zbp->lang['backend-legacy']['closemenu'], "javascript:admincolor_hideMenu();", "nav_admincolor", "aAdminColor", $zbp->host . "zb_system/admin2/backend-legacy/images/arror.png", 'icon-caret-left-fill');
+        $leftmenus['nav_admincolor'] = MakeLeftMenu(5, $zbp->lang['msg']['closemenu'], "javascript:admincolor_hideMenu();", "nav_admincolor", "aAdminColor", $zbp->host . "zb_system/admin2/backend-legacy/images/arror.png", 'icon-caret-left-fill');
     }
 }
 

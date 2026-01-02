@@ -293,6 +293,8 @@ return array(
         'external_link_no_url_error'        => '您所訪問的頁面由於未知原因無法打開',
         'external_link_continue'            => '繼續訪問',
         ''                                  => '',
+        'closemenu'                         => '折疊選單',
+        'expandmenu'                        => '展開選單',
     ),
 
     //Action

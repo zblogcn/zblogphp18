@@ -289,6 +289,8 @@ return array(
         'external_link_no_url_error'        => '您所访问的页面由于未知原因无法打开',
         'external_link_continue'            => '继续访问',
         ''                                  => '',
+        'closemenu'                         => '收起菜单',
+        'expandmenu'                        => '展开菜单',
     ),
 
     //Action

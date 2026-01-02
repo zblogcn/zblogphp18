@@ -13,7 +13,7 @@ $fontSizePlus2 = $fontSize + 2;
 
 $css = array();
 
-$css[] '/*admincolor*/';
+$css[] = '/*admincolor*/';
 $css[] = <<<CSS
 
 body {

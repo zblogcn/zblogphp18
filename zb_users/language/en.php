@@ -289,6 +289,8 @@ return array(
         'external_link_info'                => 'About to redirect to an external link, please pay attention to the security of your account and property. We are not responsible for the security and content of this website.',
         'external_link_no_url_error'        => 'The page you are visiting cannot be opened due to unknown reasons.',
         'external_link_continue'            => 'Continue',
+        'closemenu'                         => 'Collapse',
+        'expandmenu'                        => 'Expand',
         ''                                  => '',
     ),
 

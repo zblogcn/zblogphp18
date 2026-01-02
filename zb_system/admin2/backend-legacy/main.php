@@ -29,8 +29,8 @@ $ActionInfo = (object) array(
     "SubMenu" => "",
     "ActiveTopMenu" => "",
     "ActiveLeftMenu" => "",
-    "Action" => $action,
-    "Content" => AdminColor_LoadConfig(),
+    "Action" => $zbp->action,
+    "Content" => AdminColor_LoadConfig(),//输出配置页的内容
   );
 $zbp->template_admin->SetTags("title", $ActionInfo->Title);
 $zbp->template_admin->SetTags("main", $ActionInfo);
@@ -60,7 +60,6 @@ function AdminColor_SaveConfig() {
           $zbp->Config('AdminColor')->LeftWidth = 140;
           $zbp->SaveConfig('AdminColor');
           Redirect('./main.php');
-          die();
       }
   }
 
