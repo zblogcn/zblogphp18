@@ -1,4 +1,4 @@
-<?php die(); ?>
+<?php exit(); ?>
 
 <!-- 上传表单 -->
 <form class="search" name="upload" id="upload" method="post" enctype="multipart/form-data" action="{BuildSafeCmdURL('act=UploadPst')}">

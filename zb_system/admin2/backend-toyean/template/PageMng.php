@@ -1,4 +1,4 @@
-<?php die(); ?>
+<?php exit(); ?>
 
 <form method="post" action="{$zbp.host}zb_system/cmd.php?act=PostBat&type={$post_type}">
 <!--	-->

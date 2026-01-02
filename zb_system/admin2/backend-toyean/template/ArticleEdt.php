@@ -1,4 +1,4 @@
-<?php die(); ?>
+<?php exit(); ?>
 {php}
 if (isset($_COOKIE['timezone'])) {
 	$tz = GetVars('timezone', 'COOKIE');

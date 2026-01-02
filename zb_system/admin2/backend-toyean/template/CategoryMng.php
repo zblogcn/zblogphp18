@@ -1,4 +1,4 @@
-<?php die(); ?>
+<?php exit(); ?>
 
 <form class="search" id="search" method="post" action="#">
   <p>

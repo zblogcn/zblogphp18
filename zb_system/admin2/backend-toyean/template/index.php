@@ -1,8 +1,8 @@
-<?php die();?>
+<?php exit(); ?>
 {php}<?php if ($zbp->option['ZC_ADDITIONAL_SECURITY']) {
     header('X-Frame-Options: DENY');
     header('X-XSS-Protection: 1; mode=block');
-    header('Content-Security-Policy: ' . GetBackendCSPHeader());
+    header('Content-Security-Policy: '.GetBackendCSPHeader());
     if ($zbp->isHttps) {
         header('Upgrade-Insecure-Requests: 1');
     }

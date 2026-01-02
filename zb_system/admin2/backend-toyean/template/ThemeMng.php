@@ -1,4 +1,4 @@
-<?php die(); ?>
+<?php exit(); ?>
 
 {php}<?php
 $csrfToken = $zbp->GetCSRFToken();
@@ -20,7 +20,7 @@ $csrfToken = $zbp->GetCSRFToken();
     <div class="theme-name">
       {php}<?php
       if (isset($zbp->lang[$curTheme->id]['theme_name'])) {
-        $curTheme->name = $zbp->lang[$curTheme->id]['theme_name'];
+          $curTheme->name = $zbp->lang[$curTheme->id]['theme_name'];
       }
       ?>{/php}
 

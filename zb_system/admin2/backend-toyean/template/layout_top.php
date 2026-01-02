@@ -1,4 +1,4 @@
-<?php die(); ?>
+<?php exit(); ?>
 <div class="head">
 	<div class="menuico"><span></span><span></span><span></span></div>
 	<a href="{$zbp->host}" class="backhome">浏览网站</a>

@@ -1,4 +1,4 @@
-<?php die(); ?>
+<?php exit(); ?>
 <div class="module-layout">
   <div class="widget-left">
     <script>
