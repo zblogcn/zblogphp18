@@ -2,7 +2,7 @@
 
 
  <form action="{php}<?php echo BuildSafeURL("main.php?act=save");?>{/php}" method="post">
-   <table width="100%" class="tableBorder">
+   <table width="100%" class="tableBorder table_striped">
    <tr>
      <th width="10%">项目</th>
      <th>内容</th>
