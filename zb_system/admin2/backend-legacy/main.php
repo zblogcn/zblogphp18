@@ -30,7 +30,7 @@ $ActionInfo = (object) [
     'ActiveTopMenu' => '',
     'ActiveLeftMenu' => '',
     'Action' => $zbp->action,
-    'Content' => AdminColor_LoadConfig(), //输出配置页的内容
+    'Content' => AdminColor_LoadConfig(), //获取配置页的内容
 ];
 $zbp->template_admin->SetTags('title', $ActionInfo->Title);
 $zbp->template_admin->SetTags('main', $ActionInfo);
@@ -43,25 +43,21 @@ function AdminColor_SaveConfig()
 {
     global $zbp;
     if (isset($_GET['setcolor'])) {
-        $zbp->Load();
-        $action = 'root';
-        if ($zbp->CheckRights($action)) {
-            $i = (int) $_GET['setcolor'];
-            $zbp->Config('AdminColor')->ColorID = $i;
-            $zbp->Config('AdminColor')->BlodColor = (string) $GLOBALS['AdminColor_BlodColor'][$i];
-            $zbp->Config('AdminColor')->NormalColor = (string) $GLOBALS['AdminColor_NormalColor'][$i];
-            $zbp->Config('AdminColor')->LightColor = (string) $GLOBALS['AdminColor_LightColor'][$i];
-            $zbp->Config('AdminColor')->HighColor = (string) $GLOBALS['AdminColor_HighColor'][$i];
-            $zbp->Config('AdminColor')->AntiColor = (string) $GLOBALS['AdminColor_AntiColor'][$i];
-            if (9 == $i) {
-                $zbp->Config('AdminColor')->HeaderPathUse = true;
-            } else {
-                $zbp->Config('AdminColor')->HeaderPathUse = false;
-            }
-            $zbp->Config('AdminColor')->LeftWidth = 140;
-            $zbp->SaveConfig('AdminColor');
-            Redirect('./main.php');
+        $i = (int) $_GET['setcolor'];
+        $zbp->Config('AdminColor')->ColorID = $i;
+        $zbp->Config('AdminColor')->BlodColor = (string) $GLOBALS['AdminColor_BlodColor'][$i];
+        $zbp->Config('AdminColor')->NormalColor = (string) $GLOBALS['AdminColor_NormalColor'][$i];
+        $zbp->Config('AdminColor')->LightColor = (string) $GLOBALS['AdminColor_LightColor'][$i];
+        $zbp->Config('AdminColor')->HighColor = (string) $GLOBALS['AdminColor_HighColor'][$i];
+        $zbp->Config('AdminColor')->AntiColor = (string) $GLOBALS['AdminColor_AntiColor'][$i];
+        if (9 == $i) {
+            $zbp->Config('AdminColor')->HeaderPathUse = true;
+        } else {
+            $zbp->Config('AdminColor')->HeaderPathUse = false;
         }
+        $zbp->Config('AdminColor')->LeftWidth = 140;
+        $zbp->SaveConfig('AdminColor');
+        Redirect('./main.php');
     }
 
     if ('save' == GetVars('act')) {
@@ -84,7 +80,6 @@ function AdminColor_SaveConfig()
         //if ( $zbp->Config('AdminColor')->ColorID == 10 )
         //    $zbp->Config('AdminColor')->HeaderPathUse = true;
         $zbp->SaveConfig('AdminColor');
-
         $zbp->SetHint('good');
         Redirect('./main.php');
     }
@@ -214,7 +209,7 @@ $fontsize_12 = $fontsize_13 = $fontsize_14 = '';
               </table>
               <hr/>
               <p>
-                <input type="submit" value="提交" class="button" />
+                <input type="submit" value="<?php echo $zbp->lang['msg']['submit']; ?>" class="button" />
               </p>
               <hr/>
             </form>
