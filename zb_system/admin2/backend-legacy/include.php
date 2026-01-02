@@ -10,14 +10,16 @@ DefinePluginFilter('Filter_Plugin_AdminColor_AddJS');
 function ActivePlugin_backend_legacy()
 {
     global $zbp;
-    Add_Filter_Plugin('Filter_Plugin_Login_Header', 'AdminColor_Css');
-    Add_Filter_Plugin('Filter_Plugin_Other_Header', 'AdminColor_Css');
-    Add_Filter_Plugin('Filter_Plugin_Admin_Header', 'AdminColor_Css');
-    Add_Filter_Plugin('Filter_Plugin_Admin_Js_Add', 'AdminColor_AddJS');
-    if ($zbp->HasConfig('AdminColor') && isset($zbp->admin_js_hash)) {
-        $zbp->admin_js_hash .= hash('crc32b', (string) $zbp->Config('AdminColor'));
-    }
     Add_Filter_Plugin('Filter_Plugin_Admin_SettingMng_SubMenu', 'AdminColor_submenu');
+    if ($zbp->Config('AdminColor')->Enable === true) {
+        Add_Filter_Plugin('Filter_Plugin_Login_Header', 'AdminColor_Css');
+        Add_Filter_Plugin('Filter_Plugin_Other_Header', 'AdminColor_Css');
+        Add_Filter_Plugin('Filter_Plugin_Admin_Header', 'AdminColor_Css');
+        Add_Filter_Plugin('Filter_Plugin_Admin_Js_Add', 'AdminColor_AddJS');
+        if ($zbp->HasConfig('AdminColor') && isset($zbp->admin_js_hash)) {
+            $zbp->admin_js_hash .= hash('crc32b', (string) $zbp->Config('AdminColor'));
+        }
+    }
 }
 
 function AdminColor_submenu()

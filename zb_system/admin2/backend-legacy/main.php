@@ -74,6 +74,7 @@ function AdminColor_SaveConfig()
         $zbp->Config('AdminColor')->TableShadow = (bool) GetVars('ac_TableShadow');
         $zbp->Config('AdminColor')->FontSize = (int) GetVars('ac_FontSize');
         $zbp->Config('AdminColor')->LeftWidth = (int) GetVars('ac_LeftWidth');
+        $zbp->Config('AdminColor')->Enable = (bool) GetVars('ac_Enable');
         if ($zbp->Config('AdminColor')->LeftWidth < 80) {
             $zbp->Config('AdminColor')->LeftWidth = 80;
         }
@@ -115,6 +116,12 @@ function AdminColor_LoadConfig()
                 <tr height="32">
                   <th colspan="2" align="center">设置
                     </td>
+                </tr>
+                <tr height="32">
+                  <td width="30%" align="left"><p><b>· 开启配色功能</b></p></td>
+                  <td>
+<input id="ac_Enable" name="ac_Enable" class="checkbox" type="text" value="<?php echo $zbp->Config('AdminColor')->Enable; ?>"  size="100"/><br/>
+                  </td>
                 </tr>
                 <tr height="32">
                   <td width="30%" align="left"><p><b>· 预置色彩方案</b>
