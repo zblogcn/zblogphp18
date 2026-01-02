@@ -4,10 +4,10 @@
 <form class="search" name="upload" id="upload" method="post" enctype="multipart/form-data" action="{BuildSafeCmdURL('act=UploadPst')}">
   <p>{$zbp.lang['msg']['upload_file']}: </p>
   <p>
-    <input type="file" name="file" size="60" />
-    <label><input type="checkbox" name="auto_rename" checked/>{$zbp.lang['msg']['auto_rename_uploadfile']}</label>
-    <input type="submit" class="button" value="{$zbp.lang['msg']['submit']}" />
-    <input class="button" type="reset" value="{$zbp.lang['msg']['reset']}" />
+    <input type="file" name="file" size="60">
+    <label><input type="checkbox" name="auto_rename" checked>{$zbp.lang['msg']['auto_rename_uploadfile']}</label>
+    <input type="submit" class="button" value="{$zbp.lang['msg']['submit']}">
+    <input class="button" type="reset" value="{$zbp.lang['msg']['reset']}">
   </p>
 </form>
 

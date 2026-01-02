@@ -85,7 +85,6 @@ function ResponseAdmin_LeftMenu()
     $leftmenus['nav_article'] = backend_toyean_MakeLeftMenu("ArticleMng", '文章', $zbp->cmdurl . "?act=ArticleMng", "nav_article", "aArticleMng", "", "ico ico-article");
     $leftmenus['nav_page'] = backend_toyean_MakeLeftMenu("PageMng", '页面', $zbp->cmdurl . "?act=PageMng", "nav_page", "aPageMng", "", "ico ico-page");
 
-    //$leftmenus[] = "<li class='split'><hr/></li>";
 
     $leftmenus['nav_category'] = backend_toyean_MakeLeftMenu("CategoryMng", '分类', $zbp->cmdurl . "?act=CategoryMng", "nav_category", "aCategoryMng", "", "ico ico-category");
     $leftmenus['nav_tags'] = backend_toyean_MakeLeftMenu("TagMng", '标签', $zbp->cmdurl . "?act=TagMng", "nav_tags", "aTagMng", "", "ico ico-tag");
@@ -97,7 +96,6 @@ function ResponseAdmin_LeftMenu()
     $leftmenus['nav_setting'] = backend_toyean_MakeLeftMenu("SettingMng", '设置', $zbp->cmdurl . "?act=SettingMng", "nav_setting", "aSettingMng", "", "ico ico-setting");
     $leftmenus['nav_member'] = backend_toyean_MakeLeftMenu("MemberMng", '用户', $zbp->cmdurl . "?act=MemberMng", "nav_member", "aMemberMng", "", "ico ico-user");
     $leftmenus['nav_module'] = backend_toyean_MakeLeftMenu("ModuleMng", '模块', $zbp->cmdurl . "?act=ModuleMng", "nav_module", "aModuleMng", "", "ico ico-module");
-    //$leftmenus[] = "<li class='split'><hr/></li>";
     $leftmenus['nav_theme'] = backend_toyean_MakeLeftMenu("ThemeMng", '主题', $zbp->cmdurl . "?act=ThemeMng", "nav_theme", "aThemeMng", "", "ico ico-theme");
 
     $leftmenus['nav_plugin'] = backend_toyean_MakeLeftMenu("PluginMng", '插件', $zbp->cmdurl . "?act=PluginMng", "nav_plugin", "aPluginMng", "", "ico ico-plugin");

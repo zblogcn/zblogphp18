@@ -4,8 +4,8 @@
 <form class="search" id="search" method="post" action="#">
   <p>
     {$zbp.lang['msg']['search']}:
-    <input name="search" style="width:450px;" type="text" value="" />
-    <input type="submit" class="button" value="{$zbp.lang['msg']['submit']}" />
+    <input name="search" style="width:450px;" type="text" value="">
+    <input type="submit" class="button" value="{$zbp.lang['msg']['submit']}">
   </p>
 </form>
 
@@ -67,7 +67,7 @@
         {/if}
       </td>
       <td class="td5 tdCenter">
-        <input type="checkbox" id="id{$comment.ID}" name="id[]" value="{$comment.ID}" />
+        <input type="checkbox" id="id{$comment.ID}" name="id[]" value="{$comment.ID}">
       </td>
     </tr>
     {/foreach}
@@ -85,11 +85,11 @@
     {/foreach}
 
     {if $ischecking}
-    <input type="submit" name="all_del" onclick="return confirmDelete();" value="{$zbp.lang['msg']['all_del']}" class="button" style="float:right;" />
-    <input type="submit" name="all_pass" value="{$zbp.lang['msg']['all_pass']}" class="button" style="float:right;margin-right:10px;" />
+    <input type="submit" name="all_del" onclick="return confirmDelete();" value="{$zbp.lang['msg']['all_del']}" class="button" style="float:right;">
+    <input type="submit" name="all_pass" value="{$zbp.lang['msg']['all_pass']}" class="button" style="float:right;margin-right:10px;">
     {else}
-    <input type="submit" name="all_del" onclick="return confirmDelete();" value="{$zbp.lang['msg']['all_del']}" class="button" style="float:right;" />
-    <input type="submit" name="all_audit" value="{$zbp.lang['msg']['all_audit']}" class="button" style="float:right;margin-right:10px;" />
+    <input type="submit" name="all_del" onclick="return confirmDelete();" value="{$zbp.lang['msg']['all_del']}" class="button" style="float:right;">
+    <input type="submit" name="all_audit" value="{$zbp.lang['msg']['all_audit']}" class="button" style="float:right;margin-right:10px;">
     {/if}
   </p>
 

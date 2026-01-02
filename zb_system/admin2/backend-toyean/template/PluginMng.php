@@ -22,7 +22,7 @@
         ?>{/php}
   <tr>
     <td class="td5 tdCenter{if $plugin.type == 'plugin'} plugin{/if}{if $plugin.IsUsed()} plugin-on{/if}" data-pluginid="{$pluginIdEscaped}">
-      <img {if !$plugin.IsUsed()}style="opacity:0.2" {/if} src="{$plugin.GetLogo()}" alt="" width="32" height="32" />
+      <img {if !$plugin.IsUsed()}style="opacity:0.2" {/if} src="{$plugin.GetLogo()}" alt="" width="32" height="32">
     </td>
     <td class="td25">
       <span class="plugin-note" title="{$pluginNoteEscaped}">{$pluginNameEscaped} {$pluginVersionEscaped}</span>
