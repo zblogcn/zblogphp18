@@ -3,6 +3,7 @@
 .header {
   grid-area: header;
   margin-bottom: 5px;
+  padding-right: $gap-right;
   // height: $header-height;
   background: #3a6ea5;
   // position: relative;
@@ -31,7 +32,7 @@
   .user {
     grid-area: user;
     justify-self: end;
-    padding: 12px 15px 0 0;
+    padding: 12px 0 0 0;
     color: #ffffff;
     display: grid;
     grid-template-areas:

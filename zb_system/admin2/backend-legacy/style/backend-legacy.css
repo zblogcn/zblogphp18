@@ -109,6 +109,7 @@ body.admin {
 .header {
   grid-area: header;
   margin-bottom: 5px;
+  padding-right: 13px;
   background: #3a6ea5;
   display: grid;
   grid-template-columns: 200px 1fr;
@@ -128,7 +129,7 @@ body.admin {
 .header .user {
   grid-area: user;
   justify-self: end;
-  padding: 12px 15px 0 0;
+  padding: 12px 0 0 0;
   color: #ffffff;
   display: grid;
   grid-template-areas: "name avatar" "btn avatar";
