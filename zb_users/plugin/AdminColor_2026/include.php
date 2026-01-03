@@ -12,7 +12,7 @@ function ActivePlugin_AdminColor_2026()
 function AdminColor_2026_GenTpl(&$template_admin)
 {
     $tplCont = file_get_contents(AdminColor_2026_Path('tpl-Content'));
-    $template_admin->AddTemplate('plugin_AdminColor_2026', $tplCont);
+    $template_admin->AddTemplate('plugin_AdminColor_2026_Content', $tplCont);
 }
 
 function AdminColor_2026_submenu()

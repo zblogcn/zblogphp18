@@ -26,7 +26,7 @@ if (!$zbp->CheckPlugin('AdminColor_2026')) {
 
 // 显示内容构建
 $blogtitle = '后台配色器_2026';
-$content = $zbp->template_admin->Output('plugin_AdminColor_2026');
+$content = $zbp->template_admin->Output('plugin_AdminColor_2026_Content');
 $ActionInfo = (object) [
     'Title' => $blogtitle,
     'Header' => $blogtitle,
