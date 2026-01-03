@@ -6,8 +6,6 @@
       return false
     }
   })
-
-  // 移动端菜单切换
   $(".menu-toggle").click(function () {
     $(this).toggleClass("open");
     $("#divNavBar ul").toggleClass("active");
