@@ -105,7 +105,7 @@ HookFilterPlugin('Filter_Plugin_Edit_Begin');
         </div>
         {/if}
 
-        <div id="divIntro" class="editmod2 {if !$article.Intro}hidden{/if}">
+        <div id="divIntro" class="editmod2 {if !$article.Intro}jq-hidden hidden{/if}">
             <div id="theader" class="editmod editmod3">
                 <label for="editor_intro" class="editinputname">
                     {$lang['msg']['intro']}
@@ -368,8 +368,8 @@ HookFilterPlugin('Filter_Plugin_Edit_Begin');
                 editor_api.editor.intro.put(s.substring(0, i));
             }
         }
-        $("#divIntro").show();
-        $('html,body').animate({
+        $("#divIntro").slideDown('slow');
+        $('html,body').delay(500).animate({
             scrollTop: $('#divIntro').offset().top
         }, 'fast');
     }

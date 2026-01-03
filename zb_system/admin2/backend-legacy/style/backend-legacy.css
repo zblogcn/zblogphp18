@@ -776,13 +776,21 @@ form#edit #edtTag {
   color: black;
   background: #F8F889;
 }
-#divEditLeft #carea {
-  margin: 5px 0px 0px;
+#divEditLeft #carea,
+#divEditLeft #tarea,
+#divEditLeft #editor_content,
+#divEditLeft #editor_intro {
+  width: 100%;
 }
 #divEditLeft #carea,
-#divEditLeft #carea #editor_content {
-  width: 100%;
+#divEditLeft #tarea {
+  margin: 5px 0 0;
+}
+#divEditLeft #editor_content {
   height: 320px;
+}
+#divEditLeft #editor_intro {
+  height: 160px;
 }
 
 #divEditRight {

@@ -42,6 +42,7 @@ form#edit {
 
       a {
         margin-right: 1em;
+
         &.selected {
           color: black;
           background: #F8F889;
@@ -50,15 +51,24 @@ form#edit {
     }
   }
 
+  #carea,
+  #tarea,
+  #editor_content,
+  #editor_intro {
+    width: 100%;
+  }
 
-  #carea {
-    margin: 5px 0px 0px;
+  #carea,
+  #tarea {
+    margin: 5px 0 0;
+  }
 
-    &,
-    #editor_content {
-      width: 100%;
-      height: 320px;
-    }
+  #editor_content {
+    height: 320px;
+  }
+
+  #editor_intro {
+    height: 160px;
   }
 }
 
