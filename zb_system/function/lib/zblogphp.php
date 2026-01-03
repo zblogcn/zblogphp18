@@ -2337,7 +2337,7 @@ class ZBlogPHP
         $template->LoadTemplates();
 
         //从1.8起，传参变成 $template 对象
-        //1.8之前传参（$theme, $template_dirname） 
+        //1.8之前传参（$theme, $template_dirname）
         foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_PrepareTemplate'] as $fpname => &$fpsignal) {
             $fpname($template);
         }
@@ -2495,7 +2495,6 @@ class ZBlogPHP
         $md5 = md5($s);
         $this->cache->templates_admin_md5_array = serialize([$this->template_admin->template_dirname => $md5]);
         $this->SaveCache();
-
 
         return $b;
     }
