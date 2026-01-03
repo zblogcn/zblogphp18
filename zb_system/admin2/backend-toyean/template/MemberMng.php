@@ -1,4 +1,4 @@
-<?php die(); ?>
+<?php exit(); ?>
 
 <!-- 搜索 -->
 <div class="sub">
