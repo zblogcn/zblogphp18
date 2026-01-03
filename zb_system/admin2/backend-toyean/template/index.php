@@ -1,12 +1,4 @@
 <?php exit(); ?>
-{php}<?php if ($zbp->option['ZC_ADDITIONAL_SECURITY']) {
-    header('X-Frame-Options: DENY');
-    header('X-XSS-Protection: 1; mode=block');
-    header('Content-Security-Policy: ' . GetBackendCSPHeader());
-    if ($zbp->isHttps) {
-        header('Upgrade-Insecure-Requests: 1');
-    }
-} ?>{/php}
 <!DOCTYPE html>
 <html lang="{$language}">
 
@@ -15,6 +7,8 @@
     <meta name="renderer" content="webkit">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <meta name="generator" content="{$zblogphp}">
+    <meta name="csrfToken" content="{$zbp.GetCSRFToken()}" />
+    <meta name="csrfExpiration" content="{$zbp.csrfExpiration}" />
     <title>{$name} - {$title}</title>
     <link rel="stylesheet" href="{$host}zb_system/admin2/{$backendtheme}/style/style.css?v={$version}">
     <!--<link rel="stylesheet" href="{$host}zb_system/image/icon/icon.css?v={$version}">-->
