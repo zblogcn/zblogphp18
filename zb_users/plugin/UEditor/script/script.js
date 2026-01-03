@@ -68,8 +68,24 @@ function editor_init() {
     /* 源码模式下保存时必须切换 */
 
 
-    if (bloghost != "/" && (bloghost).indexOf(location.host.toLowerCase()) < 0)
-      alert("您设置了域名固化，请使用" + bloghost + "访问或进入后台修改域名，否则图片无法上传。");
+    if (bloghost != "/" && (bloghost).indexOf(location.host.toLowerCase()) < 0) {
+      const cookieKey = "zbp_bloghost_alert";
+      const expiresAt = new Date(Date.now() + 60 * 60 * 1000);
+      const fnAlert = () => {
+        alert("您设置了域名固化，请使用" + bloghost + "访问或进入后台修改域名，否则图片无法上传。");
+      }
+
+      if (typeof cookieStore !== "undefined") {
+        cookieStore.get(cookieKey).then(function(cookie) {
+          if (!cookie) {
+            fnAlert();
+            cookieStore.set({ name: cookieKey, value: "1", expires: expiresAt, path: "/" });
+          }
+        }).catch(ffnAlert);
+      } else {
+        fnAlert();
+      }
+    }
   });
 
 }
