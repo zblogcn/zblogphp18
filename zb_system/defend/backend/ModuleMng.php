@@ -1,10 +1,10 @@
 <?php exit(); ?>
 {php}
 <?php
-// $modSourceMaps = [];
-// foreach ($zbp->modules as $module) {
-//     $modSourceMaps[$module->FileName] = $module->Source;
-// }
+$modSourceMaps = [];
+foreach ($zbp->modules as $module) {
+    $modSourceMaps[$module->FileName] = $module->Source;
+}
 ?>
 {/php}
 <script>
@@ -53,7 +53,7 @@
     </div>
 
     <div class="widget-right">
-        <form id="edit" method="post" action="{php}echo BuildSafeCmdURL('act=SidebarSet');{/php}">
+        <form id="edit" class="hidden" method="post" action="{php}echo BuildSafeCmdURL('act=SidebarSet');{/php}">
             {foreach $sideids as $curKey => $curValue}
             {php}$curOption = 'ZC_SIDEBAR' . $curValue . '_ORDER';{/php}
             <input type="hidden" id="strsidebar{$curValue}" name="edtSidebar{$curValue}" value="{$zbp.option[$curOption]}" />
