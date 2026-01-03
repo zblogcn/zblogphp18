@@ -31,11 +31,35 @@ HookFilterPlugin('Filter_Plugin_Edit_Begin');
             <!-- title( -->
             <div id="titleheader" class="editmod">
                 <label for="edtTitle" class="editinputname">{$lang['msg']['title']}</label>
-                <div>
-                    <input type="text" name="Title" id="edtTitle" maxlength="{$option['ZC_ARTICLE_TITLE_MAX']}" value="{$article->Title}" />
-                </div>
+                <input type="text" name="Title" id="edtTitle" maxlength="{$option['ZC_ARTICLE_TITLE_MAX']}" value="{$article->Title}" />
             </div>
             <!-- )title -->
+
+            <!-- alias( -->
+            <div id="alias" class="editmod">
+                <label for="edtAlias" class="editinputname">
+                    {$lang['msg']['alias']}
+                </label>
+                <input type="text" name="Alias" id="edtAlias" maxlength="250" value="{$article->Alias}" />
+            </div>
+            <!-- )alias -->
+
+            {if !$ispage}
+            <!-- tags( -->
+            <div id="tags" class="editmod">
+                <label for="edtTag" class='editinputname'>
+                    {$lang['msg']['tags']}
+                </label>
+                <input type="text" name="Tag" id="edtTag" value="{$article->TagsToNameString()}" />
+                ({$lang['msg']['use_commas_to_separate']})
+                <a href="javascript:;" id="showtags">{$lang['msg']['show_common_tags']}</a>
+            </div>
+            <!-- Tags -->
+            <div id="ulTag" class="editmod2 hidden">
+                <div id="ajaxtags">Waiting...</div>
+            </div>
+            <!-- )tags -->
+            {/if}
 
         </div>
 
@@ -73,31 +97,8 @@ HookFilterPlugin('Filter_Plugin_Edit_Begin');
         </div>
 
         <br />
-        <!-- alias( -->
-        <div id="alias" class="editmod2">
-            <label for="edtAlias" class="editinputname">
-                {$lang['msg']['alias']}
-            </label>
-            <input type="text" name="Alias" id="edtAlias" maxlength="250" value="{$article->Alias}" />
-        </div>
-        <!-- )alias -->
 
         {if !$ispage}
-        <!-- tags( -->
-        <div id="tags" class="editmod2">
-            <label for="edtTag" class='editinputname'>
-                {$lang['msg']['tags']}
-            </label>
-            <input type="text" name="Tag" id="edtTag" value="{$article->TagsToNameString()}" />
-            ({$lang['msg']['use_commas_to_separate']})
-            <a href="#" id="showtags">{$lang['msg']['show_common_tags']}</a>
-        </div>
-        <!-- Tags -->
-        <div id="ulTag" class="editmod2 hidden">
-            <div id="ajaxtags">Waiting...</div>
-        </div>
-        <!-- )tags -->
-
         <div id="insertintro" class="editmod2">
             <span>* {$lang['msg']['help_generate_summary']}
                 <a href="javascript:;" onClick="AutoIntro()">[{$lang['msg']['generate_summary']}]</a></span>
@@ -233,6 +234,7 @@ HookFilterPlugin('Filter_Plugin_Edit_Begin');
     </div>
     <!-- divEditRight -->
 </form>
+
 <script>
     let sContent = "",
         sIntro = ""; // 原内容与摘要
@@ -354,7 +356,7 @@ HookFilterPlugin('Filter_Plugin_Edit_Begin');
     });
 
 
-    // 显示tags
+    // 显示 tags
     $(document).click(function(event) {
         $('#ulTag').slideUp("fast");
     });
@@ -366,7 +368,7 @@ HookFilterPlugin('Filter_Plugin_Edit_Begin');
             top: offset.top + $(event.target).height() + 20 + "px",
             left: offset.left
         });
-        $('#ulTag').slideDown("fast");
+        $('#ulTag').removeClass('hidden');
         if (tag_loaded === false) {
             const tag = ',' + $('#edtTag').val() + ',';
             $.getScript("{BuildSafeCmdURL('act=misc&type=showtags')}", function() {
