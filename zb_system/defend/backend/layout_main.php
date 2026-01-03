@@ -8,10 +8,5 @@
     <div id="divMain2" class="edit post_edit">
         {$main.Content}
     </div>
-    <script>
-      AddHeaderFontIcon("{$main.HeaderIcon}");
-      ActiveTopMenu("{$main.ActiveTopMenu}");
-      ActiveLeftMenu("{$main.ActiveLeftMenu}");
-    </script>
   </div>
 </section>
