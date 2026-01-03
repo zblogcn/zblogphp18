@@ -2,7 +2,6 @@
 
 <div class="sub">
   <form class="search" id="search" method="post" action="#">
-
     {$zbp.lang['msg']['search']}: {$zbp.lang['msg']['member_level']}
     <select class="edit" size="1" name="level" style="width:140px;">
       <option value="">{$zbp.lang['msg']['any']}</option>
@@ -10,7 +9,6 @@
       <option value="{$curId}">{$curName}</option>
       {/foreach}
     </select>
-
     <input name="search" style="width:250px;" type="text" placeholder="请输入…" value="">
     <input type="submit" class="button" value="{$zbp.lang['msg']['submit']}">
   </form>
@@ -53,9 +51,6 @@
 </div>
 {/foreach}
 
-
-
-<!-- 分页 -->
 <p class="pagebar">
   {foreach $p->buttons as $k => $v}
   {if $k == $p->PageNow}
@@ -72,7 +67,6 @@
     const confirmed = window.confirm(message);
     return confirmed;
   }
-
   $("a.order_button").parent().bind("mouseenter mouseleave", function () {
     $(this).find("a.order_button").toggleClass("element-visibility-hidden");
   });
