@@ -8,6 +8,9 @@ require __DIR__ . "/admin2_misc.php";
 $zbp->ismanage = true;
 $zbp->isbackend_ui = true;
 
+// 在相应接口处理安全安全性问题
+Add_Filter_Plugin('Filter_Plugin_Admin_Begin', 'zbp_admin2_security');
+
 // admin2 后台主要函数 管理页面
 function zbp_admin2_GetActionInfo($action)
 {
@@ -197,7 +200,7 @@ function zbp_admin2_GetActionInfo($action)
       break;
   }
 
-  //返回原SubMenu接口设置的菜单
+  // 返回原 SubMenu 接口设置的菜单
   $main->SubMenu = zbp_admin2_GenSubMenu($action);
   return $main;
 }

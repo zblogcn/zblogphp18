@@ -13,7 +13,6 @@ $zbp->action = ('' == $zbp->action) ? 'admin' : $zbp->action;
 
 if (!$zbp->CheckRights($zbp->action)) {
     $zbp->ShowError(6, __FILE__, __LINE__);
-
     exit();
 }
 

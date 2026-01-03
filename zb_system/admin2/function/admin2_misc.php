@@ -211,3 +211,24 @@ function zbp_admin2_GenSubMenu($action)
 
   return $content;
 }
+
+/**
+ * 安全相关的 header 设置以及 csrf 过期时间调整
+ */
+function zbp_admin2_security()
+{
+  global $zbp;
+
+  if ($zbp->option['ZC_ADDITIONAL_SECURITY']) {
+    header('X-Frame-Options: DENY');
+    header('X-XSS-Protection: 1; mode=block');
+    header('Content-Security-Policy: ' . GetBackendCSPHeader());
+    if ($zbp->isHttps) {
+      header('Upgrade-Insecure-Requests: 1');
+    }
+  }
+
+  if ($zbp->action === 'ArticleEdt' || $zbp->action === 'PageEdt') {
+    $zbp->csrfExpiration = 48;
+  }
+}
