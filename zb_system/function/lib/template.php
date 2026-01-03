@@ -529,9 +529,11 @@ class Template
         return true;
     }
 
-
     /**
      * 添加模板
+     *
+     * @param mixed $name
+     * @param mixed $content
      */
     public function AddTemplate($name, $content)
     {
@@ -539,7 +541,11 @@ class Template
     }
 
     /**
-     * 添加模板Info ($name名称ID,$title标题, $type类型)
+     * 添加模板Info ($name名称ID,$title标题, $type类型).
+     *
+     * @param mixed $name
+     * @param mixed $title
+     * @param mixed $type
      */
     public function AddTemplateInfo($name, $title, $type)
     {
