@@ -3,7 +3,7 @@
 //ZBP的第一个插件，ueditor插件
 
 //注册插件
-RegisterPlugin("UEditor", "ActivePlugin_UEditor");
+RegisterPlugin('UEditor', 'ActivePlugin_UEditor');
 
 function ActivePlugin_UEditor()
 {
@@ -35,24 +35,27 @@ function UninstallPlugin_UEditor()
 function ueditor_addscript_begin()
 {
     global $zbp;
-    echo '<script src="'. UEditor_Path('ueditor.config.php', 'host') .'"></script>';
-    echo '<script src="'. UEditor_Path('ueditor.all.min.js', 'host') .'"></script>';
+    echo '<script src="' . UEditor_Path('ueditor.config.php', 'host') . '"></script>';
+    echo '<script src="' . UEditor_Path('ueditor.all.min.js', 'host') . '"></script>';
     echo '<style type="text/css">#editor_content{height:auto}</style>';
 }
 
 function ueditor_addscript_end()
 {
-    echo '<script src="'. UEditor_Path('script',"host") .'"></script>';
+    echo '<script src="' . UEditor_Path('script', 'host') . '"></script>';
 }
 
 function UEditor_Path($file, $t = 'path')
 {
-  global $zbp;
-  $result = $zbp->$t . 'zb_users/plugin/UEditor/';
-  switch ($file) {
+    global $zbp;
+    $result = $zbp->{$t} . 'zb_users/plugin/UEditor/';
+
+    switch ($file) {
     case 'script':
       return $result . 'script/script.js';
+
       break;
+
     default:
       return $result . $file;
   }
