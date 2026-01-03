@@ -52,7 +52,7 @@ HookFilterPlugin('Filter_Plugin_Edit_Begin');
                 </label>
                 <input type="text" name="Tag" id="edtTag" value="{$article->TagsToNameString()}" />
                 ({$lang['msg']['use_commas_to_separate']})
-                <a href="javascript:;" id="showtags">{$lang['msg']['show_common_tags']}</a>
+                <a href="javascript:;" id="showtags" data-url="{BuildSafeCmdURL('act=misc&type=showtags')}">{$lang['msg']['show_common_tags']}</a>
             </div>
             <!-- Tags -->
             <div id="ulTag" class="editmod2 jq-hidden hidden">
@@ -355,33 +355,6 @@ HookFilterPlugin('Filter_Plugin_Edit_Begin');
         // changeYear: true
     });
 
-
-    // 显示 tags
-    $(document).click(function(event) {
-        $('#ulTag').slideUp("fast");
-    });
-
-    $('#showtags').click(function(event) {
-        event.stopPropagation();
-        const offset = $(event.target).offset();
-        $('#ulTag').css({
-            top: offset.top + $(event.target).height() + 20 + "px",
-            left: offset.left
-        });
-        $('#ulTag').removeClass('hidden');
-        if (tag_loaded === false) {
-            const tag = ',' + $('#edtTag').val() + ',';
-            $.getScript("{BuildSafeCmdURL('act=misc&type=showtags')}", function() {
-                $('#ajaxtags a').each(function() {
-                    if (tag.indexOf($(this).text()) != -1) {
-                        $(this).addClass('selected');
-                    }
-                });
-            });
-            tag_loaded = true;
-        }
-        return false;
-    });
 
     function AddKey(i) {
         const strKey = $('#edtTag').val();
