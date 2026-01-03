@@ -55,7 +55,7 @@ HookFilterPlugin('Filter_Plugin_Edit_Begin');
                 <a href="javascript:;" id="showtags">{$lang['msg']['show_common_tags']}</a>
             </div>
             <!-- Tags -->
-            <div id="ulTag" class="editmod2 hidden">
+            <div id="ulTag" class="editmod2 jq-hidden hidden">
                 <div id="ajaxtags">Waiting...</div>
             </div>
             <!-- )tags -->

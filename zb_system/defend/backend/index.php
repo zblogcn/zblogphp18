@@ -15,6 +15,7 @@
     <script src="{$host}zb_system/script/jquery-ui.custom.min.js?v={$version}"></script>
     <script src="{$host}zb_system/script/zblogphp.js?v={$version}"></script>
     <script src="{$host}zb_system/script/c_admin_js_add.php?v={$version}"></script>
+    <script src="{$host}zb_system/admin2/{$backendtheme}/script/{$backendtheme}.js?v={$version}"></script>
     {$header}
     {php}HookFilterPlugin('Filter_Plugin_Admin_Header');{/php}
 </head>
