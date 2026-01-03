@@ -1,14 +1,17 @@
 <?php die(); ?>
+{php}
+<?php
+// $modSourceMaps = [];
+// foreach ($zbp->modules as $module) {
+//     $modSourceMaps[$module->FileName] = $module->Source;
+// }
+?>
+{/php}
+<script>
+    // const functions = {php}echo json_encode($modSourceMaps);{/php};
+</script>
 <div class="module-layout">
   <div class="widget-left">
-    <script>
-      var functions = {
-        {foreach $zbp.modules as $module}
-        '{$module.FileName}':'{$module.Source}',
-        {/foreach}
-        '': ''
-      };
-    </script>
     <div class="widget-list">
       <div class="widget-list-group">
         <div class="widget-list-header">{$zbp.lang['msg']['system_module']}</div>
@@ -83,20 +86,24 @@
 <script>
   $(function() {
     function sortFunction() {
-      {foreach $sideids as $curKey => $curValue}
-        let str{$curValue} = "";
-        $("#siderbar{$curValue} .widget").each(function(i) {
-          str{$curValue} += $(this).find(".funid").html() + "|";
-        });
-        $("#strsidebar{$curValue}").val(str{$curValue});
-      {/foreach}
+        const sideList = JSON.parse('{json_encode($sideids)}');
+        const postData = {};
+        for (const key in sideList) {
+            if (!Object.hasOwn(sideList, key)) continue;
+            const val = sideList[key];
+            let str = "";
+            $(`#siderbar${val} .widget`).each(function(i) {
+              str += $(this).find(".funid").html() + "|";
+            });
+            $(`#strsidebar${val}`).val(str);
+            postData[`sidebar${val}`] = str;
+        }
+
+        // console.log(sideList, postData);
+
 
       // 添加表单提交
-      $.post($("#edit").attr("action"), {
-        {foreach $sideids as $curKey => $curValue}
-          "sidebar{$curValue}": str{$curValue},
-        {/foreach}
-      },
+      $.post($("#edit").attr("action"), postData,
       function(data) {
         //alert("Data Loaded: " + data);
       });
