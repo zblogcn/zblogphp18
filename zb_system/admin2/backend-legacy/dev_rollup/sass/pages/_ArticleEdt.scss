@@ -1,5 +1,5 @@
 /* 使用 Grid 布局：主内容 + 侧栏 */
-form#edit {
+form#post-edit {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 270px;
   padding-right: 5px;

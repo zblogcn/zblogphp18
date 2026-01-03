@@ -17,7 +17,7 @@ if (isset($_COOKIE['timezone'])) {
 HookFilterPlugin('Filter_Plugin_Edit_Begin');
 {/php}
 
-<form id="edit" name="edit" method="post" action="#">
+<form id="post-edit" class="edit" name="edit" method="post" action="#">
     <div id="divEditLeft">
         <!-- 4号输出接口 -->
         <div id="response4" class="editmod2">
