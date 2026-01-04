@@ -46,11 +46,11 @@ function backend_toyean_MakeLeftMenu($requireAction, $strName, $strUrl, $strLiId
     $tmp = null;
 
     if ('' != $strIconClass) {
-        $tmp = '<li id="' . $strLiId . '"><a id="' . $strAId . '" href="' . $strUrl . '" title="' . strip_tags($strName) . '"><span><i class="ico ' . $strIconClass . '"></i>' . $strName . '</span></a></li>';
+        $tmp = '<li id="' . $strLiId . '"><a id="' . $strAId . '" href="' . $strUrl . '" data-title="' . strip_tags($strName) . '"><span><i class="ico ' . $strIconClass . '"></i>' . $strName . '</span></a></li>';
     } elseif ('' != $strImgUrl) {
-        $tmp = '<li id="' . $strLiId . '"><a id="' . $strAId . '" href="' . $strUrl . '" title="' . strip_tags($strName) . "\"><span class=\"bgicon\" style=\"background-image:url('" . $strImgUrl . "')\">" . $strName . '</span></a></li>';
+        $tmp = '<li id="' . $strLiId . '"><a id="' . $strAId . '" href="' . $strUrl . '" data-title="' . strip_tags($strName) . "\"><span class=\"bgicon\" style=\"background-image:url('" . $strImgUrl . "')\">" . $strName . '</span></a></li>';
     } else {
-        $tmp = '<li id="' . $strLiId . '"><a id="' . $strAId . '" href="' . $strUrl . '" title="' . strip_tags($strName) . '"><span><i class="ico icon-window-fill"></i>' . $strName . '</span></a></li>';
+        $tmp = '<li id="' . $strLiId . '"><a id="' . $strAId . '" href="' . $strUrl . '" data-title="' . strip_tags($strName) . '"><span><i class="ico icon-window-fill"></i>' . $strName . '</span></a></li>';
     }
 
     return $tmp;
