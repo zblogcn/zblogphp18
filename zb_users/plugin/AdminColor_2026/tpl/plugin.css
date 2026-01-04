@@ -1,0 +1,97 @@
+.ac-color-span {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #ccc;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+/* 预置方案卡片样式（单行横向滚动，默认只显 Square，悬停展开） */
+.ac-preset-bar {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 8px 0 6px;
+  margin: 0;
+}
+
+.ac-preset-item {
+  flex: 0 0 auto;
+  width: 46px;
+  height: 46px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 8px;
+  cursor: pointer;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ac-preset-item:hover {
+  border-color: #3a6ea5;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.ac-preset-item.ac-active {
+  border-color: #3399cc;
+  box-shadow: 0 0 0 2px rgba(51, 153, 204, 0.15);
+}
+
+.ac-preset-item.ac-hidden {
+  display: none;
+}
+
+.ac-preset-item.ac-expanded {
+  width: auto;
+  min-width: 180px;
+  height: auto;
+  padding: 8px 10px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ac-preset-title {
+  font-weight: bold;
+  font-size: 13px;
+  color: #333;
+  display: none;
+}
+
+.ac-preset-dots {
+  display: none;
+  gap: 4px;
+}
+
+.ac-color-dot {
+  width: 18px;
+  height: 18px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.ac-preset-square {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.ac-preset-item.ac-expanded .ac-preset-title,
+.ac-preset-item.ac-expanded .ac-preset-dots {
+  display: flex;
+}
+
+.ac-preset-item.ac-expanded .ac-preset-title {
+  display: block;
+}
+
+.ac-preset-item.ac-expanded .ac-preset-square {
+  display: none;
+}

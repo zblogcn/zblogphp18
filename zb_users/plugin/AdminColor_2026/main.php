@@ -29,6 +29,7 @@ InstallPlugin_AdminColor_2026();
 
 $cfg_colors = $zbp->Config('AdminColor_2026')->colors;
 $zbp->template_admin->SetTags('cfg_colors', $cfg_colors);
+$zbp->template_admin->SetTags('preset_colors', AdminColor_2026_GetColors());
 
 // 显示内容构建
 $blogtitle = '后台配色器_2026';

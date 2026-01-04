@@ -1,22 +1,18 @@
 <?php exit; ?>
 
-<style>
-    .ac-color-span {
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-        border: 1px solid #ccc;
-        margin-left: 10px;
-        vertical-align: middle;
-    }
-</style>
-
 <form action="{php}<?php echo BuildSafeURL('main.php?act=save'); ?>{/php}" method="post">
     <table width="100%" class="tableBorder table_striped">
         <tr>
             <th width="10%">项目</th>
             <th>内容</th>
             <th width="45%">说明</th>
+        </tr>
+        <!-- 预置色彩方案 -->
+        <tr>
+            <td>预置色彩方案</td>
+            <td colspan="2">
+                <div class="ac-preset-bar" id="acPresetBar"></div>
+            </td>
         </tr>
         <tr>
             <td>标准色</td>
@@ -49,3 +45,8 @@
         </tr>
     </table>
 </form>
+
+<script>
+    // 预置数据
+    const presets = JSON.parse('{php}<?php echo json_encode($preset_colors, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>{/php}');
+</script>
