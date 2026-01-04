@@ -1,6 +1,5 @@
 <?php exit(); ?>
-
-
+<!-- update: 2026-01-04 -->
 <table class="tableFull tableBorder tableBorder-thcenter table_hover table_striped plugin-list">
     <tr>
         <th></th>
@@ -24,7 +23,7 @@
     {/php}
     <tr>
         <td class="td5 tdCenter{if $plugin.type == 'plugin'} plugin{/if}{if $plugin.IsUsed()} plugin-on{/if}" data-pluginid="{$pluginIdEscaped}">
-            <img {if !$plugin.IsUsed()}style="opacity:0.2" {/if} src="{$plugin.GetLogo()}" alt="" width="32" height="32" />
+            <img class="{if !$plugin.IsUsed()}plugin-off{/if}" src="{$plugin.GetLogo()}" alt="" width="32" height="32" />
         </td>
         <td class="td25">
             <span class="plugin-note" title="{$pluginNoteEscaped}">{$pluginNameEscaped} {$pluginVersionEscaped}</span>
