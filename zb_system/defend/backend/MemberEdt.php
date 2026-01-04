@@ -1,4 +1,4 @@
-<?php die(); ?>
+<?php exit(); ?>
 <!-- update: 2026-01-04 -->
 <form id="edit" name="edit" method="post" action="#">
     <input id="edtID" name="ID" type="hidden" value="{$member->ID}" />

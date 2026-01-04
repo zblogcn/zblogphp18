@@ -1,4 +1,4 @@
-<?php die(); ?>
+<?php exit(); ?>
 
 <!-- 搜索 -->
 <form class="search" id="search" method="post" action="#">

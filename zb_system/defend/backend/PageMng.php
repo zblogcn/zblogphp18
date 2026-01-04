@@ -1,4 +1,4 @@
-<?php die(); ?>
+<?php exit(); ?>
 <!-- update: 2026-01-04 -->
 <form method="post" action="{$zbp.host}zb_system/cmd.php?act=PostBat&type={$post_type}">
     <table class="tableFull tableBorder tableBorder-thcenter table_hover table_striped">

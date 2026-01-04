@@ -1,4 +1,4 @@
-<?php die(); ?>
+<?php exit(); ?>
 <!-- update: 2026-01-04 -->
 <header class="header">
     <div class="logo">

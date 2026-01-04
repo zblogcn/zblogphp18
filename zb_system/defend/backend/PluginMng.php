@@ -1,4 +1,4 @@
-<?php die(); ?>
+<?php exit(); ?>
 
 
 <table class="tableFull tableBorder tableBorder-thcenter table_hover table_striped plugin-list">
