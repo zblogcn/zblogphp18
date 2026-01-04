@@ -1,7 +1,8 @@
 <?php exit(); ?>
 
 <form method="post" action="{$zbp.host}zb_system/cmd.php?act=PostBat&type={$post_type}">
-<!--	-->
+
+
 <table class="tableFull tableBorder tableBorder-thcenter table_hover table_striped">
 	<tr>
 		<th>{$zbp.lang['msg']['id']}{$button_id_html}</th>
