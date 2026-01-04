@@ -1,89 +1,89 @@
-<?php die(); ?>
+<?php exit(); ?>
 
 {php}<?php
 function OutputOptionItemsOfUrl($type)
 {
-  $ua = array(
-      'ZC_ARTICLE_REGEX' => array(
-          '{%host%}?id={%id%}',
-          '{%host%}index.php/post/{%id%}.html',
-          '{%host%}post/{%id%}.html',
-          '{%host%}post/{%alias%}.html',
-          '{%host%}{%year%}/{%month%}/{%id%}/',
-          '{%host%}{%category%}/{%alias%}/',
-      ),
+    $ua = [
+        'ZC_ARTICLE_REGEX' => [
+            '{%host%}?id={%id%}',
+            '{%host%}index.php/post/{%id%}.html',
+            '{%host%}post/{%id%}.html',
+            '{%host%}post/{%alias%}.html',
+            '{%host%}{%year%}/{%month%}/{%id%}/',
+            '{%host%}{%category%}/{%alias%}/',
+        ],
 
-      'ZC_PAGE_REGEX' => array(
-          '{%host%}?id={%id%}',
-          '{%host%}index.php/{%id%}.html',
-          '{%host%}{%id%}.html',
-          '{%host%}{%alias%}.html',
-          '{%host%}{%alias%}/',
-          //'{%host%}{%alias%}',
-      ),
+        'ZC_PAGE_REGEX' => [
+            '{%host%}?id={%id%}',
+            '{%host%}index.php/{%id%}.html',
+            '{%host%}{%id%}.html',
+            '{%host%}{%alias%}.html',
+            '{%host%}{%alias%}/',
+            //'{%host%}{%alias%}',
+        ],
 
-      'ZC_INDEX_REGEX' => array(
-          '{%host%}?page={%page%}',
-          '{%host%}index.php/page_{%page%}.html',
-          '{%host%}page_{%page%}.html',
-          '{%host%}page_{%page%}/',
-          //'{%host%}page_{%page%}',
-          '{%host%}page/{%page%}/',
-      ),
+        'ZC_INDEX_REGEX' => [
+            '{%host%}?page={%page%}',
+            '{%host%}index.php/page_{%page%}.html',
+            '{%host%}page_{%page%}.html',
+            '{%host%}page_{%page%}/',
+            //'{%host%}page_{%page%}',
+            '{%host%}page/{%page%}/',
+        ],
 
-      'ZC_CATEGORY_REGEX' => array(
-          '{%host%}?cate={%id%}&page={%page%}',
-          '{%host%}index.php/category-{%id%}_{%page%}.html',
-          '{%host%}category-{%id%}_{%page%}.html',
-          '{%host%}category-{%alias%}_{%page%}.html',
-          '{%host%}category/{%alias%}/{%page%}/',
-          '{%host%}category/{%id%}/{%page%}/',
-      ),
+        'ZC_CATEGORY_REGEX' => [
+            '{%host%}?cate={%id%}&page={%page%}',
+            '{%host%}index.php/category-{%id%}_{%page%}.html',
+            '{%host%}category-{%id%}_{%page%}.html',
+            '{%host%}category-{%alias%}_{%page%}.html',
+            '{%host%}category/{%alias%}/{%page%}/',
+            '{%host%}category/{%id%}/{%page%}/',
+        ],
 
-      'ZC_TAGS_REGEX' => array(
-          '{%host%}?tags={%id%}&page={%page%}',
-          '{%host%}index.php/tags-{%id%}_{%page%}.html',
-          '{%host%}tags-{%id%}_{%page%}.html',
-          '{%host%}tags-{%alias%}_{%page%}.html',
-          '{%host%}tags/{%alias%}/{%page%}/',
-      ),
+        'ZC_TAGS_REGEX' => [
+            '{%host%}?tags={%id%}&page={%page%}',
+            '{%host%}index.php/tags-{%id%}_{%page%}.html',
+            '{%host%}tags-{%id%}_{%page%}.html',
+            '{%host%}tags-{%alias%}_{%page%}.html',
+            '{%host%}tags/{%alias%}/{%page%}/',
+        ],
 
-      'ZC_DATE_REGEX' => array(
-          '{%host%}?date={%date%}&page={%page%}',
-          '{%host%}index.php/date-{%date%}_{%page%}.html',
-          '{%host%}date-{%date%}_{%page%}.html',
-          '{%host%}post/{%date%}_{%page%}.html',
-          '{%host%}date/{%date%}/{%page%}/',
-      ),
+        'ZC_DATE_REGEX' => [
+            '{%host%}?date={%date%}&page={%page%}',
+            '{%host%}index.php/date-{%date%}_{%page%}.html',
+            '{%host%}date-{%date%}_{%page%}.html',
+            '{%host%}post/{%date%}_{%page%}.html',
+            '{%host%}date/{%date%}/{%page%}/',
+        ],
 
-      'ZC_AUTHOR_REGEX' => array(
-          '{%host%}?auth={%id%}&page={%page%}',
-          '{%host%}index.php/author-{%id%}_{%page%}.html',
-          '{%host%}author-{%id%}_{%page%}.html',
-          '{%host%}author/{%id%}/{%page%}/',
-          '{%host%}author/{%alias%}/{%page%}/',
-      ),
-  );
+        'ZC_AUTHOR_REGEX' => [
+            '{%host%}?auth={%id%}&page={%page%}',
+            '{%host%}index.php/author-{%id%}_{%page%}.html',
+            '{%host%}author-{%id%}_{%page%}.html',
+            '{%host%}author/{%id%}/{%page%}/',
+            '{%host%}author/{%alias%}/{%page%}/',
+        ],
+    ];
 
-  global $zbp;
-  $s = '';
-  $d = 'style="display:none;"';
-  if ($zbp->option['ZC_STATIC_MODE'] == 'ACTIVE' || strpos($zbp->option['ZC_ARTICLE_REGEX'], '{%host%}index.php') !== false) {
-      $r = 'disabled="disabled"';
-  } else {
-      $r = '';
-  }
+    global $zbp;
+    $s = '';
+    $d = 'style="display:none;"';
+    if ('ACTIVE' == $zbp->option['ZC_STATIC_MODE'] || false !== strpos($zbp->option['ZC_ARTICLE_REGEX'], '{%host%}index.php')) {
+        $r = 'disabled="disabled"';
+    } else {
+        $r = '';
+    }
 
-  $i = 0;
-  foreach ($ua[$type] as $key => $value) {
-      $s .= '<p ' . $d . '><label><input ' . $r . ' type="radio" name="radio' . $type . '" value="' . $value . '" onclick="$(\'#' . $type . '\').val($(this).val())" />&nbsp;' . $value . '</label></p>';
-      $i++;
-      if ($i > 1) {
-          $d = '';
-      }
-  }
+    $i = 0;
+    foreach ($ua[$type] as $key => $value) {
+        $s .= '<p ' . $d . '><label><input ' . $r . ' type="radio" name="radio' . $type . '" value="' . $value . '" onclick="$(\'#' . $type . '\').val($(this).val())" />&nbsp;' . $value . '</label></p>';
+        ++$i;
+        if ($i > 1) {
+            $d = '';
+        }
+    }
 
-  echo $s;
+    echo $s;
 }
 
 $csrfToken = $zbp->GetCSRFToken();
