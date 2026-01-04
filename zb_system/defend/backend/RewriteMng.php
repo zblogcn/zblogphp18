@@ -91,7 +91,7 @@ $csrfToken = $zbp->GetCSRFToken();
 <form id="frmTheme" method="post" action="{BuildSafeCmdURL('act=RewriteMng')}">
 <input type="hidden" name="csrfToken" value="{$csrfToken}">
 <input id="reset" name="reset" type="hidden" value="" />
-<table border="1" class="tableFull tableBorder">
+<table class="tableFull tableBorder table_striped">
 <tr>
     <th class="td20"><p align='left'><b>·静态化选项</b><br><span class='note'>&nbsp;&nbsp;使用伪静态前必须确认主机是否支持</span></p></th>
     <th>
