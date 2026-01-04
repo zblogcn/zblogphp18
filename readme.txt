@@ -20,7 +20,7 @@ https://www.zblogcn.com/disclaimer/
           运行环境
 =============================
 - Web Server: IIS / Apache / nginx / Lighttpd / Kangle / Tengine / Caddy and so on...
-- PHP 5.2 - 8.5 / HHVM 3
+- PHP 7.2 - 8.5 / HHVM 3
 - MySQL 5+ / MariaDB 10+ / SQLite 3 / PostgreSQL
 
 =============================
