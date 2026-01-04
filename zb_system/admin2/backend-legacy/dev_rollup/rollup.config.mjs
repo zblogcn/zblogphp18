@@ -64,7 +64,7 @@ if (process.env.NODE_ENV === "dev") {
     browsersync({
       proxy: envConfig.PROXY || 'http://localhost',
       files: [
-        toPosix(path.join(appPath, '**', '*.php')),
+        toPosix(path.join(envConfig.ZB_SYSTEM, '**', '*.php')),
         toPosix(path.join(appPath, 'style', '**', '*.css')),
         // toPosix(path.join(appPath, 'script', '**', '*.js')),
       ],
