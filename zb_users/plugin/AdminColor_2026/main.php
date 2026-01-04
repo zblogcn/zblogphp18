@@ -27,11 +27,18 @@ if (!$zbp->CheckPlugin('AdminColor_2026')) {
 // 初始化
 InstallPlugin_AdminColor_2026();
 
+// 用于当前配置页的变量，样式和脚本引入
 $cfg_colors = $zbp->Config('AdminColor_2026')->colors;
 $zbp->template_admin->SetTags('cfg_colors', $cfg_colors);
 $zbp->template_admin->SetTags('preset_colors', AdminColor_2026_GetColors());
+// 在后台头部引入样式
+$style = AdminColor_2026_Path("tpl/plugin.css", "host");
+$zbp->header .= "<link rel=\"stylesheet\" href=\"{$style }\">";
+// 在后台底部引入脚本
+$script= AdminColor_2026_Path("tpl/plugin.js", "host") ;
+$zbp->footer .= "<script src=\"{$script}\"></script>";
 
-// 显示内容构建
+// 内容构建
 $blogtitle = '后台配色器_2026';
 $content = $zbp->template_admin->Output('plugin_AdminColor_2026_Content');
 $ActionInfo = (object) [
