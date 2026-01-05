@@ -43,7 +43,7 @@
 		<div class="td-10 td-cmt">{$article.CommNums}</div>
 		<div class="td-10 td-status"><span>{$article.StatusName}</span></div>
 		<div class="td-10 td-action">
-			<a href="../../cmd.php?act=ArticleEdt&amp;id={$article.ID}" class="edit">编辑</a>
+			<a href="../cmd.php?act=ArticleEdt&amp;id={$article.ID}" class="edit">编辑</a>
 			<a href="return confirmDelete();" href="{BuildSafeCmdURL('act=ArticleDel&amp;id=' . $article->ID)}" class="del">删除</a>
 		</div>
 	</div>
