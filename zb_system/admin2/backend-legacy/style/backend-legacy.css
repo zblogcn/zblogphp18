@@ -142,22 +142,22 @@ body.admin {
   width: 40px;
   height: 40px;
 }
-.header .user .usravatar {
+.header .user .user-avatar {
   grid-area: avatar;
   padding-left: 10px;
 }
-.header .user .username {
+.header .user .user-name {
   font-size: 1.1em;
 }
-.header .user .userbtn {
+.header .user .user-btn {
   display: flex;
   justify-content: space-between;
 }
-.header .user .userbtn a {
+.header .user .user-btn a {
   color: #ffffff;
   display: block;
 }
-.header .user .userbtn a:hover {
+.header .user .user-btn a:hover {
   color: #b0cdee;
 }
 .header .menu {
