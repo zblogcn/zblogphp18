@@ -171,7 +171,7 @@ function zbp_admin2_GetActionInfo($action)
     case 'PageEdt':
       $isPage = ('PageEdt' === $action);
       $blogtitle = $lang['msg'][$isPage ? 'page_edit' : 'article_edit'];
-      $main->ActiveLeftMenu = empty(GetVars('id')) ? ($isPage ? 'aPageEdt' : 'aArticleEdt') : ($isPage ? 'aPageMng' : 'aArticleMng');
+      $main->ActiveLeftMenu = empty(GetVars('id')) ? ($isPage ? 'aPageMng' : 'aArticleEdt') : ($isPage ? 'aPageMng' : 'aArticleMng');
       $main->Content = zbp_admin2_ArticleEdt($isPage);
       $main->Header = $blogtitle;
       $main->HeaderIcon = 'icon-pencil-square-fill';
