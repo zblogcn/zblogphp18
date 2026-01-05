@@ -1,7 +1,7 @@
 (function() {
 
   const bar = document.getElementById('acPresetBar');
-  const fields = ['NormalColor', 'BoldColor', 'LightColor', 'HighColor', 'AntiColor'];
+  const fields = ['NormalColor', 'BoldColor', 'LightColor', 'HighColor', 'AntiColor', 'Square'];
 
   // 查找输入框及对应的颜色显示元素
   function findField(name) {
@@ -15,13 +15,16 @@
 
   // 应用预置方案到输入框及颜色显示
   function applyPreset(preset) {
+    if (!Object.hasOwn(preset, 'Square')) {
+      preset.Square = preset.NormalColor;
+    }
     fields.forEach(function(key) {
       const f = findField(key);
       if (f.input) {
-        f.input.value = preset[key === 'BoldColor' ? 'BoldColor' : key];
+        f.input.value = preset[key];
       }
       if (f.span) {
-        f.span.style.backgroundColor = preset[key === 'BoldColor' ? 'BoldColor' : key];
+        f.span.style.backgroundColor = preset[key];
       }
     });
     highlightActive(preset);
@@ -29,9 +32,14 @@
 
   // 检查当前输入框值是否匹配预置方案
   function presetMatchesCurrent(preset) {
+    if (!Object.hasOwn(preset, 'Square')) {
+      preset.Square = preset.NormalColor;
+    }
     return fields.every(function(key) {
       const f = findField(key);
-      return f.input && f.input.value.toLowerCase() === preset[key].toLowerCase();
+      if (!f.input) return false;
+      const expected = preset[key];
+      return f.input.value.toLowerCase() === expected.toLowerCase();
     });
   }
 
@@ -58,6 +66,7 @@
       card.setAttribute('data-light', preset.LightColor);
       card.setAttribute('data-high', preset.HighColor);
       card.setAttribute('data-anti', preset.AntiColor);
+      card.setAttribute('data-square', preset.Square || preset.NormalColor);
 
       const square = document.createElement('span');
       square.className = 'ac-preset-square';

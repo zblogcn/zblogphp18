@@ -39,6 +39,15 @@
             <td>{php}<?php zbpform::text('AntiColor', $cfg_colors->AntiColor, '90%'); ?>{/php} <span class="ac-color-span" style="background-color: {$cfg_colors->AntiColor};"></span></td>
             <td></td>
         </tr>
+        <tr class="hidden">
+            <td>方块色</td>
+            <td colspan="2">
+                {php}<?php
+                    $square = isset($cfg_colors->Square) ? $cfg_colors->Square : $cfg_colors->NormalColor;
+                    zbpform::text('Square', $square, '90%');
+                ?>{/php}
+            </td>
+        </tr>
         <tr>
             <td></td>
             <td colspan="2"><input type="submit" value="提交" /></td>
