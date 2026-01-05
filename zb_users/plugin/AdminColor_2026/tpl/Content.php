@@ -42,10 +42,7 @@
         <tr class="hidden">
             <td>方块色</td>
             <td colspan="2">
-                {php}<?php
-                    $square = isset($cfg_colors->Square) ? $cfg_colors->Square : $cfg_colors->NormalColor;
-                    zbpform::text('Square', $square, '90%');
-                ?>{/php}
+                {php}<?php zbpform::text('Square', $cfg_colors->Square, '90%'); ?>{/php}
             </td>
         </tr>
         <tr>

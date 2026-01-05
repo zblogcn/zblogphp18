@@ -24,6 +24,24 @@ if (!$zbp->CheckPlugin('AdminColor_2026')) {
     exit;
 }
 
+$act = GetVars('act', 'GET');
+$suc = GetVars('suc', 'GET');
+if ($act == 'save') {
+    CheckIsRefererValid();
+    $post_colors = [];
+    foreach ($_POST as $key => $val) {
+        if (substr($key, 0, 5) == 'read_') {
+            continue;
+        }
+        $post_colors[$key] = trim($val);
+    }
+    $zbp->Config('AdminColor_2026')->colors = (object)$post_colors;
+    $zbp->SaveConfig('AdminColor_2026');
+    AdminColor_2026_GenCSS();
+    $zbp->SetHint('good');
+    Redirect('./main.php' . ($suc == null ? '' : "?act={$suc}"));
+}
+
 // 初始化
 InstallPlugin_AdminColor_2026();
 
@@ -33,7 +51,7 @@ $zbp->template_admin->SetTags('cfg_colors', $cfg_colors);
 $zbp->template_admin->SetTags('preset_colors', AdminColor_2026_GetColors());
 // 在后台头部引入样式
 $style = AdminColor_2026_Path('tpl/plugin.css', 'host');
-$zbp->header .= "<link rel=\"stylesheet\" href=\"{$style }\">";
+$zbp->header .= "<link rel=\"stylesheet\" href=\"{$style}\">";
 // 在后台底部引入脚本
 $script = AdminColor_2026_Path('tpl/plugin.js', 'host');
 $zbp->footer .= "<script src=\"{$script}\"></script>";
