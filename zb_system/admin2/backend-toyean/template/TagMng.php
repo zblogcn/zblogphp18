@@ -2,7 +2,7 @@
 
 <div class="sub">
 	<form class="search" id="search" method="post" action="#">
-		{$zbp.lang['msg']['search']}:
+		{$zbp.lang['msg']['search']}：
 		<input type="text" name="search" value="">
 		<input type="submit" class="button" value="{$zbp.lang['msg']['submit']}">
 	</form>

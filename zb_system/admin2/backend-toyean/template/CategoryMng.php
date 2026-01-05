@@ -1,8 +1,8 @@
 <?php exit(); ?>
 <div class="sub">
   <form class="search" id="search" method="post" action="#">
-      {$zbp.lang['msg']['search']}:
-      <input name="search" style="width:250px;" type="text" value="">
+      {$zbp.lang['msg']['search']}：
+      <input name="search" type="text" value="">
       <input type="submit" class="button" value="{$zbp.lang['msg']['submit']}">
   </form>
 </div>

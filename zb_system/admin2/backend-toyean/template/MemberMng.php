@@ -2,14 +2,14 @@
 
 <div class="sub">
   <form class="search" id="search" method="post" action="#">
-    {$zbp.lang['msg']['search']}: {$zbp.lang['msg']['member_level']}
+    {$zbp.lang['msg']['search']}： {$zbp.lang['msg']['member_level']}
     <select class="edit" size="1" name="level" style="width:140px;">
       <option value="">{$zbp.lang['msg']['any']}</option>
       {foreach $zbp.lang['user_level_name'] as $curId => $curName}
       <option value="{$curId}">{$curName}</option>
       {/foreach}
     </select>
-    <input name="search" style="width:250px;" type="text" placeholder="请输入…" value="">
+    <input name="search" type="text" placeholder="请输入…" value="">
     <input type="submit" class="button" value="{$zbp.lang['msg']['submit']}">
   </form>
 </div>

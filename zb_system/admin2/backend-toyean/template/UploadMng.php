@@ -2,10 +2,9 @@
 
 
 <div class="sub">
-  <form class="search" name="upload" id="upload" method="post" enctype="multipart/form-data"
-    action="{BuildSafeCmdURL('act=UploadPst')}">
+  <form class="search" name="upload" id="upload" method="post" enctype="multipart/form-data" action="{BuildSafeCmdURL('act=UploadPst')}">
 
-    {$zbp.lang['msg']['upload_file']}:
+    {$zbp.lang['msg']['upload_file']}：
 
     <input type="file" name="file" size="60">
     <label><input type="checkbox" name="auto_rename" checked>{$zbp.lang['msg']['auto_rename_uploadfile']}</label>

@@ -41,7 +41,7 @@
 		<div class="td-full td-title"><a href="{$article.Url}">{$article.Title}</a></div>
 		<div class="td-20 td-date">{$article.Time()}</div>
 		<div class="td-10 td-cmt">{$article.CommNums}</div>
-		<div class="td-10 td-status"><span>{$article.StatusName}</span></div>
+		<div class="td-10 td-status"><span{if $article.Status === '2'} class="review"{elseif $article.Status === '1'} class="draft"{/if}>{$article.StatusName}</span></div>
 		<div class="td-10 td-action">
 			<a href="{$zbp.host}zb_system/cmd.php?act=ArticleEdt&amp;id={$article.ID}" class="edit">编辑</a>
 			<a href="return confirmDelete();" href="{BuildSafeCmdURL('act=ArticleDel&amp;id=' . $article->ID)}" class="del">删除</a>

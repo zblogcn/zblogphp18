@@ -2,8 +2,8 @@
 
 <div class="sub">
   <form class="search" id="search" method="post" action="#">
-    {$zbp.lang['msg']['search']}:
-    <input name="search" style="width:450px;" type="text" placeholder="请输入…" value="">
+    {$zbp.lang['msg']['search']}：
+    <input name="search" type="text" placeholder="请输入…" value="">
     <input type="submit" class="button" value="{$zbp.lang['msg']['submit']}">
   </form>
 </div>
@@ -11,8 +11,6 @@
 <!-- 评论列表 -->
 <form method="post" action="{$zbp.host}zb_system/cmd.php?act=CommentBat">
   <input type="hidden" name="csrfToken" value="{$zbp.GetCSRFToken()}">
-
-
   <div class="postlist">
     <div class="tr thead">
       <div class="td-5 td-id">{$zbp.lang['msg']['id']}{$button_id_html}</div>
@@ -88,19 +86,19 @@
     <a href="{$v}">{$k}</a>
     {/if}
     {/foreach}
-
-    {if $ischecking}
-    <input type="submit" name="all_del" onclick="return confirmDelete();" value="{$zbp.lang['msg']['all_del']}"
-      class="button" style="float:right;">
-    <input type="submit" name="all_pass" value="{$zbp.lang['msg']['all_pass']}" class="button"
-      style="float:right;margin-right:10px;">
-    {else}
-    <input type="submit" name="all_del" onclick="return confirmDelete();" value="{$zbp.lang['msg']['all_del']}"
-      class="button" style="float:right;">
-    <input type="submit" name="all_audit" value="{$zbp.lang['msg']['all_audit']}" class="button"
-      style="float:right;margin-right:10px;">
-    {/if}
   </p>
+
+  {if $ischecking}
+  <input type="submit" name="all_del" onclick="return confirmDelete();" value="{$zbp.lang['msg']['all_del']}"
+    class="button" style="float:right;">
+  <input type="submit" name="all_pass" value="{$zbp.lang['msg']['all_pass']}" class="button"
+    style="float:right;margin-right:10px;">
+  {else}
+  <input type="submit" name="all_del" onclick="return confirmDelete();" value="{$zbp.lang['msg']['all_del']}"
+    class="button" style="float:right;">
+  <input type="submit" name="all_audit" value="{$zbp.lang['msg']['all_audit']}" class="button"
+    style="float:right;margin-right:10px;">
+  {/if}
 
 </form>
 
