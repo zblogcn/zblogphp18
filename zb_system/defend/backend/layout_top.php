@@ -5,7 +5,7 @@
         <a href="{$host}" title="{htmlspecialchars($name)}" target="_blank"><img src="{$host}zb_system/image/admin/none.gif" alt="Z-Blog" /></a>
     </div>
     <div class="user">
-        <a class="usravatar" href="{$host}zb_system/cmd.php?act=MemberEdt&amp;id={$zbp->user->ID}" title="{$lang['msg']['edit']}"><img src="{$zbp->user->Avatar}" id="avatar" alt="Avatar" /></a>
+        <a class="usravatar" href="{$zbp.cmdurl}?act=MemberEdt&amp;id={$zbp->user->ID}" title="{$lang['msg']['edit']}"><img src="{$zbp->user->Avatar}" id="avatar" alt="Avatar" /></a>
         <div class="username"><span>{$zbp->user->LevelName}：{$zbp->user->StaticName}</span></div>
         <div class="userbtn">
             <a class="profile" href="{$host}" title="" target="_blank">

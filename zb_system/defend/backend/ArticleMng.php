@@ -26,7 +26,7 @@
     </p>
 </form>
 
-<form method="post" action="{$zbp.host}zb_system/cmd.php?act=PostBat&type={$post_type}">
+<form method="post" action="{$zbp.cmdurl}?act=PostBat&type={$post_type}">
     <!-- 文章列表 -->
     <table class="tableFull tableBorder table_hover table_striped tableBorder-thcenter">
         <!-- 表头 -->
@@ -61,7 +61,7 @@
                 {$article.StatusName}
             </td>
             <td class="td10 tdCenter">
-                <a href="../cmd.php?act=ArticleEdt&amp;id={$article.ID}"><i class="icon-pencil-square"></i></a>
+                <a href="{$zbp.cmdurl}?act=ArticleEdt&amp;id={$article.ID}"><i class="icon-pencil-square"></i></a>
                 <a onclick="return confirmDelete();" href="{BuildSafeCmdURL('act=ArticleDel&amp;id=' . $article->ID)}"><i class="icon-trash"></i></a>
             </td>
             {if $zbp.CheckRights('PostBat') && $zbp.option['ZC_POST_BATCH_DELETE']}

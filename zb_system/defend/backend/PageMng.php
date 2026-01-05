@@ -1,6 +1,6 @@
 <?php exit(); ?>
 <!-- update: 2026-01-04 -->
-<form method="post" action="{$zbp.host}zb_system/cmd.php?act=PostBat&type={$post_type}">
+<form method="post" action="{$zbp.cmdurl}?act=PostBat&type={$post_type}">
     <table class="tableFull tableBorder tableBorder-thcenter table_hover table_striped">
         <tr>
             <th>{$zbp.lang['msg']['id']}{$button_id_html}</th>
@@ -26,7 +26,7 @@
             <td class="td5">{$page.CommNums}</td>
             <td class="td5">{$page.StatusName}</td>
             <td class="td10 tdCenter">
-                <a href="../cmd.php?act=PageEdt&amp;id={$page.ID}"><i class="icon-pencil-square"></i></a>
+                <a href="{$zbp.cmdurl}?act=PageEdt&amp;id={$page.ID}"><i class="icon-pencil-square"></i></a>
                 <a onclick="return confirmDelete();" href="{BuildSafeCmdURL('act=PageDel&amp;id=' . $page->ID)}"><i class="icon-trash"></i></a>
             </td>
             {if $zbp.CheckRights('PostBat') && $zbp.option['ZC_POST_BATCH_DELETE']}

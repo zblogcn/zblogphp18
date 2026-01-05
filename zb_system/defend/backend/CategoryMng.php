@@ -28,7 +28,7 @@
         <td class="td20">{$category.Alias}</td>
         <td class="td10">{$category.Count}</td>
         <td class="td10 tdCenter">
-            <a href="../cmd.php?act=CategoryEdt&amp;id={$category.ID}"><i class="icon-pencil-square"></i></a>
+            <a href="{$zbp.cmdurl}?act=CategoryEdt&amp;id={$category.ID}"><i class="icon-pencil-square"></i></a>
             {if count($category.SubCategories) == 0}
             <a onclick="return confirmDelete();" href="{BuildSafeCmdURL('act=CategoryDel&amp;id=' . $category->ID)}"><i class="icon-trash"></i></a>
             {/if}

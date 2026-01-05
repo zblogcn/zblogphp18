@@ -11,8 +11,8 @@ if (isset($_COOKIE['timezone'])) {
 ?>
 {/php}
 
-<script src="../script/jquery.tagto.js"></script>
-<script src="../script/jquery-ui-timepicker-addon.js"></script>
+<script src="{$host}zb_system/script/jquery.tagto.js"></script>
+<script src="{$host}zb_system/script/jquery-ui-timepicker-addon.js"></script>
 {php}
 HookFilterPlugin('Filter_Plugin_Edit_Begin');
 {/php}
@@ -85,7 +85,7 @@ HookFilterPlugin('Filter_Plugin_Edit_Begin');
                 <textarea id="editor_content" name="Content">{FormatString($article->Content, '[html-format]')}</textarea>
             </div>
             <div id="contentready" class="hidden">
-                <img alt="loading" id="statloading1" src="../image/admin/loading.gif" />Waiting...
+                <img alt="loading" id="statloading1" src="{$host}zb_system/image/admin/loading.gif" />Waiting...
             </div>
         </div>
 
@@ -115,7 +115,7 @@ HookFilterPlugin('Filter_Plugin_Edit_Begin');
                 <textarea id="editor_intro" name="Intro">{FormatString($article->Intro, '[html-format]')}</textarea>
             </div>
             <div id="introready" class="hidden">
-                <img alt="loading" id="statloading2" src="../image/admin/loading.gif" />Waiting...
+                <img alt="loading" id="statloading2" src="{$host}zb_system/image/admin/loading.gif" />Waiting...
             </div>
 
         </div>

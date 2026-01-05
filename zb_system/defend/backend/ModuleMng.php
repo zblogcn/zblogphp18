@@ -66,7 +66,7 @@ foreach ($zbp->modules as $module) {
             <div class="siderbar-drop" id="siderbar{$curValue}">
                 <div class="siderbar-header">
                     {$zbp.lang['msg'][$id]}&nbsp;
-                    <img class="roll" src="../image/admin/loading.gif" width="16" alt="" />
+                    <img class="roll" src="{$host}zb_system/image/admin/loading.gif" width="16" alt="" />
                     <span class="ui-icon ui-icon-triangle-1-s"></span>
                 </div>
                 <div class="siderbar-sort-list">

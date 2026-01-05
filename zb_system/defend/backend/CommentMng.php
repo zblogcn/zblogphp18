@@ -10,7 +10,7 @@
 </form>
 
 <!-- 评论列表 -->
-<form method="post" action="{$zbp.host}zb_system/cmd.php?act=CommentBat">
+<form method="post" action="{$zbp.cmdurl}?act=CommentBat">
     <input type="hidden" name="csrfToken" value="{$zbp.GetCSRFToken()}">
 
     <table class="tableFull tableBorder tableBorder-thcenter table_hover table_striped">

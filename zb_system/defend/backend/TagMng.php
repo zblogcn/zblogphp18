@@ -11,7 +11,7 @@
 </form>
 
 <!-- 标签列表 -->
-<form method="post" action="{$zbp.host}zb_system/cmd.php?act=TagBat">
+<form method="post" action="{$zbp.cmdurl}?act=TagBat">
     <input type="hidden" name="csrfToken" value="{$zbp.GetCSRFToken()}">
 
     <table class="tableFull tableBorder tableBorder-thcenter table_hover table_striped">
@@ -33,7 +33,7 @@
             <td>{$tag.Intro}</td>
             <td class="td5">{$tag.Order}</td>
             <td class="td10 tdCenter">
-                <a href="../cmd.php?act=TagEdt&amp;id={$tag.ID}"><i class="icon-pencil-square"></i></a>
+                <a href="{$zbp.cmdurl}?act=TagEdt&amp;id={$tag.ID}"><i class="icon-pencil-square"></i></a>
                 <a onclick="return confirmDelete();" href="{BuildSafeCmdURL('act=TagDel&amp;id=' . $tag->ID)}"><i class="icon-trash"></i></a>
             </td>
             <td class="td5 tdCenter">

@@ -50,7 +50,7 @@
         <td class="td10">{php}echo max(0, $member->Comments);{/php}</td>
         <td class="td10">{php}echo max(0, $member->Uploads);{/php}</td>
         <td class="td10 tdCenter">
-            <a href="../cmd.php?act=MemberEdt&amp;id={$member.ID}">
+            <a href="{$zbp.cmdurl}?act=MemberEdt&amp;id={$member.ID}">
                 <i class="icon-pencil-square"></i>
             </a>
             {if $zbp.CheckRights('MemberDel') && !$member.IsGod}

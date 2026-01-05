@@ -23,7 +23,7 @@
         {/if}
         <tr>
             <td class='td20'>{$zbp.lang['msg']['current_member']}</td>
-            <td class='td30'>{$current_isroot}<a href='../cmd.php?act=misc&type=vrs' target='_blank' title="{$current_member}">{$current_member}</a></td>
+            <td class='td30'>{$current_isroot}<a href='{$zbp.cmdurl}?act=misc&type=vrs' target='_blank' title="{$current_member}">{$current_member}</a></td>
             <td class='td20'>{$zbp.lang['msg']['current_version']}</td>
             <td class='td30'>{$current_version};</td>
         </tr>
@@ -57,7 +57,7 @@
             <td class='td20'>{$zbp.lang['msg']['protocol_address']}</td>
             <td>{$api_address}, {$xmlrpc_address}</td>
             <td>{$zbp.lang['msg']['system_environment']}</td>
-            <td><a href='../cmd.php?act=misc&type=phpinfo' target='_blank'>{$system_environment}</a></td>
+            <td><a href='{$zbp.cmdurl}?act=misc&type=phpinfo' target='_blank'>{$system_environment}</a></td>
         </tr>
         {/if}
     </tbody>
