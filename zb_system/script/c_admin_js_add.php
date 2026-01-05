@@ -234,7 +234,7 @@ function AutoHideTips(){
 }
 
 function ShowCSRFHint() {
-    $('.main').prepend('<div class="hint"><p class="hint hint_bad"><?php echo $lang['error']['94']; ?></p></div>'.replace('%s', $('meta[name=csrfExpiration]').attr('content')));
+    $('.main').prepend('<div class="hint"><p class="hint_bad"><?php echo $lang['error']['94']; ?></p></div>'.replace('%s', $('meta[name=csrfExpiration]').attr('content')));
 }
 
 

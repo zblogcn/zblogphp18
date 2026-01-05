@@ -4035,7 +4035,7 @@ class ZBlogPHP
             }
         }
         $delay = ($delay * 1000);
-        echo "<div class=\"hint\"><p class=\"hint hint_{$signal}\" data-delay=\"{$delay}\">{$content}</p></div>";
+        echo "<div class=\"hint\"><p class=\"hint_{$signal}\" data-delay=\"{$delay}\">{$content}</p></div>";
     }
 
     /**
@@ -4065,7 +4065,7 @@ class ZBlogPHP
             }
         }
         $delay = ($delay * 1000);
-        echo "<script type='text/javascript'>$('.main').prepend('<div class=\"hint\"><p class=\"hint hint_".$signal.'" data-delay="'.$delay.'">';
+        echo "<script type='text/javascript'>$('.main').prepend('<div class=\"hint\"><p class=\"hint_".$signal.'" data-delay="'.$delay.'">';
         echo str_replace("'", "\\'", $content);
         echo "</p></div>');</script>";
     }
