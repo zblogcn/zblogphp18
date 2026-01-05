@@ -7,6 +7,11 @@
             <th>内容</th>
             <th width="45%">说明</th>
         </tr>
+        <tr>
+            <td>开启配色功能</td>
+            <td>{php}<?php zbpform::zbradio('opt_Enable', $zbp->Config('AdminColor_2026')->opt_Enable); ?>{/php}</td>
+            <td></td>
+        </tr>
         <!-- 预置色彩方案 -->
         <tr>
             <td>预置色彩方案</td>

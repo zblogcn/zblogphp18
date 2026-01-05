@@ -22,12 +22,14 @@ function AdminColor_2026_GenTpl(&$template_admin)
 // 在后台头部引入样式
 function AdminColor_2026_Main_Header()
 {
-    // global $zbp;
+    global $zbp;
     // // 如果网址里含有 AdminColor_2026 则引入样式
     // if (false !== strpos($zbp->currenturl, 'AdminColor_2026')) {
     //     echo '<link rel="stylesheet" href="' . AdminColor_2026_Path('tpl/plugin.css', 'host') . '">';
     // }
-    echo '<link rel="stylesheet" type="text/css" href="' . AdminColor_2026_Path('usr/style.css', 'host') . '">';
+    if ($zbp->Config('AdminColor_2026')->opt_Enable) {
+        echo '<link rel="stylesheet" type="text/css" href="' . AdminColor_2026_Path('usr/style.css', 'host') . '">';
+    }
 }
 
 // 在后台底部引入脚本
@@ -94,6 +96,4 @@ function InstallPlugin_AdminColor_2026()
     }
 }
 
-function UninstallPlugin_AdminColor_2026()
-{
-}
+function UninstallPlugin_AdminColor_2026() {}
