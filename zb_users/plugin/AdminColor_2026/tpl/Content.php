@@ -1,4 +1,15 @@
 <?php exit; ?>
+{php}
+<?php
+$formColors = [
+    'NormalColor' => '标准色',
+    'BoldColor'   => '深色',
+    'LightColor'  => '浅色',
+    'HighColor'   => '高光色',
+    'AntiColor'   => '反色',
+];
+?>
+{/php}
 
 <form action="{php}<?php echo BuildSafeURL('main.php?act=save'); ?>{/php}" method="post">
     <table width="100%" class="tableBorder table_striped">
@@ -19,33 +30,15 @@
                 <div class="ac-preset-bar" id="acPresetBar"></div>
             </td>
         </tr>
+        {foreach $formColors as $key => $label}
         <tr>
-            <td>标准色</td>
-            <td>{php}<?php zbpform::text('NormalColor', $cfg_colors->NormalColor, '90%'); ?>{/php} <span class="ac-color-span" style="background-color: {$cfg_colors->NormalColor};"></span></td>
+            <td>{$label}</td>
+            <td>{php}<?php zbpform::text($key, $cfg_colors->{$key}, '90%', 'color-picker'); ?>{/php} <span class="ac-color-span span-{$key}" style="background-color: {$cfg_colors.$key};"></span></td>
             <td></td>
         </tr>
-        <tr>
-            <td>深色</td>
-            <td>{php}<?php zbpform::text('BoldColor', $cfg_colors->BoldColor, '90%'); ?>{/php} <span class="ac-color-span" style="background-color: {$cfg_colors->BoldColor};"></span></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>浅色</td>
-            <td>{php}<?php zbpform::text('LightColor', $cfg_colors->LightColor, '90%'); ?>{/php} <span class="ac-color-span" style="background-color: {$cfg_colors->LightColor};"></span></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>高光色</td>
-            <td>{php}<?php zbpform::text('HighColor', $cfg_colors->HighColor, '90%'); ?>{/php} <span class="ac-color-span" style="background-color: {$cfg_colors->HighColor};"></span></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>反色</td>
-            <td>{php}<?php zbpform::text('AntiColor', $cfg_colors->AntiColor, '90%'); ?>{/php} <span class="ac-color-span" style="background-color: {$cfg_colors->AntiColor};"></span></td>
-            <td></td>
-        </tr>
+        {/foreach}
         <tr class="hidden">
-            <td>方块色</td>
+            <td>代表色</td>
             <td colspan="2">
                 {php}<?php zbpform::text('Square', $cfg_colors->Square, '90%'); ?>{/php}
             </td>
