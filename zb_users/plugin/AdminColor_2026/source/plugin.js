@@ -60,6 +60,7 @@ $(document).ready(function() {
     if (!Object.hasOwn(preset, 'Square')) {
       preset.Square = preset.NormalColor;
     }
+    setRootColors(preset);
     fields.forEach(function(key) {
       const f = findField(key);
       if (f.input) {
@@ -70,6 +71,16 @@ $(document).ready(function() {
       }
     });
     highlightActive(preset);
+  }
+
+  // 将预置方案写入 :root CSS 变量
+  function setRootColors(preset) {
+    const root = document.documentElement;
+    root.style.setProperty('--color-normal', preset.NormalColor);
+    root.style.setProperty('--color-bold', preset.BoldColor);
+    root.style.setProperty('--color-light', preset.LightColor);
+    root.style.setProperty('--color-high', preset.HighColor);
+    root.style.setProperty('--color-anti', preset.AntiColor);
   }
 
   // 检查当前输入框值是否匹配预置方案
