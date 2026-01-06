@@ -16,7 +16,7 @@ $zbp->isbackend_ui = true;
 Add_Filter_Plugin('Filter_Plugin_Admin_Begin', 'zbp_admin2_security');
 
 // admin2 后台主要函数 管理页面
-function zbp_admin2_GetActionInfo($action)
+function zbp_admin2_GetActionInfo($action, $extra = null)
 {
     global $lang;
     $main = (object) [
@@ -237,6 +237,18 @@ function zbp_admin2_GetActionInfo($action)
 
     // 返回原 SubMenu 接口设置的菜单
     $main->SubMenu = zbp_admin2_GenSubMenu($action);
+
+    return zbp_admin2_MergeActionInfo($main, $extra);
+}
+
+// 将额外对象合并到 action info
+function zbp_admin2_MergeActionInfo($main, $extra)
+{
+    if (is_object($extra)) {
+        foreach (get_object_vars($extra) as $key => $val) {
+            $main->{$key} = $val;
+        }
+    }
 
     return $main;
 }
