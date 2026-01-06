@@ -27,6 +27,7 @@
 
     &:hover {
       background-color: $color-background-hover;
+
       a {
         color: currentColor;
       }
@@ -36,7 +37,7 @@
       background: $color-light;
 
       a {
-        color: #ffffff;
+        color: $color-fff;
       }
     }
   }

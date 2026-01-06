@@ -33,7 +33,7 @@
     grid-area: user;
     justify-self: end;
     padding: 12px 0 0 0;
-    color: #ffffff;
+    color: $color-fff;
     display: grid;
     grid-template-areas:
       "name avatar"
@@ -59,7 +59,7 @@
       justify-content: space-between;
 
       a {
-        color: #ffffff;
+        color: $color-fff;
         display: block;
 
         &:hover {
@@ -84,7 +84,7 @@
 
       a {
         padding: 0 20px;
-        background-color: #fff;
+        background-color: $color-fff;
         font-size: 1.1em;
         align-items: center;
         height: $menu-item-height;
@@ -94,7 +94,7 @@
 
         &:hover {
           background-color: $color-background-hover;
-          color: #fff;
+          color: $color-fff;
         }
       }
 

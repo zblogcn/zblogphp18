@@ -171,7 +171,7 @@ body.admin {
 }
 .header .menu li a {
   padding: 0 20px;
-  background-color: #fff;
+  background-color: #ffffff;
   font-size: 1.1em;
   align-items: center;
   height: 30px;
@@ -181,7 +181,7 @@ body.admin {
 }
 .header .menu li a:hover {
   background-color: #b0cdee;
-  color: #fff;
+  color: #ffffff;
 }
 .header .menu li.on {
   font-weight: bold;
@@ -778,7 +778,7 @@ form#post-edit #edtTag {
 }
 #divEditLeft #ulTag #ajaxtags a.selected {
   color: black;
-  background: #F8F889;
+  background: #f8f889;
 }
 #divEditLeft #carea,
 #divEditLeft #tarea,
