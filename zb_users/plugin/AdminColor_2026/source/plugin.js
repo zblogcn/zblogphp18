@@ -9,9 +9,32 @@ $(document).ready(function() {
     input.on('input change', function() {
       span.css('background-color', input.val());
     });
-    // 初始化颜色显示
-    input.colorpicker({
-      displayIndicator: false,
+    // 绑定 Pickr 颜色选择器
+    const pickr = Pickr.create({
+      el: `.span-${name}`,
+      theme: 'monolith',
+      useAsButton: true,
+      default: input.val(),
+      // 其他配置选项
+      components: {
+        preview: true,
+        // opacity: true,
+        hue: true,
+        interaction: {
+          // clear: true,
+          input: true,
+          save: true
+        }
+      }
+    });
+    // 监听颜色变化，同步更新 span 元素
+    pickr.on('change', (color) => {
+      span.css('background-color', color.toHEXA().toString());
+    });
+    // 监听保存事件，更新输入框值
+    pickr.on('save', (color) => {
+      const hex = color.toHEXA().toString();
+      pickr.hide();
     });
   });
 });
