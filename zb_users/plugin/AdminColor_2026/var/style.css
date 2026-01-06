@@ -43,9 +43,9 @@ a:hover {
   background: var(--color-high);
 }
 
-.divHeader {
+/* .divHeader {
   color: var(--color-bold);
-}
+} */
 
 #divMain .SubMenu a:hover {
   background-color: var(--color-light);
