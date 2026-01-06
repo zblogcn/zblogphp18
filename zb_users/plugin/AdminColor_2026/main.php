@@ -67,7 +67,6 @@ $zbp->footer .= "<script src=\"{$script}\"></script>";
 $script = AdminColor_2026_Path('source/plugin.js', 'host');
 $zbp->footer .= "<script src=\"{$script}\"></script>";
 
-
 // 内容构建
 $blogtitle = '后台配色器_2026';
 // 生成 ActionInfo 并合并额外信息
