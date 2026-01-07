@@ -160,6 +160,7 @@ function zbp_admin2_GetActionInfo($action, $extra = null)
             // $admin_function = 'Admin_SettingMng';
             $blogtitle = $lang['msg']['settings'];
             $main->ActiveLeftMenu = 'aSettingMng';
+            $main->ActiveTopMenu = 'topmenu_setting';
             $main->Content = zbp_admin2_SettingMng();
             $main->Header = $blogtitle;
             $main->HeaderIcon = 'icon-gear-fill';

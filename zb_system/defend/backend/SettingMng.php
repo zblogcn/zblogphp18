@@ -192,6 +192,3 @@
     <p><input type="submit" class="button" value="{$zbp->lang['msg']['submit']}" id="btnPost" /></p>
 
 </form>
-<script>
-    ActiveTopMenu("topmenu2");
-</script>
