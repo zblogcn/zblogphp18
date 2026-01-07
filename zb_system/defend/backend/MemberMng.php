@@ -45,10 +45,10 @@
             {$member.Name}
         </td>
         <td class="td15">{$member.Alias}</td>
-        <td class="td10">{php}echo max(0, $member->Articles);{/php}</td>
-        <td class="td10">{php}echo max(0, $member->Pages);{/php}</td>
-        <td class="td10">{php}echo max(0, $member->Comments);{/php}</td>
-        <td class="td10">{php}echo max(0, $member->Uploads);{/php}</td>
+        <td class="td10">{max(0, $member->Articles)}</td>
+        <td class="td10">{max(0, $member->Pages)}</td>
+        <td class="td10">{max(0, $member->Comments)}</td>
+        <td class="td10">{max(0, $member->Uploads)}</td>
         <td class="td10 tdCenter">
             <a href="{$zbp.cmdurl}?act=MemberEdt&amp;id={$member.ID}">
                 <i class="icon-pencil-square"></i>
