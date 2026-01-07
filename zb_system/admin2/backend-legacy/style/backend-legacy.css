@@ -736,28 +736,28 @@ textarea {
 }
 
 /* 使用 Grid 布局：主内容 + 侧栏 */
-form#post-edit {
+form.post-edit {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 270px;
   padding-right: 5px;
 }
-form#post-edit .editmod {
+form.post-edit .editmod {
   margin: 1em 0;
 }
-form#post-edit .editmod label {
+form.post-edit .editmod label {
   max-width: 65px;
   text-overflow: ellipsis;
 }
-form#post-edit .editmod .editinputname {
+form.post-edit .editmod .editinputname {
   vertical-align: middle;
   padding: 0 2px 0 3px;
   line-height: 1em;
   font-size: 1.05em;
   font-weight: bold;
 }
-form#post-edit #edtTitle,
-form#post-edit #edtAlias,
-form#post-edit #edtTag {
+form.post-edit #edtTitle,
+form.post-edit #edtAlias,
+form.post-edit #edtTag {
   max-width: 520px;
   width: 99% !important;
 }
