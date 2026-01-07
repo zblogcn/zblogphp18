@@ -16,6 +16,18 @@
     $("body").removeClass("hidden");
     $("#divNavBar ul").removeClass("active");
   });
+  // 返回顶部
+  const backToTop = $('<div id="backToTop"><i></i></div>').appendTo('body');
+  $(window).scroll(function(){
+    if($(window).scrollTop() > 200){
+        backToTop.fadeIn();
+    }else{
+        backToTop.fadeOut();
+    }
+  });
+  backToTop.click(function(){
+    $('html, body').animate({scrollTop:0}, 400);
+  });
 })
 
 zbp.plugin.unbind("comment.reply.start", "system")
