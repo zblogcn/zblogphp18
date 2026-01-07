@@ -44,7 +44,7 @@
 </form>
 <script>
     function checkInfo() {
-        document.getElementById("edit").action = "{BuildSafeCmdURL('act=TagPst')}";
+        $("#edit").attr("action", "{BuildSafeCmdURL('act=TagPst')}");
         if (!$("#edtName").val()) {
             alert("{$zbp->lang['error']['72']}");
             return false;

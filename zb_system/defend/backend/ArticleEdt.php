@@ -357,8 +357,7 @@ HookFilterPlugin('Filter_Plugin_Edit_Begin');
 
     function checkArticleInfo() {
         if (isSubmit) return false;
-        document.getElementById("edit").action = "{BuildSafeCmdURL($ispage ? 'act=PagePst' : 'act=ArticlePst')}";
-
+        $("#edit").attr("action", "{BuildSafeCmdURL($ispage ? 'act=PagePst' : 'act=ArticlePst')}");
         if (!editor_api.editor.content.get()) {
             alert("{$zbp->lang['error'][70]}");
             return false;
