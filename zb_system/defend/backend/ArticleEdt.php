@@ -280,53 +280,46 @@ HookFilterPlugin('Filter_Plugin_Edit_Begin');
         });
     })();
 
+    /* ----- */
+
     let sContent = "",
         sIntro = ""; // 原内容与摘要
-    let isSubmit = false; // 是否提交保存
+
+    // 编辑器接口构造函数
+    const makeEditorSlot = (barList, readyList) => ({
+        obj: {},
+        get: () => "",
+        insert: () => "",
+        put: () => "",
+        focus: () => "",
+        barBtn: (name, icon, callback) => {
+            barList.push({
+                name: name,
+                icon: icon,
+                callback: callback
+            });
+        },
+        ready: (fn) => {
+            readyList.push(fn);
+        }
+    });
 
     const contentBarBtn = [],
         introBarBtn = [],
         contentReady = [],
         introReady = [];
 
+    // 编辑器接口
     const editor_api = {
         editor: {
-            content: {
-                obj: {},
-                get: () => "",
-                insert: () => "",
-                put: () => "",
-                focus: () => "",
-                barBtn: (name, icon, callback) => {
-                    contentBarBtn.push({
-                        name: name,
-                        icon: icon,
-                        callback: callback
-                    });
-                },
-                ready: (f) => {
-                    contentReady.push(f);
-                }
-            },
-            intro: {
-                obj: {},
-                get: () => "",
-                insert: () => "",
-                put: () => "",
-                focus: () => "",
-                barBtn: (name, icon, callback) => {
-                    introBarBtn.push({
-                        name: name,
-                        icon: icon,
-                        callback: callback
-                    });
-                },
-                ready: (f) => {
-                    introReady.push(f);
-                }
-            }
+            content: makeEditorSlot(contentBarBtn, contentReady),
+            intro: makeEditorSlot(introBarBtn, introReady)
         }
     };
+
+    /* ----- */
+
+    let isSubmit = false; // 是否提交保存
 
     // 文章内容或摘要变动提示保存
     window.onbeforeunload = function() {
