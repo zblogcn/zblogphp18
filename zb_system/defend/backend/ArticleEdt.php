@@ -236,6 +236,50 @@ HookFilterPlugin('Filter_Plugin_Edit_Begin');
 </form>
 
 <script>
+    // 标题输入框的聚焦/失焦逻辑（保持与内联事件一致）
+    (() => {
+        const $title = $('#edtTitle');
+        if (!$title.length) return;
+        const unnamed = "{$lang['msg']['unnamed']}";
+        $title.on('focus', function() {
+            if (this.value === unnamed) this.value = '';
+        });
+        $title.on('blur', function() {
+            if (this.value === '') this.value = unnamed;
+        });
+    })();
+
+    // 显示 tags
+    (() => {
+        let tag_loaded = false; // 是否已经 ajax 读取过 TAGS
+        $(document).click(function(event) {
+            $('#ulTag').slideUp("fast");
+        });
+
+        $('#showtags').click(function(event) {
+            event.stopPropagation();
+            const offset = $(event.target).offset();
+            $('#ulTag').css({
+                top: offset.top + $(event.target).height() + 20 + "px",
+                left: offset.left
+            });
+            $('#ulTag').slideToggle("fast");
+            if (tag_loaded === false) {
+                const tag = ',' + $('#edtTag').val() + ',';
+                const url = $(this).data('url');
+                $.getScript(url, function() {
+                    $('#ajaxtags a').each(function() {
+                        if (tag.indexOf($(this).text()) != -1) {
+                            $(this).addClass('selected');
+                        }
+                    });
+                });
+                tag_loaded = true;
+            }
+            return false;
+        });
+    })();
+
     let sContent = "",
         sIntro = ""; // 原内容与摘要
     let isSubmit = false; // 是否提交保存
@@ -468,18 +512,6 @@ HookFilterPlugin('Filter_Plugin_Edit_End');
 {/php}
 
 <script>
+    // 调用编辑器初始化
     editor_init();
-
-    // 标题输入框的聚焦/失焦逻辑（保持与内联事件一致）
-    (function() {
-        const $title = $('#edtTitle');
-        if (!$title.length) return;
-        const unnamed = "{$lang['msg']['unnamed']}";
-        $title.on('focus', function() {
-            if (this.value === unnamed) this.value = '';
-        });
-        $title.on('blur', function() {
-            if (this.value === '') this.value = unnamed;
-        });
-    })();
 </script>
