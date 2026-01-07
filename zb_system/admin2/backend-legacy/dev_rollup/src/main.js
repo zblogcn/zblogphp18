@@ -1,4 +1,4 @@
-import "../sass/mz_admin2.scss";
+import "../sass/backend-legacy.scss";
 
 $(document).ready(function() {
 
