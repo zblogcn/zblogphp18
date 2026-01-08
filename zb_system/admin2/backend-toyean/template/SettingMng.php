@@ -9,6 +9,7 @@
         <li><a href="#tab4"><span>{$zbp->lang['msg']['comment_setting']}</span></a></li>
         <li><a href="#tab5"><span>{$zbp->langs->msg->backend_setting}</span></a></li>
         <li><a href="#tab6"><span>{$zbp->lang['msg']['api_setting']}</span></a></li>
+        <li><a href="#tab7"><span>{$zbp->lang['msg']['ai_setting']}</span></a></li>
       </ul>
       <div class="clear"></div>
     </div>
@@ -192,6 +193,23 @@
           <tr>
             <td><b>{$zbp->lang['msg']['api_display_count']}</b></td>
             <td><input id="ZC_API_DISPLAY_COUNT" name="ZC_API_DISPLAY_COUNT" type="text" value="{$zbp->option['ZC_API_DISPLAY_COUNT']}" class="input-90"></td>
+          </tr>
+        </table>
+      </div>
+      <!-- Tab 7 -->
+      <div class="tab-content" id="tab7">
+        <table class="table_hover table_striped tableFull">
+          <tr>
+            <td><b>API URL</b></td>
+            <td><input id="ZC_API_THROTTLE_MAX_REQS_PER_MIN" name="ZC_API_THROTTLE_MAX_REQS_PER_MIN" type="text" value="" class="input-90"></td>
+          </tr>
+          <tr>
+            <td><b>API Key</b></td>
+            <td><input id="ZC_API_DISPLAY_COUNT" name="ZC_API_DISPLAY_COUNT" type="text" value="" class="input-90"></td>
+          </tr>
+          <tr>
+            <td><b>大模型名称</b></td>
+            <td><input id="ZC_API_DISPLAY_COUNT" name="ZC_API_DISPLAY_COUNT" type="text" value="" class="input-90"></td>
           </tr>
         </table>
       </div>

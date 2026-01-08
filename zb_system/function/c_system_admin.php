@@ -1552,6 +1552,7 @@ function Admin_SettingMng()
                         <li><a href="#tab4"><span><?php echo $zbp->lang['msg']['comment_setting']; ?></span></a></li>
                         <li><a href="#tab5"><span><?php echo @$zbp->langs->msg->backend_setting; ?></span></a></li>
                         <li><a href="#tab6"><span><?php echo $zbp->lang['msg']['api_setting']; ?></span></a></li>
+                        <li><a href="#tab6"><span><?php echo $zbp->lang['msg']['ai_setting']; ?></span></a></li>
                     </ul>
                     <div class="clear"></div>
                 </div>

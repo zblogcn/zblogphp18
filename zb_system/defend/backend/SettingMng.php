@@ -9,6 +9,7 @@
                 <li><a href="#tab4"><span>{$zbp->lang['msg']['comment_setting']}</span></a></li>
                 <li><a href="#tab5"><span>{$zbp->langs->msg->backend_setting}</span></a></li>
                 <li><a href="#tab6"><span>{$zbp->lang['msg']['api_setting']}</span></a></li>
+                <li><a href="#tab6"><span>{$zbp->lang['msg']['ai_setting']}</span></a></li>
             </ul>
             <div class="clear"></div>
         </div>

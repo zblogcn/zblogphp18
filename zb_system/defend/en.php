@@ -117,6 +117,7 @@ return array(
         'page_setting'                      => 'Reading Settings',
         'comment_setting'                   => 'Discussion Settings',
         'api_setting'                       => 'API Settings',
+        'ai_setting'                        => 'AI Settings',
         'other_setting'                     => 'Other Settings',
         'blog_host'                         => 'Site Address (Site URL)',
         'blog_host_add'                     => 'Default automatic recognition. If you need to permanent your site address, please click on the button and enter your domain name.',
