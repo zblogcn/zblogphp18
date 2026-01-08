@@ -704,78 +704,6 @@ textarea {
     transform: translateY(0);
   }
 }
-.title {
-  margin-bottom: 14px;
-  zoom: 1;
-}
-.title::after {
-  content: "";
-  display: block;
-  clear: both;
-}
-.title h2 {
-  margin-bottom: 8px;
-  font-size: 32px;
-  color: #333;
-  font-weight: bold;
-  zoom: 1;
-}
-.title h2::after {
-  content: "";
-  display: block;
-  clear: both;
-}
-.title h2 span {
-  background: linear-gradient(0deg, #cce7ff 10%, transparent 20%);
-}
-.title h2 ul a {
-  margin-left: 18px;
-  padding: 0 12px;
-}
-.title h2 ul a:last-child {
-  margin-left: 0;
-}
-.title h2 ul span {
-  background: none;
-}
-.title h2 a {
-  height: 32px;
-  float: right;
-  display: inline;
-  margin-top: 4px;
-  padding: 0 12px 0 8px;
-  font-size: 14px;
-  color: #fff;
-  font-weight: normal;
-  line-height: 32px;
-  border: 1px solid #0188fb;
-  border-radius: 4px;
-  box-shadow: 0 4px 10px 0 rgba(1, 136, 251, 0.3);
-  background: #0188fb;
-  display: inline-block;
-  vertical-align: top;
-}
-.title h2 a.rebuild::before {
-  content: "\ec28";
-  margin-right: 4px;
-  font-size: 14px;
-  color: #fff;
-  font-family: zblog;
-  font-weight: normal;
-  display: inline-block;
-  vertical-align: top;
-}
-.title h2 a:hover {
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
-}
-.title p {
-  font-size: 16px;
-  color: #333;
-}
-#topmenu {
-  float: right;
-  display: inline;
-}
 .listcard {
   margin-bottom: 16px;
 }
@@ -2489,6 +2417,75 @@ select {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+}
+/*! 布局相关 */
+.title {
+  margin-bottom: 14px;
+  zoom: 1;
+}
+.title::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.title h2 {
+  margin-bottom: 8px;
+  font-size: 32px;
+  color: #333;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  zoom: 1;
+}
+.title h2::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.title h2 ul#topmenu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+.title h2 ul#topmenu a {
+  padding: 0 12px;
+}
+.title h2 ul#topmenu a:last-child {
+  margin-left: 0;
+}
+.title h2 a {
+  height: 32px;
+  margin-top: 4px;
+  padding: 0 12px 0 8px;
+  font-size: 14px;
+  color: #fff;
+  font-weight: normal;
+  line-height: 32px;
+  border: 1px solid #0188fb;
+  border-radius: 4px;
+  box-shadow: 0 4px 10px 0 rgba(1, 136, 251, 0.3);
+  background: #0188fb;
+  display: inline-block;
+  vertical-align: top;
+}
+.title h2 a.rebuild::before {
+  content: "\ec28";
+  margin-right: 4px;
+  font-size: 14px;
+  color: #fff;
+  font-family: zblog;
+  font-weight: normal;
+  display: inline-block;
+  vertical-align: top;
+}
+.title h2 a:hover {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+.title p {
+  font-size: 16px;
+  color: #333;
 }
 /*! 通用组件 */
 input[type="text"],

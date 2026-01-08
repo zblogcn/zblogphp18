@@ -7,6 +7,12 @@
   display: none !important;
 }
 
+.flex(@j: center; @a: center) {
+  display: flex;
+  justify-content: @j;
+  align-items: @a;
+}
+
 .clear() {
   &::after {
     content: "";

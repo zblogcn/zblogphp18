@@ -185,23 +185,6 @@ input,textarea { font-size:16px; font-family:"PingFang SC", -apple-system, Blink
 }
 .content { height:calc(~"100vh - 109px"); margin:0 auto; padding:24px 36px; outline:0; overflow-y:auto; animation:fadeIn 0.3s ease; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-.title { margin-bottom:14px; .clear();
-	h2 { margin-bottom:8px; font-size:32px; color:#333; font-weight:bold; .clear();
-		span { background:linear-gradient(0deg,#cce7ff 10%,transparent 20%); }
-		ul {
-			a { margin-left:18px; padding:0 12px;
-				&:last-child { margin-left:0; }
-			}
-			span { background:none; }
-		}
-		a { height:32px; .fr(); margin-top:4px; padding:0 12px 0 8px; font-size:14px; color:#fff; font-weight:normal; line-height:32px; border:1px solid @c; border-radius:4px; box-shadow:0 4px 10px 0 rgba(1,136,251,0.3); background:@c; .zoom;
-			&.rebuild::before { content:"\ec28"; margin-right:4px; font-size:14px; color:#fff; font-family:zblog; font-weight:normal; .zoom; }
-			&:hover { .shadow; }
-		}
-	}
-	p { font-size:16px; color:#333; }
-}
-#topmenu { .fr(); }
 .listcard { margin-bottom:16px;
 	&.one, &.two {
 		dl { padding:20px 22px; border:1px solid #e1e4ea; border-radius:14px; box-shadow:0 4px 2px -2px rgba(23,35,59,.06),0 2px 8px rgba(23,35,59,.04); background:#fff; transition-duration:300ms;
