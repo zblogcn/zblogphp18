@@ -209,7 +209,7 @@ HookFilterPlugin('Filter_Plugin_Edit_Begin');
 
                     <div id='islock' class="editmod">
                         <label for="edtIslock" class='editinputname'>{$lang['msg']['disable_comment']}</label>
-                        <input id="edtIslock" name="IsLock" type="text" value="{intval($article->IsLock)" class="checkbox" />
+                        <input id="edtIslock" name="IsLock" type="text" value="{intval($article->IsLock)}" class="checkbox" />
                     </div>
                     <!-- )IsLock -->
 
