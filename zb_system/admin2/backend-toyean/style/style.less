@@ -4,14 +4,9 @@
 @subc:#333;
 @greyc:#888;
 @borderc:#ebeef5;
-::-webkit-scrollbar{ width:8px; }
-::-webkit-scrollbar-track{ background:#f1f1f1; }
-::-webkit-scrollbar-thumb{ background:#c1c1c1 url('images/scrollbar-01.png') no-repeat center center; -webkit-border-radius:4px; -moz-border-radius:4px; border-radius:4px; }
-::-webkit-scrollbar-thumb:vertical:hover { background-color:#a8a8a8; }
-::-webkit-scrollbar-thumb:vertical:active { background-color:#787878; }
 a,img,button,input,textarea{-webkit-tap-highlight-color:rgba(255,255,255,0);}
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0; padding:0; font-size:100%; border:0; vertical-align:baseline; }
-body { font-size:@fz; color:@subc; font-family:Penrose, "PingFang SC", "Hiragino Sans GB", Tahoma, Arial, "Lantinghei SC", "Microsoft YaHei", "simsun", sans-serif; }
+body { font-size:@fz; color:@subc; font-family:Penrose, "PingFang SC", "Hiragino Sans GB", Tahoma, Arial, "Lantinghei SC", "Microsoft YaHei", "simsun", sans-serif; .scrollbar-light(); }
 h1,h2,h3,h4,h5,h6 { font-weight:normal; }
 a { color:@c; text-decoration:none; -webkit-transition:background-color .15s linear, color .15s linear; -moz-transition:background-color .15s linear, color .15s linear; -o-transition:background-color .15s linear, color .15s linear; -ms-transition:background-color .15s linear, color .15s linear; transition:background-color .15s linear, color .15s linear;
 	&:hover{ color:@c; text-decoration:none;
@@ -508,11 +503,7 @@ select { .hide; }
 		}
 	}
 	.menu {
-		&::-webkit-scrollbar{ width:8px; }
-		&::-webkit-scrollbar-track{ background:#222; }
-		&::-webkit-scrollbar-thumb{ background:#555 url('images/scrollbar-02.png') no-repeat center center; -webkit-border-radius:4px; -moz-border-radius:4px; border-radius:4px; }
-		&::-webkit-scrollbar-thumb:vertical:hover { background-color:rgba(255,255,255,.3); }
-		&::-webkit-scrollbar-thumb:vertical:active { background-color:rgba(255,255,255,.4); }
+		.scrollbar-dark();
 		li {
 			a { color:#d6d6d6;
 				.ico {
@@ -556,10 +547,7 @@ select { .hide; }
 		}
 	}
 	.content {
-		&::-webkit-scrollbar-track{ background:#222; }
-		&::-webkit-scrollbar-thumb{ background:#555 url('images/scrollbar-02.png') no-repeat center center; -webkit-border-radius:4px; -moz-border-radius:4px; border-radius:4px; }
-		&::-webkit-scrollbar-thumb:vertical:hover { background-color:rgba(255,255,255,.3); }
-		&::-webkit-scrollbar-thumb:vertical:active { background-color:rgba(255,255,255,.4); }
+		.scrollbar-dark();
 	}
 	.title {
 		h2 { color:#fff;
@@ -671,11 +659,7 @@ select { .hide; }
 	.nice-select { color:#ccc; border-color:#3a3a3a; background-color:#202020;
 		&:focus, &.open { color:#ccc; }
 		.list { color:#ccc; box-shadow:0 0 0 1px #434343; background-color:#3a3a3a;
-			&::-webkit-scrollbar{ width:8px; }
-			&::-webkit-scrollbar-track{ background:transparent; }
-			&::-webkit-scrollbar-thumb{ background:#666 url('images/scrollbar-02.png') no-repeat center center; -webkit-border-radius:4px; -moz-border-radius:4px; border-radius:4px; }
-			&::-webkit-scrollbar-thumb:vertical:hover { background-color:rgba(255,255,255,.3); }
-			&::-webkit-scrollbar-thumb:vertical:active { background-color:rgba(255,255,255,.4); }
+      .scrollbar-dark(transparent, #666, rgba(255,255,255,.3), rgba(255,255,255,.4), @scrollbar-thumb-img-dark);
 		}
 		.option {
 			&.selected { color:#fff; }
@@ -741,7 +725,7 @@ select { .hide; }
 	}
 	.fademask.on { display:block; }
 	.menu {
-		&::-webkit-scrollbar{ width:0; }
+		.scrollbar-hidden();
 		&ico { cursor:default; left:10px; }
 		&tip { .hide; }
 	}
@@ -756,7 +740,7 @@ select { .hide; }
 		&.on { padding-left:0; }
 	}
 	.content { height:calc(~"100vh - 89px"); padding:14px; scrollbar-width:none; -ms-overflow-style:none;
-		&::-webkit-scrollbar{ width:0; }
+		.scrollbar-hidden();
 	}
 	.title {
 		h2 { font-size:26px;
