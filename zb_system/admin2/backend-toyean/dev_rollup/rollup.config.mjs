@@ -14,7 +14,7 @@ const appName = path.basename(appPath);
 // Normalize path for globs (replace backslashes with forward slashes)
 const toPosix = (p) => p.replace(/\\/g, '/');
 // 产物复制到的目录
-const distJS = path.join(appPath, 'script');
+// const distJS = path.join(appPath, 'script');
 const distCSS = path.join(appPath, 'style');
 
 // 加载环境变量
@@ -42,10 +42,10 @@ const defConfig = {
     }),
     copy({
       targets: [
-        {
-          src: `dist/${appName}.js`,
-          dest: distJS,
-        },
+        // {
+        //   src: `dist/${appName}.js`,
+        //   dest: distJS,
+        // },
         {
           src: `dist/${appName}.css`,
           dest: distCSS,
