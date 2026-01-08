@@ -34,3 +34,13 @@ return array (
 git clone https://github.com/zblogcn/zblogphp18.git
 
 ```
+
+### 2️⃣ 后台样式的工程化开发（rollup）
+
+新版提供两套后台主题，分别为经典版（`backend-legacy`）与新样式版（`backend-toyean`）。两者均采用 rollup 进行构建最终 css 或 js 产物。
+
+点击查看对应文档：
+
+- [backend-legacy/dev_rollup#readme](https://github.com/zblogcn/zblogphp18/tree/main/zb_system/admin2/backend-legacy/dev_rollup#readme "backend-legacy/dev_rollup#readme")
+- [backend-toyean/dev_rollup#readme](https://github.com/zblogcn/zblogphp18/tree/main/zb_system/admin2/backend-toyean/dev_rollup#readme "backend-toyean/dev_rollup#readme")
+

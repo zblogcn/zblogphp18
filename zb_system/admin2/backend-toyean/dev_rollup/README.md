@@ -20,6 +20,7 @@
 ```bash
 # 安装 pnpm （使用国内镜像源以加速下载）
 npm install -g pnpm --registry=https://registry.npmmirror.com
+
 ```
 
 ---
@@ -30,6 +31,7 @@ npm install -g pnpm --registry=https://registry.npmmirror.com
 
 ```bash
 pnpm install # 简写 pnpm i
+
 ```
 
 安装后会自动将 `.env.sample` 复制为 `.env`（若 `.env` 不存在）。
@@ -43,6 +45,7 @@ pnpm install # 简写 pnpm i
 ```dotenv
 PROXY=http://127.0.0.1:8081/
 ZB_SYSTEM=/root/www/zbp/zb_system/
+
 ```
 
 - `PROXY`：BrowserSync 代理目标地址（本地站点地址）。未设置时默认使用 `http://localhost`。
@@ -63,6 +66,7 @@ pnpm run build
 
 # 代码检查（如本地配置了 ESLint）
 pnpm run lint
+
 ```
 
 - `dev`：
@@ -91,17 +95,3 @@ pnpm run lint
 
 ---
 
-## 进阶：PurgeCSS（可选）
-
-`rollup.config.mjs` 中预置了 PurgeCSS（默认注释）。若需在生产构建中剔除未使用的 CSS，可按需开启并设置扫描范围，例如：
-
-```js
-// 在 rollup.config.mjs 的 postcss 配置内启用插件
-plugins: [
-  purgeCSSPlugin({
-    content: [path.join(appPath, 'template', '*.php')],
-  }),
-]
-```
-
-启用前请确认模板路径与实际页面结构一致，以免误删必要样式。
