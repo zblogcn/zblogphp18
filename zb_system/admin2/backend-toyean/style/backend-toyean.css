@@ -5,7 +5,7 @@
   background: #f1f1f1;
 }
 ::-webkit-scrollbar-thumb {
-  background: #c1c1c1 url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAHAQMAAAAVq36TAAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAABBJREFUCNdjSGAAgQ9gMgEAC94BsRoDbWkAAAAASUVORK5CYII=) no-repeat center center;
+  background: #c1c1c1 url('images/scrollbar-01.png') no-repeat center center;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
@@ -1787,7 +1787,7 @@ select {
   background: #222;
 }
 .night .menu::-webkit-scrollbar-thumb {
-  background: #555 url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAHAQMAAAAVq36TAAAABlBMVEUAAADMzMzIT8AyAAAAAXRSTlMAQObYZgAAABBJREFUCNdjSGAAgQ9gMgEAC94BsRoDbWkAAAAASUVORK5CYII=) no-repeat center center;
+  background: #555 url('images/scrollbar-02.png') no-repeat center center;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
@@ -1865,7 +1865,7 @@ select {
   background: #222;
 }
 .night .content::-webkit-scrollbar-thumb {
-  background: #555 url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAHAQMAAAAVq36TAAAABlBMVEUAAADMzMzIT8AyAAAAAXRSTlMAQObYZgAAABBJREFUCNdjSGAAgQ9gMgEAC94BsRoDbWkAAAAASUVORK5CYII=) no-repeat center center;
+  background: #555 url('images/scrollbar-02.png') no-repeat center center;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
@@ -2058,7 +2058,7 @@ select {
   background: transparent;
 }
 .night .nice-select .list::-webkit-scrollbar-thumb {
-  background: #666 url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAHAQMAAAAVq36TAAAABlBMVEUAAADMzMzIT8AyAAAAAXRSTlMAQObYZgAAABBJREFUCNdjSGAAgQ9gMgEAC94BsRoDbWkAAAAASUVORK5CYII=) no-repeat center center;
+  background: #666 url('images/scrollbar-02.png') no-repeat center center;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
