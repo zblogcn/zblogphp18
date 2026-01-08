@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     'theme_name'     => 'Default主题',
     'view'           => '浏览',
     'comment_list'   => '评论列表',
@@ -9,4 +9,4 @@ return array(
     'add_reply'      => '发表评论',
     'cancel_reply'   => '取消回复',
     'reply_notice'   => '◎欢迎参与讨论，请在这里发表您的看法、交流您的观点。',
-);
+];
