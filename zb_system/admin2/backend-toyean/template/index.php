@@ -31,12 +31,12 @@
     {php}HookFilterPlugin('Filter_Plugin_Admin_Header');{/php}
 </head>
 
-<body class="admin admin-{$action}{if GetVars('night','COOKIE')} night{/if}">
+<body class="admin admin-{$action}{if GetVars('night','COOKIE')==1} night{/if}">
     <div class="wrapper">
         <!-- <p>title: {$title}</p> -->
         <!-- <p>action: {$action}</p> -->
         {template:layout_left}
-        <div class="main{if GetVars('side','COOKIE')} on{/if}">
+        <div class="main{if GetVars('side','COOKIE')==1} on{/if}">
             {template:layout_top}
             {template:layout_main}
         </div>
