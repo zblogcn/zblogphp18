@@ -73,15 +73,26 @@
 
 <div class="listcard one">
     <dl>
-        <dt>Z-BLOG网站和程序开发</dt>
+        <dt>{$zbp->lang['msg']['develop_intro']}</dt>
         <dd>
-            {php}<?php
-                    // thanks
-                    $pattern = '/<thead>(.*?)<\/thead>/s';
-                    $replacement = '';
-                    $result = preg_replace($pattern, $replacement, $thanksinfo);
-                    echo $thanksinfo = $result;
-                    ?>{/php}
+            <table class="tableFull tableBorder table_hover table_striped" id="thankslist">
+                <tbody>
+                    {foreach $thanksInfo as $group}
+                    <tr>
+                        <td class="td20">{$group['category']}</td>
+                        <td>
+                            {foreach $group['items'] as $item}
+                                {if isset($item['url'])}
+                                    <a target="_blank" href="{$item['url']}" title="{if isset($item['title'])}{$item['title']}{/if}" rel="noreferrer">{$item['name']}</a>&nbsp;
+                                {else}
+                                    <span title="{if isset($item['title'])}{$item['title']}{/if}">{$item['name']}</span>
+                                {/if}
+                            {/foreach}
+                        </td>
+                    </tr>
+                    {/foreach}
+                </tbody>
+            </table>
         </dd>
     </dl>
 </div>
