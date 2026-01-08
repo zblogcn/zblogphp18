@@ -291,6 +291,9 @@ return [
         'external_link_continue'            => 'Continue',
         'closemenu'                         => 'Collapse',
         'expandmenu'                        => 'Expand',
+        'ai_url'                            => 'AI Url',
+        'ai_key'                            => 'AI Key',
+        'ai_model'                          => 'AI Model',
         ''                                  => '',
     ],
 

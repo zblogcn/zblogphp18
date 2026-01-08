@@ -194,16 +194,16 @@
             <div class="tab-content" id="tab7">
                 <table class="table_hover table_striped tableFull">
                     <tr>
-                        <td><b>API URL</b></td>
-                        <td><input id="" name="" type="text" value="" class="input-90"></td>
+                        <td><b>{$zbp->lang['msg']['ai_url']}</b></td>
+                        <td><input id="ZC_AI_API_URL" name="ZC_AI_API_URL" type="text" value="{$zbp->option['ZC_AI_API_URL']}" class="input-90"></td>
                     </tr>
                     <tr>
-                        <td><b>API Key</b></td>
-                        <td><input id="" name="" type="text" value="" class="input-90"></td>
+                        <td><b>{$zbp->lang['msg']['ai_key']}</b></td>
+                        <td><input id="ZC_AI_API_KEY" name="ZC_AI_API_KEY" type="text" value="{$zbp->option['ZC_AI_API_KEY']}" class="input-90"></td>
                     </tr>
                     <tr>
-                        <td><b>大模型名称</b></td>
-                        <td><input id="" name="" type="text" value="" class="input-90"></td>
+                        <td><b>{$zbp->lang['msg']['ai_model']}</b></td>
+                        <td><input id="ZC_AI_API_MODEL" name="ZC_AI_API_MODEL" type="text" value="{$zbp->option['ZC_AI_API_MODEL']}" class="input-90"></td>
                     </tr>
                 </table>
             </div>

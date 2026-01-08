@@ -291,6 +291,10 @@ return [
         ''                                  => '',
         'closemenu'                         => '收起菜单',
         'expandmenu'                        => '展开菜单',
+        'ai_url'                            => 'AI Url',
+        'ai_key'                            => 'AI Key',
+        'ai_model'                          => 'AI模型名',
+
     ],
 
     //Action
