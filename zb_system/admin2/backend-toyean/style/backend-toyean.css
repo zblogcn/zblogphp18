@@ -1,10 +1,8 @@
-a,
-img,
-button,
-input,
-textarea {
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-}
+/*! 基础工具类 */
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
 html,
 body,
 div,
@@ -47,7 +45,6 @@ var,
 b,
 u,
 i,
-center,
 dl,
 dt,
 dd,
@@ -88,9 +85,128 @@ audio,
 video {
   margin: 0;
   padding: 0;
-  font-size: 100%;
   border: 0;
+  font-size: 100%;
+  font: inherit;
   vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+:root {
+  --color-primary: #0188fb;
+  --color-primary-strong: #1d4ed8;
+  --color-primary-hover: #3b82f6;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f9fafb;
+  --color-text-strong: #111827;
+  --color-text-muted: #6b7280;
+  --color-border: #eaeaea;
+  --color-border-input: #d1d5db;
+  --color-border-hover: #9ca3af;
+  --color-table-border: #f3f4f6;
+  --color-text: #374151;
+  --color-focus-ring: rgba(59, 130, 246, 0.15);
+  --color-switch-off: #e5e7eb;
+  --radius-card: 8px;
+  --radius-input: 6px;
+  --radius-button: 8px;
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.05);
+  --shadow-btn: 0 4px 6px -1px rgba(37, 99, 235, 0.3), 0 2px 4px -1px rgba(37, 99, 235, 0.15);
+  --shadow-btn-hover: 0 6px 8px -1px rgba(37, 99, 235, 0.4), 0 3px 6px -1px rgba(37, 99, 235, 0.2);
+  --shadow-btn-active: 0 2px 4px -1px rgba(37, 99, 235, 0.3);
+  --shadow-switch: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-switch-knob: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --padding-tab-x: 24px;
+  --padding-tab-y: 18px;
+  --gap-tab: 25px;
+}
+/* 显式强制暗色 */
+.night {
+  --color-primary: #2563eb;
+  --color-primary-strong: #1d4ed8;
+  --color-primary-hover: #3b82f6;
+  --color-surface: #161616;
+  --color-surface-muted: #242424;
+  --color-text: #d6d6d6;
+  --color-text-strong: #f9fafb;
+  --color-text-muted: #9ca3af;
+  --color-border: #334155;
+  --color-border-input: #475569;
+  --color-border-hover: #64748b;
+  --color-table-border: #334155;
+  --color-focus-ring: rgba(59, 130, 246, 0.45);
+  --color-switch-off: #374151;
+  --radius-card: 8px;
+  --radius-input: 6px;
+  --radius-button: 8px;
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.5), 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-btn: 0 4px 6px -1px rgba(37, 99, 235, 0.35), 0 2px 4px -1px rgba(37, 99, 235, 0.2);
+  --shadow-btn-hover: 0 6px 12px -2px rgba(37, 99, 235, 0.45), 0 3px 8px -2px rgba(37, 99, 235, 0.25);
+  --shadow-btn-active: 0 2px 4px -1px rgba(37, 99, 235, 0.35);
+  --shadow-switch: inset 0 2px 4px rgba(0, 0, 0, 0.35);
+  --shadow-switch-knob: 0 1px 3px rgba(0, 0, 0, 0.6), 0 1px 2px rgba(0, 0, 0, 0.4);
+  --padding-tab-x: 24px;
+  --padding-tab-y: 18px;
+  --gap-tab: 25px;
+}
+.hide,
+.hidden {
+  display: none !important;
+}
+.zoom {
+  display: inline-block;
+  vertical-align: top;
+}
+.nowrap {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+a,
+img,
+button,
+input,
+textarea {
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 body {
   font-size: 16px;
@@ -136,10 +252,6 @@ a:hover {
 }
 i {
   font-style: normal;
-}
-ul,
-ol {
-  list-style-type: none;
 }
 img {
   max-width: 100%;
@@ -2346,77 +2458,6 @@ select {
   .night .td-action {
     border-color: #434343;
   }
-}
-/*! 基础工具类 */
-:root {
-  --color-primary: #0188fb;
-  --color-primary-strong: #1d4ed8;
-  --color-primary-hover: #3b82f6;
-  --color-surface: #ffffff;
-  --color-surface-muted: #f9fafb;
-  --color-text-strong: #111827;
-  --color-text-muted: #6b7280;
-  --color-border: #eaeaea;
-  --color-border-input: #d1d5db;
-  --color-border-hover: #9ca3af;
-  --color-table-border: #f3f4f6;
-  --color-text: #374151;
-  --color-focus-ring: rgba(59, 130, 246, 0.15);
-  --color-switch-off: #e5e7eb;
-  --radius-card: 8px;
-  --radius-input: 6px;
-  --radius-button: 8px;
-  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.05);
-  --shadow-btn: 0 4px 6px -1px rgba(37, 99, 235, 0.3), 0 2px 4px -1px rgba(37, 99, 235, 0.15);
-  --shadow-btn-hover: 0 6px 8px -1px rgba(37, 99, 235, 0.4), 0 3px 6px -1px rgba(37, 99, 235, 0.2);
-  --shadow-btn-active: 0 2px 4px -1px rgba(37, 99, 235, 0.3);
-  --shadow-switch: inset 0 2px 4px rgba(0, 0, 0, 0.05);
-  --shadow-switch-knob: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
-  --padding-tab-x: 24px;
-  --padding-tab-y: 18px;
-  --gap-tab: 25px;
-}
-/* 显式强制暗色 */
-.night {
-  --color-primary: #2563eb;
-  --color-primary-strong: #1d4ed8;
-  --color-primary-hover: #3b82f6;
-  --color-surface: #161616;
-  --color-surface-muted: #242424;
-  --color-text: #d6d6d6;
-  --color-text-strong: #f9fafb;
-  --color-text-muted: #9ca3af;
-  --color-border: #334155;
-  --color-border-input: #475569;
-  --color-border-hover: #64748b;
-  --color-table-border: #334155;
-  --color-focus-ring: rgba(59, 130, 246, 0.45);
-  --color-switch-off: #374151;
-  --radius-card: 8px;
-  --radius-input: 6px;
-  --radius-button: 8px;
-  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.5), 0 8px 24px rgba(0, 0, 0, 0.35);
-  --shadow-btn: 0 4px 6px -1px rgba(37, 99, 235, 0.35), 0 2px 4px -1px rgba(37, 99, 235, 0.2);
-  --shadow-btn-hover: 0 6px 12px -2px rgba(37, 99, 235, 0.45), 0 3px 8px -2px rgba(37, 99, 235, 0.25);
-  --shadow-btn-active: 0 2px 4px -1px rgba(37, 99, 235, 0.35);
-  --shadow-switch: inset 0 2px 4px rgba(0, 0, 0, 0.35);
-  --shadow-switch-knob: 0 1px 3px rgba(0, 0, 0, 0.6), 0 1px 2px rgba(0, 0, 0, 0.4);
-  --padding-tab-x: 24px;
-  --padding-tab-y: 18px;
-  --gap-tab: 25px;
-}
-.hide,
-.hidden {
-  display: none !important;
-}
-.zoom {
-  display: inline-block;
-  vertical-align: top;
-}
-.nowrap {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
 }
 /*! 布局相关 */
 .title {
