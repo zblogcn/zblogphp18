@@ -159,15 +159,6 @@ textarea {
   font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", "Source Han Sans", "Noto Sans CJK Sc", "Microsoft YaHei", "Microsoft Jhenghei", sans-serif;
   outline: 0;
 }
-.zoom {
-  display: inline-block;
-  vertical-align: top;
-}
-.nowrap {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
 @font-face {
   font-family: 'iconfont';
   src: url('fonts/iconfont.woff2') format('woff2'), url('fonts/iconfont.woff') format('woff'), url('fonts/iconfont.ttf') format('truetype');
@@ -192,9 +183,6 @@ textarea {
 }
 .shadow {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
-}
-.hide {
-  display: none !important;
 }
 .wrap {
   width: 1280px;
@@ -2435,6 +2423,20 @@ select {
   .night .td-action {
     border-color: #434343;
   }
+}
+/*! 基础工具类 */
+.hide,
+.hidden {
+  display: none !important;
+}
+.zoom {
+  display: inline-block;
+  vertical-align: top;
+}
+.nowrap {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 /*! 通用组件 */
 input[type="text"],

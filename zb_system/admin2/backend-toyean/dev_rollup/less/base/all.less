@@ -1,0 +1,42 @@
+.hide,
+.hidden {
+  display: none !important;
+}
+
+.clear() {
+  &::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+  zoom:1;
+}
+
+.fl(@l: left) {
+  float: @l;
+  display: inline;
+}
+
+.fr(@r: right) {
+  float: @r;
+  display: inline;
+}
+
+.zoom {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.nowrap {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.clamp(@num: 3) {
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: @num;
+  overflow: hidden;
+  display: -webkit-box;
+}
