@@ -2472,11 +2472,6 @@ textarea:focus {
   min-height: 120px;
   resize: vertical;
 }
-input.checkbox[type="text"] {
-  width: 50px;
-  text-align: center;
-  border-radius: 20px;
-}
 input.button,
 #btnPost {
   display: inline-flex;
@@ -2638,4 +2633,79 @@ span.imgcheck-disabled {
     display: block;
     padding-bottom: 15px;
   }
+}
+/*! 独立页面 */
+/* 使用 Grid 布局：主内容 + 侧栏 */
+form.post-edit {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 270px;
+  padding-right: 5px;
+}
+form.post-edit .editmod {
+  margin: 1em 0;
+}
+form.post-edit .editmod label {
+  max-width: 65px;
+  text-overflow: ellipsis;
+}
+form.post-edit .editmod .editinputname {
+  vertical-align: middle;
+  padding: 0 2px 0 3px;
+  line-height: 1em;
+  font-size: 1.05em;
+  font-weight: bold;
+}
+form.post-edit #edtTitle,
+form.post-edit #edtAlias,
+form.post-edit #edtTag {
+  max-width: 520px;
+  width: 99% !important;
+}
+#divEditLeft {
+  /* 主栏内元素占据第一列 (默认) */
+}
+#divEditLeft #ulTag {
+  margin: 0 3em;
+}
+#divEditLeft #ulTag #ajaxtags {
+  background: #f8f8f8;
+  box-shadow: 0 0 10px #aaa;
+  padding: 1em;
+}
+#divEditLeft #ulTag #ajaxtags a {
+  margin-right: 1em;
+}
+#divEditLeft #ulTag #ajaxtags a.selected {
+  color: black;
+  background: #f8f889;
+}
+#divEditLeft #carea,
+#divEditLeft #tarea,
+#divEditLeft #editor_content,
+#divEditLeft #editor_intro {
+  width: 100%;
+}
+#divEditLeft #carea,
+#divEditLeft #tarea {
+  margin: 5px 0 0;
+}
+#divEditLeft #editor_content {
+  min-height: 320px;
+}
+#divEditLeft #editor_intro {
+  min-height: 160px;
+}
+#divEditRight {
+  /* 侧栏在第二列 */
+  justify-self: end;
+  text-align: right;
+}
+#divEditRight .editmod select,
+#divEditRight .editmod input[type="text"],
+#divEditRight #btnPost {
+  width: 180px;
+  height: 38px;
+}
+#divEditRight .editmod#istop select {
+  width: 80px;
 }
