@@ -2349,12 +2349,6 @@ span.imgcheck-disabled {
   background: #434343;
 }
 /* select */
-select {
-  display: none;
-}
-select {
-  display: none !important;
-}
 .nice-select {
   min-width: 120px;
   height: 36px;
