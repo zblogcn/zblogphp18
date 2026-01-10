@@ -951,20 +951,9 @@ img {
 .night .usermenu li a:hover {
   background-color: #333;
 }
-.wrap {
-  width: 1280px;
-  margin: 0 auto;
-}
-.wrap::after {
-  content: "";
-  display: table;
-  clear: both;
-}
 .wrapper {
+  background-color: var(--color-surface-muted, #f9fafb);
   height: 100vh;
-  position: relative;
-  overflow: hidden;
-  display: block;
 }
 .main {
   padding-left: 181px;
@@ -1115,9 +1104,6 @@ img {
 }
 .night .title p {
   color: #ccc;
-}
-.night .wrapper {
-  background-color: #1e1e1e;
 }
 /*! 通用组件 */
 input[type="text"],
