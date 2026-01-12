@@ -138,6 +138,7 @@ table {
   --color-primary-hover: #3b82f6;
   --color-surface: #ffffff;
   --color-surface-muted: #f9fafb;
+  --color-background: #ecedee;
   --color-text-strong: #111827;
   --color-text-muted: #6b7280;
   --color-border: #eaeaea;
@@ -167,6 +168,7 @@ table {
   --color-primary-hover: #3b82f6;
   --color-surface: #161616;
   --color-surface-muted: #242424;
+  --color-background: #161616;
   --color-text: #d6d6d6;
   --color-text-strong: #f9fafb;
   --color-text-muted: #9ca3af;
@@ -2217,23 +2219,21 @@ table tr:last-child td {
   }
 }
 .pagebar {
-  height: 36px;
-  margin: 20px auto 0;
-  color: #333;
-  line-height: 36px;
-  border: 1px solid #eaeaea;
-  border-radius: 4px;
-  box-shadow: 0 4px 2px -2px rgba(23, 35, 59, 0.06), 0 2px 8px rgba(23, 35, 59, 0.04);
-  background: #fff;
-  overflow: hidden;
-  display: table;
+  margin-top: 20px;
+  color: var(--color-text-strong);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .pagebar span,
 .pagebar a {
-  padding: 0 12px;
-  font-size: 14px;
-  box-sizing: border-box;
-  display: inline-block;
+  border: 1px solid var(--color-border);
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+.pagebar span:not(:last-child),
+.pagebar a:not(:last-child) {
+  margin-right: 8px;
 }
 .pagebar .now-page {
   color: #fff;
@@ -2244,21 +2244,7 @@ table tr:last-child td {
 }
 .pagebar a:hover {
   color: #0188fb;
-  background: #e8f6ff;
-}
-.night .pagebar {
-  border-color: #434343;
-  background-color: #242424;
-}
-.night .pagebar span,
-.night .pagebar a {
-  color: #999;
-}
-.night .pagebar .now-page {
-  color: #fff;
-}
-.night .pagebar a:hover {
-  background: #434343;
+  border: 1px solid var(--color-border-hover);
 }
 /* select */
 .nice-select {
