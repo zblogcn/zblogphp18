@@ -58,17 +58,16 @@ i.icon-arrow-repeat.loading-status:before {
   padding: 0.3em 0.5em 0.3em 0.8em;
   line-height: 1.5em;
   border-radius: 4px;
+  display: flex;
+  align-items: center;
 }
 .hint p:before {
+  height: 19px;
+  width: 19px;
   font-family: "zblog" !important;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  vertical-align: middle;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  margin-right: 8px;
+  margin-right: 4px;
+  display: inline-flex;
+  justify-content: center;
 }
 .hint p.hint_good {
   border-color: #a8de9e;
