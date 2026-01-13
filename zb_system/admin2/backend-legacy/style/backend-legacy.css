@@ -102,6 +102,10 @@ img.plugin-off {
   display: none;
 }
 
+.block {
+  display: block;
+}
+
 /*! 布局组件 */
 body.admin {
   display: grid;
@@ -463,6 +467,10 @@ input[readonly], input[readonly]:hover {
 
 textarea {
   height: auto;
+}
+
+#edit textarea[name=Intro] {
+  width: 600px;
 }
 
 /* checkbox */
