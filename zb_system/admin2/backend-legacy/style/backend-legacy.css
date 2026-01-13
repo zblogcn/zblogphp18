@@ -488,6 +488,12 @@ textarea {
   width: 600px;
 }
 
+.label-flex {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+}
+
 /* checkbox */
 .imgcheck {
   background: none !important;

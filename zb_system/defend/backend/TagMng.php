@@ -54,7 +54,7 @@
         {/if}
         {/foreach}
 
-        <input type="submit" name="all_del" onclick="return confirmDelete();" value="{$zbp.lang['msg']['all_del']}" class="button" />
+        <input type="submit" name="all_del" onclick="return confirmDelete();" value="{$zbp.lang['msg']['all_del']}" class="button pull-right mr-10" />
     </p>
 
 </form>

@@ -24,7 +24,7 @@
             </select>
         </label>
         <!-- 置顶 -->
-        <label>
+        <label class="label-flex">
             <input type="checkbox" name="istop" value="True" />{$zbp.lang['msg']['top']}
         </label>
 
