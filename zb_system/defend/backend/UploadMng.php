@@ -13,7 +13,7 @@
 </form>
 
 <!-- 文件列表 -->
-<table class="tableFull tableBorder tableBorder-thcenter table_hover table_striped">
+<table class="tableFull tableBorder thCenter table_hover table_striped">
     <tr>
         <th>{$zbp.lang['msg']['id']}{$button_id_html}</th>
         <th>{$zbp.lang['msg']['author']}{$button_authorid_html}</th>

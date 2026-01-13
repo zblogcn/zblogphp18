@@ -8,7 +8,7 @@
     </p>
 </form>
 
-<table class="tableFull tableBorder tableBorder-thcenter table_hover table_striped">
+<table class="tableFull tableBorder thCenter table_hover table_striped">
     <tr>
         <th>{$zbp.lang['msg']['id']}{$button_id_html}</th>
         <th>{$zbp.lang['msg']['order']}{$button_order_html}</th>

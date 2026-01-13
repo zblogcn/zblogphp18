@@ -35,7 +35,7 @@
 
 <form method="post" action="{$zbp.cmdurl}?act=PostBat&type={$post_type}">
     <!-- 文章列表 -->
-    <table class="tableFull tableBorder table_hover table_striped tableBorder-thcenter">
+    <table class="tableFull tableBorder table_hover table_striped thCenter">
         <!-- 表头 -->
         <tr>
             <th>{$zbp.lang['msg']['id']}{$button_id_html}</th>
