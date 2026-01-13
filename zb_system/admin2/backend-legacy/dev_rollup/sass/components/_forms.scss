@@ -28,6 +28,18 @@ form {
     select {
       height: 33px;
     }
+
+    select {
+      min-width: 150px;
+    }
+
+    input[type=text] {
+      width: 200px;
+    }
+
+    p>*:not(:last-child) {
+      margin-right: .7em;
+    }
   }
 }
 

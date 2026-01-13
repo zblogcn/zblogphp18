@@ -403,6 +403,15 @@ form.search input.button,
 form.search select {
   height: 33px;
 }
+form.search select {
+  min-width: 150px;
+}
+form.search input[type=text] {
+  width: 200px;
+}
+form.search p > *:not(:last-child) {
+  margin-right: 0.7em;
+}
 
 textarea, select, input {
   border: 1px solid #ccc;
