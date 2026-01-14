@@ -31,28 +31,26 @@
     <main class="login-container">
         <form class="login-form" method="post" action="#">
             <input type="hidden" name="csrfToken" value="{$zbp.GetCSRFToken('login','minute')}">
-            <div class="form-row two-col">
+            <div class="form-row">
                 <div class="field username">
                     <label for="edtUserName">{$lang['msg']['username']}</label>
                     <input type="text" id="edtUserName" name="edtUserName" size="20" value="{php}echo GetVars('username', 'COOKIE');{/php}" tabindex="1" />
                 </div>
+
                 <div class="field password">
                     <label for="edtPassWord">{$lang['msg']['password']}</label>
                     <input type="password" id="edtPassWord" name="edtPassWord" size="20" tabindex="2" />
                 </div>
-            </div>
 
-            {if $zbp->option['ZC_LOGIN_VERIFY_ENABLE']}
-            <div class="form-row captcha">
+                {if $zbp->option['ZC_LOGIN_VERIFY_ENABLE']}
                 <div class="field">
                     <label for="edtValidcode">{$lang['msg']['validcode']}</label>
                     <input type="text" maxlength="{$zbp.option['ZC_VERIFYCODE_LENGTH']}" id="edtValidcode" name="verify" size="20" tabindex="10" />
                     <img class="captcha-img" src="{$host}zb_system/script/c_validcode.php?id=login&time=m" onClick="javascript:this.src='{$host}zb_system/script/c_validcode.php?id=login&time=m&tm='+Math.random();" alt="validcode" />
                 </div>
-                <div class="field placeholder">
-                </div>
+                <div class="field placeholder"></div>
+                {/if}
             </div>
-            {/if}
 
             <div class="form-row actions">
                 <label class="remember"><input type="checkbox" name="chkRemember" id="chkRemember" tabindex="98" />{$lang['msg']['stay_signed_in']}</label>

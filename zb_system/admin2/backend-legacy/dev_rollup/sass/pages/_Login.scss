@@ -1,5 +1,9 @@
 @use "../base/variables" as *;
 
+body.admin-login {
+  min-width: 100%;
+}
+
 .login-header {
   height: 260px;
   padding-bottom: 13px;
@@ -21,9 +25,7 @@
 
 /* 表单容器 */
 .login-container {
-  max-width: 960px;
   margin: 0 auto;
-  // padding: 48px 20px 0;
   display: flex;
   justify-content: center;
 
@@ -33,8 +35,7 @@
 
   .form-row {
     display: flex;
-    // gap: 36px;
-    margin-bottom: 20px;
+    flex-wrap: wrap;
   }
 
   /* 操作区 */
@@ -43,7 +44,6 @@
       margin-right: auto;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
     }
   }
 
@@ -51,6 +51,7 @@
     flex: 1;
     display: flex;
     align-items: center;
+    margin-bottom: 20px;
   }
 
   .field label {
@@ -66,5 +67,19 @@
     height: 32px;
     border-radius: 2px;
   }
+}
 
+/* 响应式：小屏改为单列 */
+@media (max-width: 720px) {
+  .login-form {
+    width: 100%;
+
+    .form-row {
+      padding: 0 30px 0 20px;
+
+      .field.placeholder {
+        display: none;
+      }
+    }
+  }
 }
