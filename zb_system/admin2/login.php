@@ -14,5 +14,4 @@ $zbp->template_admin->SetTags('lang', $lang);
 $zbp->template_admin->SetTags('blogname', $blogname);
 $zbp->template_admin->Display('login');
 
-
 RunTime();
