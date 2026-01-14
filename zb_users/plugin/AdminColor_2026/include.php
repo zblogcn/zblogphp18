@@ -7,7 +7,7 @@ RegisterPlugin('AdminColor_2026', 'ActivePlugin_AdminColor_2026');
 function ActivePlugin_AdminColor_2026()
 {
     global $zbp;
-    if ($zbp->option['ZC_BACKEND_ID'] == 'backend-legacy') {
+    if ('backend-legacy' == $zbp->option['ZC_BACKEND_ID']) {
         Add_Filter_Plugin('Filter_Plugin_Admin_SettingMng_SubMenu', 'AdminColor_2026_submenu');
         Add_Filter_Plugin('Filter_Plugin_Admin_Header', 'AdminColor_2026_Main_Header');
         Add_Filter_Plugin('Filter_Plugin_Admin_Footer', 'AdminColor_2026_Main_Footer');
