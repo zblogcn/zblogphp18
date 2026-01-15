@@ -43,7 +43,7 @@
                 </div>
 
                 {if $zbp->option['ZC_LOGIN_VERIFY_ENABLE']}
-                <div class="field">
+                <div class="field validcode">
                     <label for="edtValidcode">{$lang['msg']['validcode']}</label>
                     <input type="text" maxlength="{$zbp.option['ZC_VERIFYCODE_LENGTH']}" id="edtValidcode" name="verify" size="20" tabindex="10" />
                     <img class="captcha-img" src="{$host}zb_system/script/c_validcode.php?id=login&time=m" onClick="javascript:this.src='{$host}zb_system/script/c_validcode.php?id=login&time=m&tm='+Math.random();" alt="validcode" />
