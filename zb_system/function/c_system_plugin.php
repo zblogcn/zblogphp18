@@ -968,9 +968,9 @@ DefinePluginFilter('Filter_Plugin_Login_Header');
 '**************************************************<
 '类型:Filter
 '名称:Filter_Plugin_Login_Input_Insert
-'参数:
+'参数:$input_classname, $input_id, $input_label, $input_tabindex, $input_type
 '说明:定义Login.php首页Input_Insert接口
-'调用:
+'调用:第三个参数为null，就直接echo 第二个参数$input_id(html源码)以支持高级验证码;
 '**************************************************>
  */
 DefinePluginFilter('Filter_Plugin_Login_Input_Insert');
