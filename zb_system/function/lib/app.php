@@ -774,7 +774,7 @@ class App
 
         $type = $xml['type'];
         $id = $xml->id;
-        $dir = $zbp->userdir . $type . '/';
+        $dir = $zbp->usersdir . $type . '/';
 
         ZbpErrorControl::SuspendErrorHook();
 
