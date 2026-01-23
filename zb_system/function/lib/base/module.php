@@ -16,8 +16,7 @@ if (!defined('ZBP_PATH')) {
  */
 abstract class Base__Module extends Base
 {
-
-    public $private_links = array();
+    public $private_links = [];
 
     /**
      * 构造函数.
@@ -37,10 +36,10 @@ abstract class Base__Module extends Base
     public function __set($name, $value)
     {
         global $zbp;
-        if ($name == 'SourceType') {
+        if ('SourceType' == $name) {
             return;
         }
-        if ($name == 'NoRefresh') {
+        if ('NoRefresh' == $name) {
             if ((bool) $value) {
                 $this->Metas->norefresh = (bool) $value;
             } else {
@@ -65,18 +64,23 @@ abstract class Base__Module extends Base
     public function __get($name)
     {
         global $zbp;
-        if ($name == 'SourceType') {
-            if ($this->Source == 'system') {
+        if ('SourceType' == $name) {
+            if ('system' == $this->Source) {
                 return 'system';
-            } elseif ($this->Source == 'user') {
+            }
+            if ('user' == $this->Source) {
                 return 'user';
-            } elseif (stripos($this->Source, 'themeinclude_') === 0) {
+            }
+            if (0 === stripos($this->Source, 'themeinclude_')) {
                 return 'themeinclude';
-            } elseif ($this->Source == 'theme') {
+            }
+            if ('theme' == $this->Source) {
                 return 'theme';
-            } elseif (stripos($this->Source, 'theme_') === 0) {
+            }
+            if (0 === stripos($this->Source, 'theme_')) {
                 return 'theme';
-            } elseif (stripos($this->Source, 'plugin_') === 0) {
+            }
+            if (0 === stripos($this->Source, 'plugin_')) {
                 //如果是plugin_主题名，还是判断为theme，修正历史遗留问题
                 $ts = $zbp->LoadThemes();
                 foreach ($ts as $t) {
@@ -86,28 +90,30 @@ abstract class Base__Module extends Base
                 }
 
                 return 'plugin';
-            } else {
-                return 'plugin';
             }
+
+            return 'plugin';
         }
-        if ($name == 'NoRefresh') {
+        if ('NoRefresh' == $name) {
             return (bool) $this->Metas->norefresh;
         }
-        if ($name == 'Links') {
+        if ('Links' == $name) {
             if (!empty($this->Metas->links)) {
                 $this->private_links = json_decode($this->Metas->links, false);
             } else {
                 $this->ParseLink();
             }
+
             return $this->private_links;
         }
-        if ($name == 'ContentWithoutId') {
-            $s = preg_replace("/(id=\"[^\s]*\"|id='[^\s]*')/i", "", $this->Content);
+        if ('ContentWithoutId' == $name) {
+            $s = preg_replace("/(id=\"[^\\s]*\"|id='[^\\s]*')/i", '', $this->Content);
+
             return $s;
         }
         foreach ($GLOBALS['hooks']['Filter_Plugin_Module_Get'] as $fpname => &$fpsignal) {
             $fpreturn = $fpname($this, $name);
-            if ($fpsignal == PLUGIN_EXITSIGNAL_RETURN) {
+            if (PLUGIN_EXITSIGNAL_RETURN == $fpsignal) {
                 $fpsignal = PLUGIN_EXITSIGNAL_NONE;
 
                 return $fpreturn;
@@ -146,13 +152,13 @@ abstract class Base__Module extends Base
 
         foreach ($GLOBALS['hooks']['Filter_Plugin_Module_Save'] as $fpname => &$fpsignal) {
             $fpreturn = $fpname($this);
-            if ($fpsignal == PLUGIN_EXITSIGNAL_RETURN) {
+            if (PLUGIN_EXITSIGNAL_RETURN == $fpsignal) {
                 $fpsignal = PLUGIN_EXITSIGNAL_NONE;
 
                 return $fpreturn;
             }
         }
-        if ($this->SourceType == 'themeinclude') {
+        if ('themeinclude' == $this->SourceType) {
             if (empty($this->FileName)) {
                 return true;
             }
@@ -170,18 +176,19 @@ abstract class Base__Module extends Base
                 @unlink($fp);
             }
 
-            if ($this->ID == 0) {
+            if (0 == $this->ID) {
                 $this->ID = (0 - (int) crc32($this->Source . $this->FileName));
             }
+
             return true;
         }
 
         //防Module重复保存的机制
         $m = $zbp->GetListType(
             'Module',
-            $zbp->db->sql->get()->select($zbp->table['Module'])->where(array('=', $zbp->datainfo['Module']['FileName'][0], $this->FileName))->sql
+            $zbp->db->sql->get()->select($zbp->table['Module'])->where(['=', $zbp->datainfo['Module']['FileName'][0], $this->FileName])->sql,
         );
-        if (count($m) >= 1 && $this->ID == 0) {//如果已有同名，且新ID为0就不存
+        if (count($m) >= 1 && 0 == $this->ID) {//如果已有同名，且新ID为0就不存
             return false;
         }
 
@@ -205,7 +212,7 @@ abstract class Base__Module extends Base
                     $has_mixed = true;
                 }
             }
-            if ($has_mixed == true) {
+            if (true == $has_mixed) {
                 $zbp->cache->module_mixed_filename_list = serialize($list);
                 $zbp->SaveCache();
             }
@@ -213,14 +220,14 @@ abstract class Base__Module extends Base
 
         foreach ($GLOBALS['hooks']['Filter_Plugin_Module_Del'] as $fpname => &$fpsignal) {
             $fpreturn = $fpname($this);
-            if ($fpsignal == PLUGIN_EXITSIGNAL_RETURN) {
+            if (PLUGIN_EXITSIGNAL_RETURN == $fpsignal) {
                 $fpsignal = PLUGIN_EXITSIGNAL_NONE;
 
                 return $fpreturn;
             }
         }
 
-        if ($this->SourceType == 'themeinclude') {
+        if ('themeinclude' == $this->SourceType) {
             if (empty($this->FileName)) {
                 return true;
             }
@@ -236,6 +243,7 @@ abstract class Base__Module extends Base
             }
 
             $zbp->RemoveCache($this);
+
             return true;
         }
 
@@ -244,7 +252,7 @@ abstract class Base__Module extends Base
 
     public function Build()
     {
-        if ($this->NoRefresh == true) {
+        if (true == $this->NoRefresh) {
             return;
         }
 
@@ -252,12 +260,14 @@ abstract class Base__Module extends Base
             if (isset(ModuleBuilder::$List[$this->FileName]['function'])) {
                 $f = ModuleBuilder::$List[$this->FileName]['function'];
                 $p = ModuleBuilder::$List[$this->FileName]['parameters'];
-                $p = is_array($p) ? $p : array();
+                $p = is_array($p) ? $p : [];
 
                 $this->Content = call_user_func_array(ParseFilterPlugin($f), $p);
+
                 return true;
             }
         }
+
         return false;
     }
 
@@ -267,17 +277,18 @@ abstract class Base__Module extends Base
     public function GetSideBarInUsed()
     {
         global $zbp;
-        $array = array();
-        $inused = array();
-        for ($i = 1; $i <= 9; $i++) {
-            $optionName = $i === 1 ? 'ZC_SIDEBAR_ORDER' : "ZC_SIDEBAR{$i}_ORDER";
+        $array = [];
+        $inused = [];
+        for ($i = 1; $i <= 9; ++$i) {
+            $optionName = 1 === $i ? 'ZC_SIDEBAR_ORDER' : "ZC_SIDEBAR{$i}_ORDER";
             $array[$i] = $zbp->option[$optionName];
         }
         foreach ($array as $id => $s) {
-            if (stripos('|' . $s . '|', '|' . $this->FileName . '|') !== false) {
+            if (false !== stripos('|' . $s . '|', '|' . $this->FileName . '|')) {
                 $inused[] = $id;
             }
         }
+
         return $inused;
     }
 
@@ -287,7 +298,7 @@ abstract class Base__Module extends Base
         $dom = new DOMDocument();
 
         libxml_use_internal_errors(true);
-        $dom->loadHTML('<?xml encoding="UTF-8">' . $s); 
+        $dom->loadHTML('<?xml encoding="UTF-8">' . $s);
         libxml_clear_errors();
 
         $xpath = new DOMXPath($dom);
@@ -300,9 +311,9 @@ abstract class Base__Module extends Base
                 $attributes = $a->attributes;
                 if ($attributes->length > 0) {
                     // 遍历属性集合
-                    for ($i = 0; $i < $attributes->length; $i++) {
+                    for ($i = 0; $i < $attributes->length; ++$i) {
                         $attr = $attributes->item($i);
-                        $href[$attr->nodeName] = $attr->nodeValue;;
+                        $href[$attr->nodeName] = $attr->nodeValue;
                     }
                 }
                 $item[] = $href;
@@ -311,7 +322,7 @@ abstract class Base__Module extends Base
         $item = json_encode($item, JSON_UNESCAPED_UNICODE);
         $item = json_decode($item, false);
         $this->private_links = $item;
+
         return $item;
     }
-
 }
