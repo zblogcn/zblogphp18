@@ -17,6 +17,8 @@ if (!defined('ZBP_PATH')) {
 abstract class Base__Module extends Base
 {
 
+    public $private_links = array();
+
     /**
      * 构造函数.
      */
@@ -91,6 +93,14 @@ abstract class Base__Module extends Base
         if ($name == 'NoRefresh') {
             return (bool) $this->Metas->norefresh;
         }
+        if ($name == 'Links') {
+            if (!empty($this->Metas->links)) {
+                $this->private_links = json_decode($this->Metas->links, false);
+            } else {
+                $this->ParseLink();
+            }
+            return $this->private_links;
+        }
         if ($name == 'ContentWithoutId') {
             $s = preg_replace("/(id=\"[^\s]*\"|id='[^\s]*')/i", "", $this->Content);
             return $s;
@@ -126,6 +136,13 @@ abstract class Base__Module extends Base
             }
         }
         $this->FileName = strtolower($this->FileName);
+
+        //if ($this->Type == 'ul') {
+        //    $this->Metas->links = [];
+        //}
+        if (!empty($this->private_links)) {
+            $this->Metas->links = json_encode($this->private_links, JSON_UNESCAPED_UNICODE);
+        }
 
         foreach ($GLOBALS['hooks']['Filter_Plugin_Module_Save'] as $fpname => &$fpsignal) {
             $fpreturn = $fpname($this);
@@ -262,6 +279,39 @@ abstract class Base__Module extends Base
             }
         }
         return $inused;
+    }
+
+    public function ParseLink()
+    {
+        $s = $this->Content;
+        $dom = new DOMDocument();
+
+        libxml_use_internal_errors(true);
+        $dom->loadHTML('<?xml encoding="UTF-8">' . $s); 
+        libxml_clear_errors();
+
+        $xpath = new DOMXPath($dom);
+        $item = [];
+        $aNodes = $dom->getElementsByTagName('a');
+        if ($aNodes->length > 0) {
+            foreach ($aNodes as $a) {
+                $href = [];
+                $href['content'] = $a->nodeValue;
+                $attributes = $a->attributes;
+                if ($attributes->length > 0) {
+                    // 遍历属性集合
+                    for ($i = 0; $i < $attributes->length; $i++) {
+                        $attr = $attributes->item($i);
+                        $href[$attr->nodeName] = $attr->nodeValue;;
+                    }
+                }
+                $item[] = $href;
+            }
+        }
+        $item = json_encode($item, JSON_UNESCAPED_UNICODE);
+        $item = json_decode($item, false);
+        $this->private_links = $item;
+        return $item;
     }
 
 }
