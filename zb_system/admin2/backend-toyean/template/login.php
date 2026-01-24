@@ -49,6 +49,27 @@
                     <img class="captcha-img" src="{$host}zb_system/script/c_validcode.php?id=login&time=m" onClick="javascript:this.src='{$host}zb_system/script/c_validcode.php?id=login&time=m&tm='+Math.random();" alt="validcode" />
                 </dd>
                 {/if}
+
+                {php}<?php
+                    $input_classname = $input_id = $input_label = '';
+                    $input_tabindex = 9998;
+                    $input_type = 'text';
+                    foreach ($GLOBALS['hooks']['Filter_Plugin_Login_Input_Insert'] as $fpname => &$fpsignal) {
+                        $fpreturn = call_user_func_array($fpname, $input_classname, $input_id, $input_label, $input_tabindex, $input_type);
+                        if (null !== $input_label) { ?>{/php}
+                <dd class="{$input_classname}">
+                    <label for="{$input_id}">{$input_label}</label>
+                    <input type="{$input_type}" id="{$input_id}" name="{$input_id}" size="20" tabindex="{$input_tabindex}" />
+                </dd>
+                {php}<?php
+                        } else { ?>{/php}
+                <dd class="{$input_classname}">
+                    {$input_id}
+                </dd>
+                {php}<?php
+                        }
+                    }
+                ?>{/php}
             </dl>
 
             <dl>
