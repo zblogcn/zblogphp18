@@ -31,8 +31,8 @@ foreach ($mod->Links as $link) {
     {php}<?php
 }
 ?>{/php}
-    <p><input class="edit" size="60" name="content[]" type="text" placeholder="{$zbp->lang['msg']['text']}" value="" />
-    <input class="edit" size="40" name="href[]" type="text" placeholder="{$zbp->lang['msg']['href']}" value="" />
+    <p><input class="edit" size="60" name="href[]" type="text" placeholder="{$zbp->lang['msg']['href']}" value="" />
+    <input class="edit" size="40" name="content[]" type="text" placeholder="{$zbp->lang['msg']['text']}" value="" />
     </p>
     {/if}
     {if $mod->AutoContent == false && $mod->Type == 'div'}
