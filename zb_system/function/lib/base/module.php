@@ -51,10 +51,10 @@ abstract class Base__Module extends Base
         }
         if ('Links' == $name) {
             $this->private_links = $value;
-            $this->Metas->links = json_encode($this->private_links, JSON_UNESCAPED_UNICODE);
             if (!is_array($this->private_links)) {
                 $this->private_links = [];
             }
+            $this->Metas->links = json_encode($this->private_links, JSON_UNESCAPED_UNICODE);
         }
         foreach ($GLOBALS['hooks']['Filter_Plugin_Module_Set'] as $fpname => &$fpsignal) {
             $fpname($this, $name, $value);
@@ -106,7 +106,7 @@ abstract class Base__Module extends Base
             return (bool) $this->Metas->norefresh;
         }
         if ('Links' == $name) {
-            if (!empty($this->Metas->links)) {
+            if (isset($this->Metas->links)) {
                 $this->private_links = json_decode($this->Metas->links, false);
             } else {
                 $this->ParseLink();
