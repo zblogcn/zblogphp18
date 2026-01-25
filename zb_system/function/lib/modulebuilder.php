@@ -76,7 +76,7 @@ class ModuleBuilder
     {
         global $zbp;
 
-        $template = $zbp->template;
+        $template = $zbp->GetTemplateAdmin();
         $tags = array();
 
         $tags['style'] = $zbp->option['ZC_MODULE_CATALOG_STYLE'];
@@ -101,7 +101,7 @@ class ModuleBuilder
     public static function Calendar($date = '')
     {
         global $zbp;
-        $template = $zbp->template;
+        $template = $zbp->GetTemplateAdmin();
         $tags = array();
 
         if ($date == '') {
@@ -198,7 +198,7 @@ class ModuleBuilder
     public static function Comments()
     {
         global $zbp;
-        $template = $zbp->template;
+        $template = $zbp->GetTemplateAdmin();
         $tags = array();
 
         $i = $zbp->modulesbyfilename['comments']->MaxLi;
@@ -225,7 +225,7 @@ class ModuleBuilder
     public static function LatestArticles()
     {
         global $zbp;
-        $template = $zbp->template;
+        $template = $zbp->GetTemplateAdmin();
         $tags = array();
 
         $i = $zbp->modulesbyfilename['previous']->MaxLi;
@@ -252,7 +252,7 @@ class ModuleBuilder
     public static function Archives()
     {
         global $zbp;
-        $template = $zbp->template;
+        $template = $zbp->GetTemplateAdmin();
         $tags = array();
         $urls = array(); //array(url,name,count);
 
@@ -353,7 +353,7 @@ class ModuleBuilder
     public static function Navbar()
     {
         global $zbp;
-        $template = $zbp->template;
+        $template = $zbp->GetTemplateAdmin();
         $tags = array();
 
         $s = $zbp->modulesbyfilename['navbar']->Content;
@@ -414,7 +414,7 @@ class ModuleBuilder
     public static function TagList($type = 0)
     {
         global $zbp;
-        $template = $zbp->template;
+        $template = $zbp->GetTemplateAdmin();
         $tags = array();
         $urls = array(); //array(real tag);
 
@@ -454,7 +454,7 @@ class ModuleBuilder
     public static function Authors($level = 4)
     {
         global $zbp;
-        $template = $zbp->template;
+        $template = $zbp->GetTemplateAdmin();
         $tags = array();
         $authors = array();
         $level = $level || $zbp->actions['ArticleEdt'];
@@ -495,7 +495,7 @@ class ModuleBuilder
     public static function Statistics($array = array())
     {
         global $zbp;
-        $template = $zbp->template;
+        $template = $zbp->GetTemplateAdmin();
         $tags = array();
         $allinfo = array();
 

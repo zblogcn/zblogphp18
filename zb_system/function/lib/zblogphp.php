@@ -2575,6 +2575,9 @@ class ZBlogPHP
      */
     public function &GetTemplate()
     {
+        if (is_null($this->template)) {
+            $this->template = $this->PrepareTemplate();
+        }
         if (IS_CLI && (IS_WORKERMAN || IS_SWOOLE)) {
             $template = clone $this->template;
         } else {
@@ -2589,6 +2592,9 @@ class ZBlogPHP
      */
     public function &GetTemplateAdmin()
     {
+        if (is_null($this->template_admin)) {
+            $this->template_admin = $this->PrepareTemplateAdmin();
+        }
         if (IS_CLI && (IS_WORKERMAN || IS_SWOOLE)) {
             $template = clone $this->template_admin;
         } else {
