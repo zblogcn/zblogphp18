@@ -358,7 +358,7 @@ class ModuleBuilder
         $s = $zbp->modulesbyfilename['navbar']->Content;
 
         $tags['content'] = $s;
-        $tags['links'] =  $zbp->modulesbyfilename['navbar']->Links;
+        $tags['links'] = $zbp->modulesbyfilename['navbar']->Links;
 
         $template->SetTagsAll($tags);
         $ret = $template->Output('module-navbar');
