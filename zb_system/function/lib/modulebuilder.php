@@ -507,8 +507,6 @@ class ModuleBuilder
             $allinfo['all_views'] = ['name' => $zbp->lang['msg']['all_views'], 'count' => $all_views];
         }
 
-        $zbp->modulesbyfilename['statistics']->Type = 'ul';
-
         $tags['allinfo'] = $allinfo;
         $template->SetTagsAll($tags);
         $ret = $template->Output('module-statistics');

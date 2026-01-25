@@ -1917,7 +1917,7 @@ function PostModule()
         $mod->HtmlID = $mod->FileName;
     }
 
-    if ('ul' == $mod->Type) {
+    if ('ul' == $mod->Type &&  $mod->AutoContent = false) {
         $array = [];
         $j = count($_POST['href']);
         for ($i = 0; $i <= $j - 1; ++$i) {
@@ -1933,10 +1933,8 @@ function PostModule()
                 $array[] = $link;
             }
         }
+        $mod->Links = $array;
     }
-    $mod->Links = $array;
-    //var_dump($array, $mod->Links);
-    //die;
 
     FilterMeta($mod);
 
