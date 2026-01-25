@@ -1888,7 +1888,7 @@ function PostModule()
         $_POST['IsHideTitle'] = (int) $_POST['IsHideTitle'];
     }
     if (!isset($_POST['Type'])) {
-        $_POST['Type'] = 'div';
+        $_POST['Type'] = 'ul';
     }
     // if (isset($_POST['Content'])) {
     //     if ($_POST['Type'] != 'div') {
@@ -1910,6 +1910,10 @@ function PostModule()
 
     if (isset($_POST['NoRefresh'])) {
         $mod->NoRefresh = (bool) $_POST['NoRefresh'];
+    }
+
+    if (empty($mod->HtmlID)) {
+        $mod->HtmlID = $mod->FileName;
     }
 
     FilterMeta($mod);

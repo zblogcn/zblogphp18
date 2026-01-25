@@ -25,6 +25,7 @@ abstract class Base__Module extends Base
     {
         global $zbp;
         parent::__construct($zbp->table['Module'], $zbp->datainfo['Module'], __CLASS__);
+        $this->Type = 'ul';
     }
 
     /**
