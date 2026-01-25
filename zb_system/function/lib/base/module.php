@@ -278,6 +278,7 @@ abstract class Base__Module extends Base
                 $p = is_array($p) ? $p : [];
 
                 $this->Content = call_user_func_array(ParseFilterPlugin($f), $p);
+
                 return true;
             }
         }
@@ -287,6 +288,7 @@ abstract class Base__Module extends Base
             $p = is_array($p) ? $p : [];
 
             $this->Content = call_user_func_array(ParseFilterPlugin($f), $p);
+
             return true;
         }
 
