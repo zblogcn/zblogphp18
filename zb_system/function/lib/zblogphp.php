@@ -5075,6 +5075,7 @@ class ZBlogPHP
                 return true;
             }
         }
+
         return false;
     }
 
