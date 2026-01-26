@@ -87,11 +87,11 @@ class ModuleBuilder
 
         $links = [];
         $catalogs = $zbp->categoriesbyorder_type[$type];
-        foreach ($catalogs as $catalog ) {
+        foreach ($catalogs as $catalog) {
             $link = new StdClass();
             $link->href = $catalog->Url;
             $link->title = $catalog->Name;
-            $link->content= $catalog->Name;
+            $link->content = $catalog->Name;
             $links[] = $link;
         }
         $zbp->modulesbyfilename['catalog']->Links = $links;
@@ -227,7 +227,7 @@ class ModuleBuilder
             $link = new StdClass();
             $link->href = $comment->Post->Url;
             $link->title = htmlspecialchars($comment->Author->StaticName . ' @ ' . $comment->Time());
-            $link->content= FormatString($comment->Content, '[noenter]');
+            $link->content = FormatString($comment->Content, '[noenter]');
             $links[] = $link;
         }
         $zbp->modulesbyfilename['comments']->Links = $links;
@@ -264,7 +264,7 @@ class ModuleBuilder
             $link = new StdClass();
             $link->href = $article->Url;
             $link->title = $article->Title;
-            $link->content= $article->Title;
+            $link->content = $article->Title;
             $links[] = $link;
         }
         $zbp->modulesbyfilename['previous']->Links = $links;
@@ -375,7 +375,7 @@ class ModuleBuilder
             $link = new StdClass();
             $link->href = $url['Url'];
             $link->title = $url['Name'];
-            $link->content= $url['Name'];
+            $link->content = $url['Name'];
             $link->data_count = $url['Count'];
             $links[] = $link;
         }
