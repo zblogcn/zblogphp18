@@ -38,7 +38,7 @@ jobs:
           vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php ${{ steps.changed.outputs.all_changed_files }}
 
       - name: Commit files
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' && steps.changed.outputs.any_changed == 'true'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
@@ -46,7 +46,7 @@ jobs:
           git diff-index --quiet HEAD || (git commit -m "Auto Commit - PhpCsFixer" -a --no-verify)
 
       - name: Push changes
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' && steps.changed.outputs.any_changed == 'true'
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
