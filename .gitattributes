@@ -33,6 +33,7 @@ zb_users/plugin/ZBPDK                 export-ignore
 zb_system/admin2/backend-toyeant      export-ignore
 
 # 前端资源和构建文件
-**/dev_rollup/**                      export-ignore
+**/dev_rollup                         export-ignore
 
-utils/put_appcentre.php               export-ignore
+# 开发工具
+utils                                 export-ignore
