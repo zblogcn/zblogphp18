@@ -1856,11 +1856,12 @@ function PostModule()
         $zbp->ShowError(6, __FILE__, __LINE__);
     }
 
-    if (isset($_POST['catalog_style'])) {
-        $zbp->option['ZC_MODULE_CATALOG_STYLE'] = $_POST['catalog_style'];
-        $zbp->SaveOption();
+    if ('catalog' == $_POST['FileName']) {
+        if (isset($_POST['catalog_style'])) {
+            $zbp->option['ZC_MODULE_CATALOG_STYLE'] = $_POST['catalog_style'];
+            $zbp->SaveOption();
+        }
     }
-
     if ('archives' == $_POST['FileName']) {
         if (isset($_POST['archives_style'])) {
             $zbp->option['ZC_MODULE_ARCHIVES_STYLE'] = 1;
