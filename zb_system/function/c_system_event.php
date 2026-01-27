@@ -1918,7 +1918,7 @@ function PostModule()
     }
 
     if ('ul' == $mod->Type && false == $mod->AutoContent) {
-        if (isset($_POST['href']) && isset($_POST['content']) && is_array($_POST['href']) && is_array($_POST['content'])) {
+        if (isset($_POST['href'], $_POST['content']) && is_array($_POST['href']) && is_array($_POST['content'])) {
             $array = [];
             $j = count($_POST['href']);
             for ($i = 0; $i <= $j - 1; ++$i) {
