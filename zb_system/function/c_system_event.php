@@ -1918,22 +1918,24 @@ function PostModule()
     }
 
     if ('ul' == $mod->Type && false == $mod->AutoContent) {
-        $array = [];
-        $j = count($_POST['href']);
-        for ($i = 0; $i <= $j - 1; ++$i) {
-            $link = new stdClass();
-            $link->href = $_POST['href'][$i];
-            $link->content = $_POST['content'][$i];
-            foreach ($_POST as $key => $post) {
-                if (is_array($post) && 'href' != $key && 'content' != $key) {
-                    @$link->{$key} = $post[$i];
+        if (isset($_POST['href']) && isset($_POST['content']) && is_array($_POST['href']) && is_array($_POST['content'])) {
+            $array = [];
+            $j = count($_POST['href']);
+            for ($i = 0; $i <= $j - 1; ++$i) {
+                $link = new stdClass();
+                $link->href = $_POST['href'][$i];
+                $link->content = $_POST['content'][$i];
+                foreach ($_POST as $key => $post) {
+                    if (is_array($post) && 'href' != $key && 'content' != $key) {
+                        @$link->{$key} = $post[$i];
+                    }
+                }
+                if (!empty($link->href) && !empty($link->content)) {
+                    $array[] = $link;
                 }
             }
-            if (!empty($link->href) && !empty($link->content)) {
-                $array[] = $link;
-            }
+            $mod->Links = $array;
         }
-        $mod->Links = $array;
     }
 
     FilterMeta($mod);
