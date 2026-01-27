@@ -30,7 +30,7 @@ zb_users/plugin/UEditor
 zb_users/plugin/ZBPDK                 export-ignore
 
 # 系统目录
-zb_system/admin2/backend-toyeant      export-ignore
+zb_system/admin2/backend-toyean      export-ignore
 
 # 前端资源和构建文件
 **/dev_rollup                         export-ignore
