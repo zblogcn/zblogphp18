@@ -16,7 +16,7 @@ if (!defined('ZBP_PATH')) {
  */
 abstract class Base__Module extends Base
 {
-    public $private_links = [];
+    public $private_links = null;
 
     /**
      * 构造函数.
@@ -106,12 +106,13 @@ abstract class Base__Module extends Base
             return (bool) $this->Metas->norefresh;
         }
         if ('Links' == $name) {
-            if (isset($this->Metas->system_links)) {
-                $this->private_links = json_decode($this->Metas->system_links, false);
-            } else {
-                $this->ParseLink();
+            if (is_null($this->private_links)) {
+                if (isset($this->Metas->system_links)) {
+                    $this->private_links = json_decode($this->Metas->system_links, false);
+                } else {
+                    $this->ParseLink();
+                }
             }
-
             return $this->private_links;
         }
         if ('ContentWithoutId' == $name) {
