@@ -134,6 +134,7 @@ abstract class Base__Module extends Base
             if (isset($this->Metas->system_function)) {
                 return true;
             }
+
             return false;
         }
         foreach ($GLOBALS['hooks']['Filter_Plugin_Module_Get'] as $fpname => &$fpsignal) {
