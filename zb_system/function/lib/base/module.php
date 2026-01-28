@@ -113,7 +113,7 @@ abstract class Base__Module extends Base
                     $this->ParseLink();
                 }
             }
-            if (!is_array()) {
+            if (!is_array($this->private_links)) {
                 $this->private_links = [];
             }
 
