@@ -28,6 +28,9 @@ foreach ($mod->Links as $link) {
     <p><input class="edit" size="50" name="href[]" type="text" placeholder="{$zbp->lang['msg']['href']}" value="{FormatString(@$link->href, '[html-format]')}" />
     <input class="edit" size="30" name="content[]" type="text" placeholder="{$zbp->lang['msg']['text']}" value="{FormatString(@$link->content, '[html-format]')}" />
     <input class="edit" size="30" name="target[]" type="text" placeholder="Target" value="{FormatString(@$link->target, '[html-format]')}" />
+    {if $mod->FileName == 'navbar'}
+    <input class="edit" size="30" name="li_id[]" type="hidden" value="{FormatString(@$link->li_id, '[html-format]')}" />
+    {/if}
     </p>
     {php}<?php
 }

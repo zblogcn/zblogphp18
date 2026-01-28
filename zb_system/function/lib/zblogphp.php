@@ -5032,6 +5032,7 @@ class ZBlogPHP
         if (!$this->CheckItemToNavbar($type, $id)) {
             $links[] = $link;
         }
+        $m->Links = $links;
         $m->Build();
         $m->Save();
     }
