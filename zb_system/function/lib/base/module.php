@@ -16,7 +16,7 @@ if (!defined('ZBP_PATH')) {
  */
 abstract class Base__Module extends Base
 {
-    public $private_links;
+    public $private_links = null;
 
     /**
      * 构造函数.
@@ -113,7 +113,9 @@ abstract class Base__Module extends Base
                     $this->ParseLink();
                 }
             }
-
+            if (!is_array()) {
+                $this->private_links = [];
+            }
             return $this->private_links;
         }
         if ('ContentWithoutId' == $name) {
