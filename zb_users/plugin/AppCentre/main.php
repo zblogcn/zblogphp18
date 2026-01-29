@@ -67,7 +67,7 @@ if (version_compare(ZC_VERSION, '1.8.0') >= 0) {
         'Header' => $blogtitle,
         'HeaderIcon' => $bloghost . 'zb_users/plugin/AppCentre/logo.png',
         'Content' => $content,
-        'Js_Nonce' => $nonce,
+        'Js_Nonce' => @$nonce,
         'ActiveLeftMenu' => 'aAppCentre',
     ]);
     ob_start();
