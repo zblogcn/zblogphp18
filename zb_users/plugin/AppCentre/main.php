@@ -14,12 +14,14 @@ $zbp->Load();
 $action = 'root';
 if (!$zbp->CheckRights($action)) {
     $zbp->ShowError(6);
-    die();
+
+    exit();
 }
 
 if (!$zbp->CheckPlugin('AppCentre')) {
     $zbp->ShowError(48);
-    die();
+
+    exit();
 }
 $blogtitle = AppCentre_GetBlogTitle();
 
@@ -42,64 +44,54 @@ if (AppCentre_InSecurityMode()) {
 
 Add_Filter_Plugin('Filter_Plugin_CSP_Backend', 'AppCentre_UpdateCSP');
 
-
-
 if (version_compare(ZC_VERSION, '1.8.0') >= 0) {
+    ob_start();
+    $method = GetVars('method', 'GET');
 
-ob_start();
-$method = GetVars('method', 'GET');
-
-if (!$method) {
-    $method = 'view';
-}
-
-Server_Open($method);
-$content = ob_get_clean();
-$nonce = '';
-if (preg_match('/nonce="([^"]+)"/', $content, $matches)) {
-    if (isset($matches[1])) {
-        $nonce = $matches[1];
+    if (!$method) {
+        $method = 'view';
     }
+
+    Server_Open($method);
+    $content = ob_get_clean();
+    $nonce = '';
+    if (preg_match('/nonce="([^"]+)"/', $content, $matches)) {
+        if (isset($matches[1])) {
+            $nonce = $matches[1];
+        }
+    }
+    $content .= '<script nonce="' . $nonce . '">window.plug_list = "' . AddNameInString($option['ZC_USING_PLUGIN_LIST'], $option['ZC_BLOG_THEME']) . '";window.signkey = \'' . $zbp->GetToken() . '\';</script>';
+
+    $ActionInfo = zbp_admin2_GetActionInfo($action, (object) [
+        'Title' => $blogtitle,
+        'Header' => $blogtitle,
+        'HeaderIcon' => $bloghost . 'zb_users/plugin/AppCentre/logo.png',
+        'Content' => $content,
+        'Js_Nonce' => $nonce,
+    ]);
+
+    // 输出页面
+    $zbp->template_admin->SetTags('title', $ActionInfo->Title);
+    $zbp->template_admin->SetTags('main', $ActionInfo);
+    $zbp->template_admin->Display('index');
+
+    RunTime();
+
+    exit;
 }
-$content .= '<script nonce="'.$nonce.'">window.plug_list = "'.AddNameInString($option['ZC_USING_PLUGIN_LIST'], $option['ZC_BLOG_THEME']).'";window.signkey = \''.$zbp->GetToken().'\';</script>';
-
-$ActionInfo = zbp_admin2_GetActionInfo($action, (object) [
-    'Title' => $blogtitle,
-    'Header' => $blogtitle,
-    'HeaderIcon' => $bloghost . 'zb_users/plugin/AppCentre/logo.png',
-    'Content' => $content,
-    'Js_Nonce' => $nonce,
-]);
-
-
-// 输出页面
-$zbp->template_admin->SetTags('title', $ActionInfo->Title);
-$zbp->template_admin->SetTags('main', $ActionInfo);
-$zbp->template_admin->Display('index');
-
-RunTime();
-die;
-}
-
-
-
-
-
-
-
 
 require $blogpath . 'zb_system/admin/admin_header.php';
+
 require $blogpath . 'zb_system/admin/admin_top.php';
 
 ?>
 <div id="divMain">
 
   <div class="divHeader"><?php echo $blogtitle; ?></div>
-<div class="SubMenu"><?php 
-foreach ($GLOBALS['hooks']['Filter_Plugin_AppCentre_Client_SubMenu'] as $fpname => &$fpsignal) {
+<div class="SubMenu"><?php foreach ($GLOBALS['hooks']['Filter_Plugin_AppCentre_Client_SubMenu'] as $fpname => &$fpsignal) {
     $fpname();
 }
-AppCentre_SubMenus(GetVars('method', 'GET') == 'check' ? 2 : 1);
+AppCentre_SubMenus('check' == GetVars('method', 'GET') ? 2 : 1);
 ?></div>
   <div id="divMain2">
 
@@ -125,4 +117,3 @@ Server_Open($method);
 require $blogpath . 'zb_system/admin/admin_footer.php';
 
 RunTime();
-
