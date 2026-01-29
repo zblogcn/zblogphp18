@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <plugin version="php">
 <id>AdminColor_2026</id>
-<name>后台配色器_2026</name>
+<name>传统后台配色器_2026</name>
 <url>//jq.qq.com/?_wv=1027&amp;k=555hND5</url>
-<note>给 Z-BlogPHP 版换后台配色的小工具</note>
+<note>给 Z-BlogPHP 传统后台换配色的小工具</note>
 <description>置百丈玄冰而崩裂，掷须臾池水而漂摇。</description>
 <path>main.php</path>
 <include>include.php</include>
