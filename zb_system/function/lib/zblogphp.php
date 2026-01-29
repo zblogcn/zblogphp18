@@ -523,6 +523,8 @@ class ZBlogPHP
     //总缓存对象
     public $cacheobject = [];
 
+    public const DISABLE_PLUGINS = ['AdminColor', 'LinksManage', 'STACentre'];
+
     /**
      * @var string 设定主题下的模板自动填充缺失的html标签(默认是true)
      */
@@ -2162,7 +2164,7 @@ class ZBlogPHP
         $aps2 = [];
         //剔除掉admin2后台禁用的插件
         foreach ($aps as $key => $ap) {
-            if ('AdminColor' == $ap || 'LinksManage' == $ap || 'STACentre' == $ap) {
+            if (in_array($ap, ZBlogPHP::DISABLE_PLUGINS)) {
                 continue;
             }
             $aps2[] = $ap;
