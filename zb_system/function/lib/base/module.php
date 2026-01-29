@@ -303,7 +303,7 @@ abstract class Base__Module extends Base
             return true;
         }
 
-        if ($this->Type == 'ul') {
+        if ('ul' == $this->Type) {
             $this->ConvertLink();
 
             return true;
