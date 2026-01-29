@@ -1,14 +1,14 @@
 <?php
-#注册插件
-RegisterPlugin("AppCentre", "ActivePlugin_AppCentre");
+
+//注册插件
+RegisterPlugin('AppCentre', 'ActivePlugin_AppCentre');
 
 if (!function_exists('SplitAndGet')) {
-
     function SplitAndGet($string, $delimiter = ';', $n = 0)
     {
         $a = explode($delimiter, $string);
         if (!is_array($a)) {
-            $a = array();
+            $a = [];
         }
         if (isset($a[$n])) {
             return (string) $a[$n];
@@ -16,7 +16,6 @@ if (!function_exists('SplitAndGet')) {
 
         return '';
     }
-
 }
 
 define('APPCENTRE_DOMAINS', 'zblogcn.com|zblogcn.net');
@@ -31,18 +30,18 @@ ZGGPo5OydyZdTm47lXdCewyxk1CQ6nMs75u0mLjnDfsFXNiDx8hvXODnTSJKzb+C
 154qg0uRXjaB2ylnhJKDcQCFAbg5uy0iRcrp7+CFG4qvk0c7d/xRRjqY/y3HI+o5
 29/vvByD9KVXfWQQI6unfWfO1uEegXcgypHKHRmuyZoIDH7r56sleXKcN0OLesxp
 zwIDAQAB
------END PUBLIC KEY-----'
+-----END PUBLIC KEY-----',
 );
 
 $domain = (string) $GLOBALS['zbp']->Config('AppCentre')->firstdomain;
 
-if ($domain == '' || stripos(APPCENTRE_DOMAINS, $domain) === false) {
+if ('' == $domain || false === stripos(APPCENTRE_DOMAINS, $domain)) {
     $domain = SplitAndGet(APPCENTRE_DOMAINS, '|', 0);
 }
 
 define('APPCENTRE_DOMAIN', 'app.' . $domain);
 
-if (stripos($GLOBALS['bloghost'], 'https://') !== false || $GLOBALS['zbp']->Config('AppCentre')->forcehttps) {
+if (false !== stripos($GLOBALS['bloghost'], 'https://') || $GLOBALS['zbp']->Config('AppCentre')->forcehttps) {
     define('APPCENTRE_URL', 'https://' . APPCENTRE_DOMAIN . '/client/');
     define('APPCENTRE_CMD_URL', 'https://' . APPCENTRE_DOMAIN . '/zb_system/cmd.php?');
     define('APPCENTRE_SYSTEM_UPDATE', 'https://update.' . $domain . '/zblogphp/');
@@ -58,8 +57,8 @@ if (stripos($GLOBALS['bloghost'], 'https://') !== false || $GLOBALS['zbp']->Conf
 
 unset($domain);
 
-#定义版本号列
-$zbpvers = array();
+//定义版本号列
+$zbpvers = [];
 $zbpvers['130707'] = '1.0 Beta Build 130707';
 $zbpvers['131111'] = '1.0 Beta2 Build 131111';
 $zbpvers['131221'] = '1.1 Taichi Build 131221';
@@ -89,11 +88,11 @@ if (!defined('ZC_NOW_VERSION')) {
     define('ZC_NOW_VERSION', $GLOBALS['blogversion']);
 }
 
-$appcentre_verified = array();
+$appcentre_verified = [];
 
 DefinePluginFilter('Filter_Plugin_AppCentre_Client_SubMenu');
 if ($GLOBALS['blogversion'] < 150101) {
-    $GLOBALS['hooks']['Filter_Plugin_AppCentre_Client_SubMenu'] = array();
+    $GLOBALS['hooks']['Filter_Plugin_AppCentre_Client_SubMenu'] = [];
 }
 
 function ActivePlugin_AppCentre()
@@ -135,7 +134,7 @@ function InstallPlugin_AppCentre()
 function AppCentre_AddMenu(&$m)
 {
     global $zbp;
-    $m['nav_AppCentre'] = MakeLeftMenu("root", $zbp->lang['AppCentre']['name'], $zbp->host . "zb_users/plugin/AppCentre/main.php", "nav_AppCentre", "aAppCentre", $zbp->host . "zb_users/plugin/AppCentre/images/Cube1.png", "icon-zblog-appcenter");
+    $m['nav_AppCentre'] = MakeLeftMenu('root', $zbp->lang['AppCentre']['name'], $zbp->host . 'zb_users/plugin/AppCentre/main.php', 'nav_AppCentre', 'aAppCentre', $zbp->host . 'zb_users/plugin/AppCentre/images/Cube1.png', 'icon-zblog-appcenter');
 }
 
 function AppCentre_AddSiteInfoMenu()
@@ -164,15 +163,15 @@ function AppCentre_Cmd_Begin()
     $action = GetVars('act', 'GET');
     $type = '';
     $name = '';
-    if ($action == 'PluginEnb') {
+    if ('PluginEnb' == $action) {
         $name = GetVars('name', 'GET');
         $type = 'plugin';
-    } elseif ($action == 'ThemeSet') {
+    } elseif ('ThemeSet' == $action) {
         $name = GetVars('theme', 'POST');
         $type = 'theme';
     }
 
-    if ($type != '') {
+    if ('' != $type) {
         $app = $zbp->LoadApp($type, $name);
         if ($app->price > 0) {
             $s = AppCentre_VerifyV2($app->id, $type);
@@ -186,7 +185,7 @@ function AppCentre_Cmd_Begin()
 function AppCentre_AddThemeMenu()
 {
     global $zbp;
-    echo "<script type='text/javascript'>var app_enabledevelop=" . (int) $zbp->Config('AppCentre')->enabledevelop . ";var app_enablepluginsort=" . (int) $zbp->Config('AppCentre')->enablepluginsort . ";</script>";
+    echo "<script type='text/javascript'>var app_enabledevelop=" . (int) $zbp->Config('AppCentre')->enabledevelop . ';var app_enablepluginsort=' . (int) $zbp->Config('AppCentre')->enablepluginsort . ';</script>';
     if (AppCentre_InSecurityMode()) {
         return;
     }
@@ -196,7 +195,7 @@ function AppCentre_AddThemeMenu()
 function AppCentre_AddPluginMenu()
 {
     global $zbp;
-    echo "<script type='text/javascript'>var app_enabledevelop=" . (int) $zbp->Config('AppCentre')->enabledevelop . ";var app_enablepluginsort=" . (int) $zbp->Config('AppCentre')->enablepluginsort . ";</script>";
+    echo "<script type='text/javascript'>var app_enabledevelop=" . (int) $zbp->Config('AppCentre')->enabledevelop . ';var app_enablepluginsort=' . (int) $zbp->Config('AppCentre')->enablepluginsort . ';</script>';
     if (AppCentre_InSecurityMode()) {
         return;
     }
@@ -207,6 +206,7 @@ function AppCentre_Theme_Admin_End()
 {
     global $zbp;
     echo '<script type="text/javascript">';
+
     include dirname(__FILE__) . '/theme.js.php';
     echo '</script>';
 }
@@ -215,12 +215,15 @@ function AppCentre_Plugin_Admin_End()
 {
     global $zbp;
     echo '<script type="text/javascript">';
+
     include dirname(__FILE__) . '/plugin.js.php';
     echo '</script>';
 }
 
 /**
  * @deprecated
+ *
+ * @param mixed $appid
  */
 function AppCentre_App_Check_ISBUY($appid)
 {
@@ -235,7 +238,7 @@ function AppCentre_Get_Cookies()
 {
     global $zbp;
 
-    if ($zbp->Config('AppCentre')->username != '') {
+    if ('' != $zbp->Config('AppCentre')->username) {
         $zbp->Config('AppCentre')->token = $zbp->Config('AppCentre')->username;
         $zbp->Config('AppCentre')->uniq_id = $zbp->Config('AppCentre')->password;
         $zbp->Config('AppCentre')->old_token = 'true';
@@ -257,13 +260,13 @@ function AppCentre_Get_Cookies()
     $token = substr($zbp->Config('AppCentre')->token, 0, 100);
     $uniq_id = substr($zbp->Config('AppCentre')->uniq_id, 0, 100);
     if ($token) {
-        $c .= "; token=" . urlencode($token);
-        if ($zbp->Config('AppCentre')->old_token === 'true') {
-            $c .= "; sign=" . urlencode($uniq_id);
+        $c .= '; token=' . urlencode($token);
+        if ('true' === $zbp->Config('AppCentre')->old_token) {
+            $c .= '; sign=' . urlencode($uniq_id);
         } else {
-            $c .= "; sign=" . urlencode(AppCentre_Get_Sign($token));
+            $c .= '; sign=' . urlencode(AppCentre_Get_Sign($token));
         }
-        $c .= "; uniq_id=" . urlencode($uniq_id);
+        $c .= '; uniq_id=' . urlencode($uniq_id);
     }
 
     return $c;
@@ -273,8 +276,8 @@ function AppCentre_Get_Sign($token)
 {
     global $zbp;
     //$zbp->user->Level != 1
-    if ($zbp->user->IsGod == false) {
-        $admins = $zbp->GetMemberList(null, array(array('=', 'mem_Level', 1)), array('mem_ID' => 'ASC'));
+    if (false == $zbp->user->IsGod) {
+        $admins = $zbp->GetMemberList(null, [['=', 'mem_Level', 1]], ['mem_ID' => 'ASC']);
         foreach ($admins as $m) {
             return hash_hmac('sha256', $m->Name . '|' . $m->Password . '|' . $m->Guid, $token);
         }
@@ -282,13 +285,14 @@ function AppCentre_Get_Sign($token)
         return hash_hmac('sha256', $zbp->user->Name . '|' . $zbp->user->Password . '|' . $zbp->user->Guid, $token);
     }
     //下边代码已废除
-    if ($zbp->user->Level != 1) {
+    if (1 != $zbp->user->Level) {
         foreach ($zbp->members as $key => $m) {
-            if ($m->Level == 1) {
+            if (1 == $m->Level) {
                 return hash_hmac('sha256', $m->Name . '|' . $m->Password . '|' . $m->Guid, $token);
             }
         }
     }
+
     return hash_hmac('sha256', $zbp->user->Name . '|' . $zbp->user->Password . '|' . $zbp->user->Guid, $token);
 }
 
@@ -296,7 +300,7 @@ function AppCentre_Get_UserAgent()
 {
     global $zbp;
     $app = $zbp->LoadApp('plugin', 'AppCentre');
-    $pv = strpos(phpversion(), '-') === false ? phpversion() : substr(phpversion(), 0, strpos(phpversion(), '-'));
+    $pv = false === strpos(phpversion(), '-') ? phpversion() : substr(phpversion(), 0, strpos(phpversion(), '-'));
     $u = 'ZBlogPHP/' . $GLOBALS['blogversion'] . ' AppCentre/' . $app->modified . ' PhpVer/' . $pv . ' Lang/' . $zbp->option['ZC_BLOG_LANGUAGEPACK'] . ' ' . GetGuestAgent();
 
     return $u;
@@ -304,6 +308,9 @@ function AppCentre_Get_UserAgent()
 
 /**
  * @deprecated
+ *
+ * @param mixed $appid
+ * @param mixed $throwerror
  */
 function AppCentre_Check_App_IsBuy($appid, $throwerror = true)
 {
@@ -319,20 +326,20 @@ function AppCentre_Check_App_IsBuy($appid, $throwerror = true)
     $token = $zbp->Config('AppCentre')->token;
     $host = $zbp->host;
 
-    $data = array();
+    $data = [];
 
     $data['appid'] = $appid;
     $data['host'] = $zbp->host;
 
     $data['includefilehash'] = file_get_contents($zbp->path . 'zb_users/plugin/AppCentre/include.php');
-    $data['includefilehash'] = md5(str_replace(array('\r','\n'), '', $data['includefilehash']));
+    $data['includefilehash'] = md5(str_replace(['\r', '\n'], '', $data['includefilehash']));
 
     $pu_key = openssl_pkey_get_public(APPCENTRE_PUBLIC_KEY);
 
     $encrypted = '';
-    openssl_public_encrypt(implode('|', $data), $encrypted, $pu_key);//公钥加密
+    openssl_public_encrypt(implode('|', $data), $encrypted, $pu_key); //公钥加密
     $encrypted = base64_encode($encrypted);
-    $data = array();
+    $data = [];
     $data['info'] = $encrypted;
 
     $ajax->open('POST', $url);
@@ -343,21 +350,20 @@ function AppCentre_Check_App_IsBuy($appid, $throwerror = true)
     $ajax->setRequestHeader('Website', $zbp->host);
     $ajax->send($data);
 
-
     $encrypted = $ajax->responseText;
     $encrypted = str_replace('"', '', $encrypted);
-    openssl_public_decrypt(base64_decode($encrypted), $decrypted, $pu_key);//公钥解密
+    openssl_public_decrypt(base64_decode($encrypted), $decrypted, $pu_key); //公钥解密
     //die($decrypted);
     if (md5($zbp->Config('AppCentre')->token . 'ok') == $decrypted) {
         return true;
-    } else {
-        if ($throwerror == true) {
-            $zbp->ShowError($decrypted);
-            die();
-        } else {
-            return false;
-        }
     }
+    if (true == $throwerror) {
+        $zbp->ShowError($decrypted);
+
+        exit();
+    }
+
+    return false;
 }
 
 function AppCentre_VerifyV2($appid, $type = 'plugin')
@@ -367,6 +373,7 @@ function AppCentre_VerifyV2($appid, $type = 'plugin')
     if (isset($appcentre_verified[$verifyHash])) {
         return $appcentre_verified[$verifyHash];
     }
+
     try {
         $app = new App();
         $app->LoadInfoByXml($type, $appid);
@@ -390,16 +397,16 @@ function AppCentre_VerifyV2($appid, $type = 'plugin')
 
         $licensePath = $zbp->path . 'zb_users/' . $type . '/' . $appid . '/zb-app-license.php';
 
-        $data = array(
+        $data = [
             'appId' => $appid,
             'cookie' => $cookies,
             'userAgent' => $userAgent,
             'host' => $host,
             'license' => file_exists($licensePath) ? file_get_contents($licensePath) : '',
-            'modified' => strtotime($app->modified)
-        );
+            'modified' => strtotime($app->modified),
+        ];
         $data['includefilehash'] = file_get_contents($zbp->path . 'zb_users/plugin/AppCentre/include.php');
-        $data['includefilehash'] = md5(str_replace(array('\r', '\n'), '', $data['includefilehash']));
+        $data['includefilehash'] = md5(str_replace(['\r', '\n'], '', $data['includefilehash']));
 
         $stringifierData = json_encode($data);
 
@@ -420,7 +427,7 @@ function AppCentre_VerifyV2($appid, $type = 'plugin')
         $ajax->send($sendData);
 
         $returnData = str_replace('"', '', $ajax->responseText);
-        if (substr($returnData, 0, 3) === 'AES') {
+        if ('AES' === substr($returnData, 0, 3)) {
             $contents = explode('|', $returnData);
             $hash = $contents[1];
             if (hash_hmac('sha256', $contents[2], 'zblogverification') !== $hash) {
@@ -441,6 +448,7 @@ function AppCentre_VerifyV2($appid, $type = 'plugin')
 
         $return = trim($decryptedText);
         $appcentre_verified[$verifyHash] = $return;
+
         return $return;
     } catch (Exception $e) {
         return $zbp->lang['AppCentre']['unable_to_verify'];
@@ -449,8 +457,8 @@ function AppCentre_VerifyV2($appid, $type = 'plugin')
 
 function AppCentre_UpdateCSP(&$csp)
 {
-    $urls = " *.zblogcn.com *.zblogcn.net";
-    $items = array('default-src', 'img-src', 'script-src', 'style-src');
+    $urls = ' *.zblogcn.com *.zblogcn.net';
+    $items = ['default-src', 'img-src', 'script-src', 'style-src'];
     foreach ($items as $item) {
         if (isset($csp[$item])) {
             $csp[$item] .= $urls;
@@ -469,6 +477,7 @@ function AppCentre_InSecurityMode()
     if (defined('APPCENTRE_SECURITY_MODE')) {
         return true;
     }
+
     return file_exists($zbp->path . 'zb_users/data/appcentre_security_mode.php');
 }
 
@@ -484,75 +493,89 @@ function AppCentre_DisablePlugin(&$name)
 {
     global $zbp;
 
-    if ($name == 'AppCentre') {
+    if ('AppCentre' == $name) {
         $p = $zbp->LoadPlugins();
         foreach ($p as $key => $value) {
-            if ($zbp->CheckPlugin($value->id) && (double) $value->price > 0) {
+            if ($zbp->CheckPlugin($value->id) && (float) $value->price > 0) {
                 SetPluginSignal('Filter_Plugin_DisablePlugin', __FUNCTION__, PLUGIN_EXITSIGNAL_RETURN);
+
                 return false;
             }
         }
     }
 }
 
-function AppCentre_CreateButton($name){
+function AppCentre_CreateButton($name)
+{
     if ($GLOBALS['blogversion'] >= 172360) {
-
         switch ($name) {
             case 'edit':
                 return '<i class=\'icon-pencil-square\'></i>';
+
                 break;
+
             case 'download':
                 return '<i class=\'icon-download\'></i>';
+
             case 'cloudup':
                 return '<i class=\'icon-cloud-arrow-up-fill\'></i>';
+
             case 'delete':
                 return '<i class=\'icon-trash\'></i>';
+
             case 'module':
                 return '<i class=\'icon-grid-fill\'></i>';
+
             case 'set':
                 return '<i class=\'icon-tools\'></i>';
+
             default:
-                # code...
+                // code...
                 break;
         }
-
-
     } else {
-
         switch ($name) {
             case 'edit':
                 return '<img height=\'16\' width=\'16\' src=\'"+bloghost+"zb_users/plugin/AppCentre/images/application_edit.png\'/>';
+
                 break;
+
             case 'download':
                 return '<img height=\'16\' width=\'16\' src=\'"+bloghost+"zb_users/plugin/AppCentre/images/download.png\'/>';
+
             case 'cloudup':
                 return '<img height=\'16\' width=\'16\' src=\'"+bloghost+"zb_users/plugin/AppCentre/images/drive-upload.png\'/>';
+
             case 'delete':
                 return '<img height=\'16\' width=\'16\' src=\'"+bloghost+"zb_users/plugin/AppCentre/images/delete.png\'/>';
+
             case 'module':
                 return '<img height=\'16\' width=\'16\' src=\'"+bloghost+"zb_users/plugin/AppCentre/images/bricks.png\'/>';
+
             case 'set':
                 return '<img height=\'16\' width=\'16\' src=\'"+bloghost+"zb_system/image/admin/setting_tools.png\'/>';
+
             default:
-                # code...
+                // code...
                 break;
         }
-
     }
 }
 
-function AppCentre_GetBlogTitle() {
+function AppCentre_GetBlogTitle()
+{
     global $zbp;
     $appc = $zbp->LoadApp('plugin', 'AppCentre');
+
     return $zbp->lang['AppCentre']['name'] . '-' . '(' . $zbp->lang['AppCentre']['client'] . ' v' . $appc->version . ')';
 }
 
-function AppCentre_CheckDebugMode(){
+function AppCentre_CheckDebugMode()
+{
     global $zbp;
     $a = $zbp->Config('AppCentre')->enabledevelop;
     $b = $zbp->option['ZC_DEBUG_MODE'];
-    $c = (time() - (int) $zbp->Config('AppCentre')->debug_tips_interval) > (24*3600);
+    $c = (time() - (int) $zbp->Config('AppCentre')->debug_tips_interval) > (24 * 3600);
     if (!$b && $a && $c) {
         echo "<script type='text/javascript'>$('.main').prepend('<div class=\"hint\"><p class=\"hint hint_tips hint_always\"><a target=\"_blank\" href=\"https://docs.zblogcn.com/php/#/books/dev-05-start?id=%e5%bc%80%e5%8f%91%e6%a8%a1%e5%bc%8f\">{$zbp->lang['AppCentre']['please_open_debugmode']}</a></p></div>');</script>";
         $zbp->Config('AppCentre')->debug_tips_interval = time();

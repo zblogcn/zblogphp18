@@ -23,9 +23,9 @@ define('ZC_VERSION_MAJOR', '1');
 define('ZC_VERSION_MINOR', '8');
 define('ZC_VERSION_BUILD', '0');
 define('ZC_VERSION_COMMIT', '4000');
-define('ZC_VERSION_CODENAME', 'Martis');//Arrakis
+define('ZC_VERSION_CODENAME', 'Martis'); //Arrakis
 define('ZC_VERSION', ZC_VERSION_MAJOR . '.' . ZC_VERSION_MINOR . '.' . ZC_VERSION_BUILD . '.' . ZC_VERSION_COMMIT);
-if (strcasecmp(ZC_VERSION_CODENAME, 'Beta') == 0 || strcasecmp(ZC_VERSION_CODENAME, 'Alpha') == 0) {
+if (0 == strcasecmp(ZC_VERSION_CODENAME, 'Beta') || 0 == strcasecmp(ZC_VERSION_CODENAME, 'Alpha')) {
     define('ZC_VERSION_DISPLAY', ZC_VERSION_MAJOR . '.' . ZC_VERSION_MINOR . '.' . ZC_VERSION_BUILD . '.' . ZC_VERSION_COMMIT . ' ' . ZC_VERSION_CODENAME);
 } else {
     define('ZC_VERSION_DISPLAY', ZC_VERSION_MAJOR . '.' . ZC_VERSION_MINOR . '.' . ZC_VERSION_BUILD);
