@@ -286,7 +286,7 @@ abstract class Base__Module extends Base
             if (isset(ModuleBuilder::$List[$this->FileName]['function'])) {
                 $f = ModuleBuilder::$List[$this->FileName]['function'];
                 $p = ModuleBuilder::$List[$this->FileName]['parameters'];
-                $p = is_array($p) ? $p : [];
+                $p = is_array($p) ? $p : [$p];
 
                 $this->Content = call_user_func_array(ParseFilterPlugin($f), $p);
 
@@ -296,7 +296,7 @@ abstract class Base__Module extends Base
         if (isset($this->Metas->system_function)) {
             $f = $this->Metas->system_function;
             $p = $this->Metas->system_parameters;
-            $p = is_array($p) ? $p : [];
+            $p = is_array($p) ? $p : [$p];
 
             $this->Content = call_user_func_array(ParseFilterPlugin($f), $p);
 
