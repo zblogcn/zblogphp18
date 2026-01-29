@@ -18,6 +18,7 @@ table {
 
     &.td-center,
     &.th-center,
+    &.tdCenter,
     &.center {
       text-align: center;
     }
@@ -42,6 +43,7 @@ table {
 
   &.table_hover {
     tr:hover {
+
       >td,
       >th {
         background-color: #ffffdd;
@@ -81,12 +83,6 @@ tr {
     background: #ffffdd;
   }
 }
-
-td {
-    &.tdCenter {
-      text-align: center;
-    }
-  }
 
 @for $i from 1 through 7 {
   .td#{$i * 5} {

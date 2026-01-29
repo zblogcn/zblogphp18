@@ -486,9 +486,10 @@ table td:last-child,
 table th:last-child {
   border-right: none;
 }
-table td.td-center, table td.th-center, table td.center,
+table td.td-center, table td.th-center, table td.tdCenter, table td.center,
 table th.td-center,
 table th.th-center,
+table th.tdCenter,
 table th.center {
   text-align: center;
 }
@@ -526,10 +527,6 @@ tr.color3 {
 }
 tr.color4 {
   background: #ffffdd;
-}
-
-td.tdCenter {
-  text-align: center;
 }
 
 .td5 {
