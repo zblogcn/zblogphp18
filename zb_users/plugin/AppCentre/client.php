@@ -1,6 +1,8 @@
 <?php
 require '../../../zb_system/function/c_system_base.php';
+
 require '../../../zb_system/function/c_system_admin.php';
+
 require dirname(__FILE__) . '/function.php';
 if (version_compare(ZC_VERSION, '1.8.0') >= 0) {
     require '../../../zb_system/admin2/function/admin2_function.php';
@@ -10,11 +12,13 @@ $zbp->Load();
 $action = 'root';
 if (!$zbp->CheckRights($action)) {
     $zbp->ShowError(6);
-    die();
+
+    exit();
 }
 if (!$zbp->CheckPlugin('AppCentre')) {
     $zbp->ShowError(48);
-    die();
+
+    exit();
 }
 
 if (!$zbp->Config('AppCentre')->token) {
@@ -25,15 +29,16 @@ if (!$zbp->Config('AppCentre')->token) {
 
 Add_Filter_Plugin('Filter_Plugin_CSP_Backend', 'AppCentre_UpdateCSP');
 
-if (GetVars('act') == 'login') {
+if ('login' == GetVars('act')) {
     if (!$zbp->ValidToken(GetVars('token', 'GET'), 'AppCentre')) {
         $zbp->ShowError(5, __FILE__, __LINE__);
-        die();
+
+        exit();
     }
     AppCentre_CheckInSecurityMode();
     $s = trim(Server_Open('login'));
-    if ($s !== '') {
-        $zbp->Config('AppCentre')->token = GetVars("app_token", "POST");
+    if ('' !== $s) {
+        $zbp->Config('AppCentre')->token = GetVars('app_token', 'POST');
         $zbp->Config('AppCentre')->uniq_id = trim($s);
         $zbp->Config('AppCentre')->old_token = 'false';
         $zbp->Config('AppCentre')->DelKey('old_token');
@@ -42,15 +47,16 @@ if (GetVars('act') == 'login') {
 
         $zbp->SetHint('good', $zbp->lang['AppCentre']['login_success']);
         Redirect('./main.php');
-        die;
-    } else {
-        $zbp->SetHint('bad', $zbp->lang['AppCentre']['token_not_exist']);
-        Redirect('./client.php');
-        die;
+
+        exit;
     }
+    $zbp->SetHint('bad', $zbp->lang['AppCentre']['token_not_exist']);
+    Redirect('./client.php');
+
+    exit;
 }
 
-if (GetVars('act') == 'logout') {
+if ('logout' == GetVars('act')) {
     if (function_exists('CheckHTTPRefererValid')) {
         CheckHTTPRefererValid();
     }
@@ -60,14 +66,14 @@ if (GetVars('act') == 'logout') {
     $zbp->SaveConfig('AppCentre');
     $zbp->SetHint('good', $zbp->lang['AppCentre']['logout']);
     Redirect('./client.php');
-    die;
-}
 
+    exit;
+}
 
 if (version_compare(ZC_VERSION, '1.8.0') >= 0) {
     ob_start();
 
-if (!$zbp->Config('AppCentre')->token) { ?>
+    if (!$zbp->Config('AppCentre')->token) { ?>
             <div class="divHeader2"><?php echo $zbp->lang['AppCentre']['account_login']; ?></div>
             <form action="?act=login&token=<?php echo $zbp->GetToken('AppCentre'); ?>" method="post">
               <table width="100%" border="0">
@@ -91,9 +97,9 @@ if (!$zbp->Config('AppCentre')->token) { ?>
             </form>
     <?php
 } else {
-//已登录
-    Server_Open('shoplist');
-}
+        //已登录
+        Server_Open('shoplist');
+    }
     //内容获取结束
     $content = ob_get_clean();
 
@@ -122,8 +128,8 @@ if (!$zbp->Config('AppCentre')->token) { ?>
     exit;
 }
 
-
 require $blogpath . 'zb_system/admin/admin_header.php';
+
 require $blogpath . 'zb_system/admin/admin_top.php';
 ?>
 <div id="divMain">
@@ -160,7 +166,7 @@ AppCentre_SubMenus(9);
             </form>
     <?php
 } else {
-//已登录
+    //已登录
     Server_Open('shoplist');
 }
 ?>
@@ -175,4 +181,3 @@ AppCentre_SubMenus(9);
 <?php
 require $blogpath . 'zb_system/admin/admin_footer.php';
 RunTime();
-
