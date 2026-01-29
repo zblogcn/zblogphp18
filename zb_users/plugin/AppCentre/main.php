@@ -5,6 +5,10 @@ require '../../../zb_system/function/c_system_admin.php';
 
 require dirname(__FILE__) . '/function.php';
 
+if (version_compare(ZC_VERSION, '1.8.0') >= 0) {
+    require '../../../zb_system/admin2/function/admin2_function.php';
+}
+
 $zbp->Load();
 
 $action = 'root';
@@ -37,6 +41,52 @@ if (AppCentre_InSecurityMode()) {
 }
 
 Add_Filter_Plugin('Filter_Plugin_CSP_Backend', 'AppCentre_UpdateCSP');
+
+
+
+if (version_compare(ZC_VERSION, '1.8.0') >= 0) {
+
+ob_start();
+$method = GetVars('method', 'GET');
+
+if (!$method) {
+    $method = 'view';
+}
+
+Server_Open($method);
+$content = ob_get_clean();
+$nonce = '';
+if (preg_match('/nonce="([^"]+)"/', $content, $matches)) {
+    if (isset($matches[1])) {
+        $nonce = $matches[1];
+    }
+}
+$content .= '<script nonce="'.$nonce.'">window.plug_list = "'.AddNameInString($option['ZC_USING_PLUGIN_LIST'], $option['ZC_BLOG_THEME']).'";window.signkey = \''.$zbp->GetToken().'\';</script>';
+
+$ActionInfo = zbp_admin2_GetActionInfo($action, (object) [
+    'Title' => $blogtitle,
+    'Header' => $blogtitle,
+    'HeaderIcon' => $bloghost . 'zb_users/plugin/AppCentre/logo.png',
+    'Content' => $content,
+    'Js_Nonce' => $nonce,
+]);
+
+
+// 输出页面
+$zbp->template_admin->SetTags('title', $ActionInfo->Title);
+$zbp->template_admin->SetTags('main', $ActionInfo);
+$zbp->template_admin->Display('index');
+
+RunTime();
+die;
+}
+
+
+
+
+
+
+
 
 require $blogpath . 'zb_system/admin/admin_header.php';
 require $blogpath . 'zb_system/admin/admin_top.php';

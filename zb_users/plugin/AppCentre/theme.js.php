@@ -34,11 +34,21 @@ $(".theme").each(function(){
     s=s+"<a class=\"button\" href='"+bloghost+"zb_users/plugin/AppCentre/app_pack.php?type=theme&id="+t+"<?php echo $t . '&rnd=' . crc32(rand()); ?>' title='<?php echo $zbp->lang['AppCentre']['export_app']; ?>' target='_blank'><?php echo AppCentre_CreateButton('download'); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;";
 
     }
-
+<?php
+if (version_compare(ZC_VERSION, '1.8.0') >= 0) {
+?>
+    if($(this).hasClass("theme-now")){
+        s=s+"<a class=\"button\" href='"+bloghost+"zb_system/admin2/index.php?act=ModuleEdt&source=theme' title='<?php echo $zbp->lang['AppCentre']['add_module_for_theme']; ?>'><?php echo AppCentre_CreateButton('module'); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;";
+    }
+<?php
+} else {
+?>
     if($(this).hasClass("theme-now")){
         s=s+"<a class=\"button\" href='"+bloghost+"zb_system/admin/module_edit.php?source=theme' title='<?php echo $zbp->lang['AppCentre']['add_module_for_theme']; ?>'><?php echo AppCentre_CreateButton('module'); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;";
     }
-
+<?php
+}
+?>
     if(app_enabledevelop){
         s=s+"<a class=\"button\" href='"+bloghost+"zb_users/plugin/AppCentre/submit.php?type=theme&amp;id="+t+"<?php echo $t; ?>' title='<?php echo $zbp->lang['AppCentre']['upload_app_to_appcentre']; ?>' target='_blank'><?php echo AppCentre_CreateButton('cloudup'); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;";
     }
