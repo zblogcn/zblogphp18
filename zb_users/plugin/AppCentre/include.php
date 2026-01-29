@@ -74,7 +74,7 @@ $zbpvers['172980'] = '1.7.1 Tenet Build 172980';
 $zbpvers['173000'] = '1.7.2 Tenet Build 173000';
 $zbpvers['173200'] = '1.7.3 Finch Build 173200';
 $zbpvers['173400'] = '1.7.4 Shelter Build 173400';
-$zbpvers['173500'] = '1.7.5 Optimus Build 173400';
+$zbpvers['173500'] = '1.7.5 Optimus Build 173500';
 $zbpvers['184000'] = '1.8.0 Martis Build 184000';
 
 if (!isset($zbpvers[$GLOBALS['blogversion']])) {

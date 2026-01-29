@@ -1121,7 +1121,9 @@ class ZBlogPHP
         Add_Filter_Plugin('Filter_Plugin_Admin_Hint', 'Include_Admin_CheckWeakPassWord');
 
         if (isset($GLOBALS['zbpvers'])) {
-            $GLOBALS['zbpvers'][$GLOBALS['blogversion']] = ZC_VERSION_DISPLAY . ' Build ' . $GLOBALS['blogversion'];
+            if (!isset($GLOBALS['zbpvers'][$GLOBALS['blogversion']])) {
+                $GLOBALS['zbpvers'][$GLOBALS['blogversion']] = ZC_VERSION_DISPLAY . ' Build ' . $GLOBALS['blogversion'];
+            }
         }
 
         if ($this->option['ZC_DEBUG_MODE'] || $this->ismanage) {
