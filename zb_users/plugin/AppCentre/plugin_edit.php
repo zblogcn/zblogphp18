@@ -150,9 +150,7 @@ if (count($_POST) > 0) {
 }
 
 if (version_compare(ZC_VERSION, '1.8.0') >= 0) {
-
-    ob_start();
-?>
+    ob_start(); ?>
 <form method="post" action="">
 <?php echo '<input id="token" name="token" type="hidden" value="' . $zbp->GetToken('AppCentre') . '"/>'; ?>
   <table border="1" width="100%" cellspacing="0" cellpadding="0" class="tableBorder tableBorder-thcenter">
@@ -252,11 +250,10 @@ if (version_compare(ZC_VERSION, '1.8.0') >= 0) {
           <select name="app_level" id="app_level" style="width:200px;">
 <?php
 if (function_exists('OutputOptionItemsOfMemberLevel')) {
-    echo OutputOptionItemsOfMemberLevel(1);
-} else {
-    echo CreateOptoinsOfMemberLevel(1);
-}
-?>
+        echo OutputOptionItemsOfMemberLevel(1);
+    } else {
+        echo CreateOptoinsOfMemberLevel(1);
+    } ?>
           </select>
         </p></td>
     </tr>
@@ -342,7 +339,6 @@ if (function_exists('OutputOptionItemsOfMemberLevel')) {
     RunTime();
 
     exit;
-
 }
 
 require $blogpath . 'zb_system/admin/admin_header.php';

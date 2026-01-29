@@ -6,72 +6,75 @@ function AppCentre_SubMenus($id)
     global $zbp;
 
     if (!AppCentre_InSecurityMode()) {
-        echo '<a href="main.php"><span class="m-left ' . ($id == 1 ? 'm-now' : '') . '">' . $zbp->lang['AppCentre']['browse_app'] . '</span></a>';
+        echo '<a href="main.php"><span class="m-left ' . (1 == $id ? 'm-now' : '') . '">' . $zbp->lang['AppCentre']['browse_app'] . '</span></a>';
     }
-    
-    echo '<a href="main.php?method=check"><span class="m-left ' . ($id == 2 ? 'm-now' : '') . '">' . $zbp->lang['AppCentre']['check_app_updates'] . '</span></a>';
-    echo '<a href="update.php"><span class="m-left ' . ($id == 3 ? 'm-now' : '') . '">' . $zbp->lang['AppCentre']['system_update'] . '</span></a>';
+
+    echo '<a href="main.php?method=check"><span class="m-left ' . (2 == $id ? 'm-now' : '') . '">' . $zbp->lang['AppCentre']['check_app_updates'] . '</span></a>';
+    echo '<a href="update.php"><span class="m-left ' . (3 == $id ? 'm-now' : '') . '">' . $zbp->lang['AppCentre']['system_update'] . '</span></a>';
 
     if ($zbp->Config('AppCentre')->token) {
-        echo '<a href="client.php"><span class="m-left ' . ($id == 9 ? 'm-now' : '') . '">' . $zbp->lang['AppCentre']['my_store'] . '</span></a>';
+        echo '<a href="client.php"><span class="m-left ' . (9 == $id ? 'm-now' : '') . '">' . $zbp->lang['AppCentre']['my_store'] . '</span></a>';
     } else {
-        echo '<a href="client.php"><span class="m-left ' . ($id == 9 ? 'm-now' : '') . '">' . $zbp->lang['AppCentre']['login_store'] . '</span></a>';
+        echo '<a href="client.php"><span class="m-left ' . (9 == $id ? 'm-now' : '') . '">' . $zbp->lang['AppCentre']['login_store'] . '</span></a>';
     }
 
     if (!AppCentre_InSecurityMode()) {
-        echo '<a href="setting.php"><span class="m-right ' . ($id == 4 ? 'm-now' : '') . '">' . $zbp->lang['AppCentre']['settings'] . '</span></a>';
-        echo '<a href="plugin_edit.php"><span class="m-right ' . ($id == 5 ? 'm-now' : '') . '">' . $zbp->lang['AppCentre']['new_plugin'] . '</span></a>';
-        echo '<a href="theme_edit.php"><span class="m-right ' . ($id == 6 ? 'm-now' : '') . '">' . $zbp->lang['AppCentre']['new_theme'] . '</span></a>';
+        echo '<a href="setting.php"><span class="m-right ' . (4 == $id ? 'm-now' : '') . '">' . $zbp->lang['AppCentre']['settings'] . '</span></a>';
+        echo '<a href="plugin_edit.php"><span class="m-right ' . (5 == $id ? 'm-now' : '') . '">' . $zbp->lang['AppCentre']['new_plugin'] . '</span></a>';
+        echo '<a href="theme_edit.php"><span class="m-right ' . (6 == $id ? 'm-now' : '') . '">' . $zbp->lang['AppCentre']['new_theme'] . '</span></a>';
     }
 
-    echo '<a href="security.php"><span class="m-right ' . ($id == 7 ? 'm-now' : '') . '">' . $zbp->lang['AppCentre']['safe_mode'] . '</span></a>';
+    echo '<a href="security.php"><span class="m-right ' . (7 == $id ? 'm-now' : '') . '">' . $zbp->lang['AppCentre']['safe_mode'] . '</span></a>';
 }
 
 function AppCentre_GetCheckQueryString($with_ignores = false)
 {
     global $zbp;
 
-    if(!is_array($zbp->Config('AppCentre')->app_ignores)) {
-        $zbp->Config('AppCentre')->app_ignores = array();
+    if (!is_array($zbp->Config('AppCentre')->app_ignores)) {
+        $zbp->Config('AppCentre')->app_ignores = [];
     }
     $ia = $zbp->Config('AppCentre')->app_ignores;
-    foreach($ia as $k=>$v){
-        if($v == 'AppCentre'){
+    foreach ($ia as $k=>$v) {
+        if ('AppCentre' == $v) {
             unset($ia[$k]);
         }
     }
-    if ($with_ignores == false) {
-        $ia = array();
+    if (false == $with_ignores) {
+        $ia = [];
     }
 
     $check = '';
-    $app = new app;
-    if ($app->LoadInfoByXml('theme', $zbp->theme) == true && !in_array($zbp->theme, $ia)) {
-        $app->modified = str_replace(array(':',';'), '', $app->modified);
-        $app->version  = str_replace(array(':',';'), '', $app->version);
-        if (file_exists($zbp->path . 'zb_users/theme/' . $app->id . '/app_update.lock') == false) {
+    $app = new app();
+    if (true == $app->LoadInfoByXml('theme', $zbp->theme) && !in_array($zbp->theme, $ia)) {
+        $app->modified = str_replace([':', ';'], '', $app->modified);
+        $app->version = str_replace([':', ';'], '', $app->version);
+        if (false == file_exists($zbp->path . 'zb_users/theme/' . $app->id . '/app_update.lock')) {
             $check .= $app->id . ':' . $app->modified . ':' . $app->version . ';';
         }
     }
     foreach (explode('|', $zbp->option['ZC_USING_PLUGIN_LIST']) as $id) {
-        $app = new app;
-        if ($app->LoadInfoByXml('plugin', $id) == true && !in_array($id, $ia)) {
-            $app->modified = str_replace(array(':',';'), '', $app->modified);
-            $app->version  = str_replace(array(':',';'), '', $app->version);
-            if (file_exists($zbp->path . 'zb_users/plugin/' . $app->id . '/app_update.lock') == false) {
+        $app = new app();
+        if (true == $app->LoadInfoByXml('plugin', $id) && !in_array($id, $ia)) {
+            $app->modified = str_replace([':', ';'], '', $app->modified);
+            $app->version = str_replace([':', ';'], '', $app->version);
+            if (false == file_exists($zbp->path . 'zb_users/plugin/' . $app->id . '/app_update.lock')) {
                 $check .= $app->id . ':' . $app->modified . ':' . $app->version . ';';
             }
         }
     }
+
     return urlencode($check);
 }
 
-function AppCentre_GetAppsIgnoresString() {
+function AppCentre_GetAppsIgnoresString()
+{
     global $zbp;
     $c = '';
     if (is_array($zbp->Config('AppCentre')->app_ignores) && count($zbp->Config('AppCentre')->app_ignores) > 0) {
         $c = implode('|', $zbp->Config('AppCentre')->app_ignores);
     }
+
     return urlencode($c);
 }
 
@@ -83,7 +86,8 @@ function Server_Open($method)
         case 'down':
             if (!$zbp->ValidToken(GetVars('token', 'GET'), 'AppCentre')) {
                 $zbp->ShowError(5, __FILE__, __LINE__);
-                die();
+
+                exit();
             }
             if (ExistsPluginFilter('Filter_Plugin_Debug_Handler_Common')) {
                 Add_Filter_Plugin('Filter_Plugin_Debug_Handler_Common', 'ScriptError', PLUGIN_EXITSIGNAL_RETURN);
@@ -97,7 +101,7 @@ function Server_Open($method)
                 define('APPCENTRE_CAN_NOT_HTTPS', true);
             }
 
-            if (stripos(APPCENTRE_URL, 'https://') === false && defined('APPCENTRE_CAN_NOT_HTTPS') === false) {
+            if (false === stripos(APPCENTRE_URL, 'https://') && false === defined('APPCENTRE_CAN_NOT_HTTPS')) {
                 $testhttps = Server_SendRequest(str_replace('http://', 'https://', APPCENTRE_URL) . 'testhttps.txt');
                 if (!$testhttps) {
                     define('APPCENTRE_CAN_NOT_HTTPS', true);
@@ -105,7 +109,7 @@ function Server_Open($method)
             }
 
             if (!$zbp->CheckApp(GetVars('id', 'GET'))) {
-                if ($zbp->user->IsGod == false) {
+                if (false == $zbp->user->IsGod) {
                     $zbp->ShowError($zbp->lang['AppCentre']['non_root_prohibit_operation']);
                 }
             }
@@ -113,14 +117,14 @@ function Server_Open($method)
             $s = Server_SendRequest(APPCENTRE_URL . '?down=' . GetVars('id', 'GET'));
 
             $xml = $s;
-            $charset = array();
+            $charset = [];
             $charset[1] = substr($xml, 0, 1);
             $charset[2] = substr($xml, 1, 1);
-            if (ord($charset[1]) == 31 && ord($charset[2]) == 139) {
+            if (31 == ord($charset[1]) && 139 == ord($charset[2])) {
                 $xml = gzdecode($xml);
             }
             $xml = @simplexml_load_string($xml, 'SimpleXMLElement', (LIBXML_COMPACT | LIBXML_PARSEHUGE));
-            if ($xml === false) {
+            if (false === $xml) {
                 $zbp->SetHint('bad', $zbp->lang['AppCentre']['app_download_failed']);
                 $zbp->ShowError($zbp->lang['AppCentre']['app_download_failed'], __FILE__, __LINE__);
             }
@@ -138,137 +142,158 @@ function Server_Open($method)
                         $zbp->SetHint('bad', $i . $zbp->lang['AppCentre']['files_write_failed']);
                     }
                 }
-            
+
                 $type = $xml['type'];
                 $dir = $zbp->path . 'zb_users/' . $type . '/' . $id . '/';
                 if (is_readable($dir . $type . '.xml')) {
                     $c = file_get_contents($dir . $type . '.xml');
-                    if (stripos($c, '<pubdate>' . $xml->pubdate . '</pubdate>') !== false) {
-                        if (in_array((string) $id, $zbp->GetPreActivePlugin()) == true) {
+                    if (false !== stripos($c, '<pubdate>' . $xml->pubdate . '</pubdate>')) {
+                        if (true == in_array((string) $id, $zbp->GetPreActivePlugin())) {
                             $zbp->cache->success_updated_app = (string) $id;
                             $zbp->SaveCache();
                         }
                         $zbp->SetHint('good', $zbp->lang['AppCentre']['download_successfully']);
-                        die;
+
+                        exit;
                     }
                 }
                 $zbp->SetHint('bad', $zbp->lang['AppCentre']['no_local_write_permission']);
             } else {
                 $zbp->SetHint('bad', $zbp->lang['AppCentre']['app_decompression_failed']);
             }
-            die();
+
+            exit();
             //break;
         case 'search':
-            if (trim(GetVars('q', 'GET', '')) == '') {
+            if ('' == trim(GetVars('q', 'GET', ''))) {
                 return;
             }
 
             $s = Server_SendRequest(APPCENTRE_URL . '?search=' . urlencode(GetVars('q', 'GET')) . '&' . GetVars('QUERY_STRING', 'SERVER'));
             $s = str_replace('%bloghost%', $zbp->host . 'zb_users/plugin/AppCentre/main.php', $s);
             echo str_replace('%csrf_token%', $zbp->GetToken('AppCentre'), $s);
+
             break;
+
         case 'view':
             $s = Server_SendRequest(APPCENTRE_URL . '?' . GetVars('QUERY_STRING', 'SERVER'));
-            if (strpos($s, '<!--developer-nologin-->') !== false) {
+            if (false !== strpos($s, '<!--developer-nologin-->')) {
                 if ($zbp->Config('AppCentre')->token) {
                     $zbp->Config('AppCentre')->token = '';
                     $zbp->Config('AppCentre')->uniq_id = '';
                     $zbp->SaveConfig('AppCentre');
                 }
             }
-            if (strpos($s, APPCENTRE_DOMAIN) === false) {
-                $zbp->ShowHint('bad', str_replace(array('%s1', '%s2'), array(APPCENTRE_DOMAIN, str_replace(array( str_replace('app.', '', APPCENTRE_DOMAIN),'|'), '', APPCENTRE_DOMAINS)), $zbp->lang['AppCentre']['client_access_to_store_failure']));
+            if (false === strpos($s, APPCENTRE_DOMAIN)) {
+                $zbp->ShowHint('bad', str_replace(['%s1', '%s2'], [APPCENTRE_DOMAIN, str_replace([str_replace('app.', '', APPCENTRE_DOMAIN), '|'], '', APPCENTRE_DOMAINS)], $zbp->lang['AppCentre']['client_access_to_store_failure']));
             }
             $s = str_replace('%bloghost%', $zbp->host . 'zb_users/plugin/AppCentre/main.php', $s);
             echo str_replace('%csrf_token%', $zbp->GetToken('AppCentre'), $s);
+
             break;
+
         case 'cmd':
             header('Content-type: application/x-javascript; Charset=utf-8');
             ob_clean();
             $request_url = APPCENTRE_CMD_URL . http_build_query($_GET);
             $s = Server_SendRequest($request_url);
             echo $s;
-            die;
+
+            exit;
             //break;
         case 'check':
-            $data = array();
+            $data = [];
             $data['check'] = urldecode(AppCentre_GetCheckQueryString());
             $s = Server_SendRequest(APPCENTRE_URL . '?check=1&ignores=' . AppCentre_GetAppsIgnoresString(), $data);
             $s = str_replace('%bloghost%', $zbp->host . 'zb_users/plugin/AppCentre/main.php', $s);
             echo str_replace('%csrf_token%', $zbp->GetToken('AppCentre'), $s);
+
             break;
+
         case 'checksilent':
             header('Content-type: application/x-javascript; Charset=utf-8');
             ob_clean();
-            $data = array();
+            $data = [];
             $data['check'] = urldecode(AppCentre_GetCheckQueryString(true));
             $s = Server_SendRequest(APPCENTRE_URL . '?blogsilent=1' . ($zbp->Config('AppCentre')->checkbeta ? '&betablog=1' : '') . '&check=1&ignores=' . AppCentre_GetAppsIgnoresString(), $data);
-            if (strpos($s, ';') !== false) {
+            if (false !== strpos($s, ';')) {
                 $newversion = SplitAndGet($s, ';', 0);
                 $s = str_replace(($newversion . ';'), '', $s);
                 if ((int) $newversion > (int) $blogversion) {
                     echo '$(".main").prepend("<div class=\'hint\'><p class=\'hint hint_tips\'>' . $zbp->lang['AppCentre']['tips_system_updated'] . $newversion . ($zbp->Config('AppCentre')->checkbeta ? ' (Beta)' : '') . '</p></div>");';
                 }
             }
-            if ($s != 0) {
+            if (0 != $s) {
                 echo '$(".main").prepend("<div class=\'hint\'><p class=\'hint hint_tips\'>' . str_replace('%n', $s, $zbp->lang['AppCentre']['tips_app_updated']) . '</p></div>");';
             }
-            die();
+
+            exit();
             //break;
         case 'login':
-            $data = array();
-            $data["token"] = GetVars("app_token", "POST");
-            $data["sign"] = AppCentre_Get_Sign(GetVars("app_token", "POST"));
+            $data = [];
+            $data['token'] = GetVars('app_token', 'POST');
+            $data['sign'] = AppCentre_Get_Sign(GetVars('app_token', 'POST'));
             $s = Server_SendRequest(APPCENTRE_URL . '?login', $data);
+
             return $s;
             //break;
         case 'logout':
             $s = Server_SendRequest(APPCENTRE_URL . '?logout');
+
             return $s;
             //break;
         case 'submitpre':
             $s = Server_SendRequest(APPCENTRE_URL . '?submitpre=' . urlencode(GetVars('id')));
+
             return $s;
+
         case 'submit':
-            $app = new App;
+            $app = new App();
             $app->LoadInfoByXml($_GET['type'], $_GET['id']);
-            $data["zba"] = $app->Pack();
-            $data["tfa_verification"] = $_POST['tfa_verification'];
+            $data['zba'] = $app->Pack();
+            $data['tfa_verification'] = $_POST['tfa_verification'];
             $s = Server_SendRequest(APPCENTRE_URL . '?submit=' . urlencode(GetVars('id')), $data);
+
             return $s;
+
         case 'shopvaild':
-            $data = array();
-            $data["shop_username"] = GetVars("shop_username");
-            $data["shop_password"] = md5(GetVars("shop_password"));
+            $data = [];
+            $data['shop_username'] = GetVars('shop_username');
+            $data['shop_password'] = md5(GetVars('shop_password'));
             $s = Server_SendRequest(APPCENTRE_URL . '?shopvaild', $data);
+
             return $s;
             //break;
         case 'shoplist':
             $s = Server_SendRequest(APPCENTRE_URL . '?shoplist');
             $s = str_replace('%bloghost%', $zbp->host . 'zb_users/plugin/AppCentre/main.php', $s);
             echo str_replace('%csrf_token%', $zbp->GetToken('AppCentre'), $s);
+
             break;
+
         case 'apptype':
-            $zbp->Config('AppCentre')->apptype = GetVars("type");
+            $zbp->Config('AppCentre')->apptype = GetVars('type');
             $zbp->SaveConfig('AppCentre');
             Redirect('main.php');
+
             break;
+
         default:
-            # code...
+            // code...
             break;
     }
 }
 
-function Server_SendRequest($url, $data = array(), $u2 = '', $c2 = '')
+function Server_SendRequest($url, $data = [], $u2 = '', $c2 = '')
 {
     global $zbp;
 
     $c = AppCentre_Get_Cookies();
     $u = AppCentre_Get_UserAgent();
-    if ($u2 != '') {
+    if ('' != $u2) {
         $u .= ' ' . $u2;
     }
-    if ($c2 != '') {
+    if ('' != $c2) {
         $c .= ' ;' . $c2;
     }
 
@@ -276,17 +301,18 @@ function Server_SendRequest($url, $data = array(), $u2 = '', $c2 = '')
         return Server_SendRequest_Network($url, $data, $u, $c);
     }
 
-    if (function_exists("curl_init") && function_exists('curl_exec')) {
+    if (function_exists('curl_init') && function_exists('curl_exec')) {
         return Server_SendRequest_CUrl($url, $data, $u, $c);
     }
 
-    if (!ini_get("allow_url_fopen")) {
-        return "";
+    if (!ini_get('allow_url_fopen')) {
+        return '';
     }
-    return "";
+
+    return '';
 }
 
-function Server_SendRequest_CUrl($url, $data = array(), $u = null, $c = null)
+function Server_SendRequest_CUrl($url, $data = [], $u = null, $c = null)
 {
     global $zbp;
 
@@ -297,12 +323,12 @@ function Server_SendRequest_CUrl($url, $data = array(), $u = null, $c = null)
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_TIMEOUT, 120);
     if (isset($_SERVER['HTTP_ACCEPT'])) {
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: ' . $_SERVER['HTTP_ACCEPT']));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Accept: ' . $_SERVER['HTTP_ACCEPT']]);
     }
     curl_setopt($ch, CURLOPT_USERAGENT, $u);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-    if (ini_get("safe_mode") == false) {
+    if (false == ini_get('safe_mode')) {
         curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
     }
@@ -325,7 +351,7 @@ function Server_SendRequest_CUrl($url, $data = array(), $u = null, $c = null)
     return $r;
 }
 
-function Server_SendRequest_Network($url, $data = array(), $u = null, $c = null)
+function Server_SendRequest_Network($url, $data = [], $u = null, $c = null)
 {
     global $zbp;
     $ajax = Network::Create(trim($zbp->Config('AppCentre')->networktype));
@@ -334,7 +360,7 @@ function Server_SendRequest_Network($url, $data = array(), $u = null, $c = null)
     }
 
     if ($data) {
-//POST
+        //POST
         $ajax->open('POST', $url);
         $ajax->enableGzip();
         $ajax->setTimeOuts(120, 120, 0, 0);
@@ -361,7 +387,7 @@ function Server_SendRequest_Network($url, $data = array(), $u = null, $c = null)
         $ajax->send();
 
         $i = 0;
-        while ($i < 3 && ($ajax->status == 301 || $ajax->status == 302)) {
+        while ($i < 3 && (301 == $ajax->status || 302 == $ajax->status)) {
             $i = ($i + 1);
             $ajax->open('GET', $ajax->getResponseHeader('location'));
             $ajax->enableGzip();
@@ -391,11 +417,12 @@ function AppCentre_CreateOptionsOfVersion($default)
     krsort($array);
     $i = 0;
     foreach ($array as $key => $value) {
-        $i += 1;
-        if (($i == 1) || strpos($value, 'Beta') === false) {
+        ++$i;
+        if ((1 == $i) || false === strpos($value, 'Beta')) {
             $s .= '<option value="' . $key . '" ' . ($default == $key ? 'selected="selected"' : '') . ' >' . $value . '</option>';
         }
     }
+
     return $s;
 }
 
@@ -417,22 +444,23 @@ function AppCentre_GetHttpContent($url)
     $ajax->setRequestHeader('Website', $zbp->host);
     $ajax->send();
 
-    return ($ajax->status == 200) ? $ajax->responseText : null;
+    return (200 == $ajax->status) ? $ajax->responseText : null;
 }
 
 function AppCentre_crc32_signed($num)
 {
     $crc = crc32($num);
     if (($crc & 0x80000000)) {
-        $crc ^= 0xffffffff;
-        $crc += 1;
+        $crc ^= 0xFFFFFFFF;
+        ++$crc;
         $crc = (0 - $crc);
     }
+
     return $crc;
 }
 
-$AppCentre_dirs = array();
-$AppCentre_files = array();
+$AppCentre_dirs = [];
+$AppCentre_files = [];
 
 function AppCentre_GetAllFileDir($dir)
 {
@@ -441,7 +469,7 @@ function AppCentre_GetAllFileDir($dir)
     if (function_exists('scandir')) {
         foreach (scandir($dir) as $d) {
             if (is_dir($dir . $d)) {
-                if (substr($d, 0, 1) != '.') {
+                if ('.' != substr($d, 0, 1)) {
                     AppCentre_GetAllFileDir($dir . $d . '/');
                     $AppCentre_dirs[] = $dir . $d . '/';
                 }
@@ -452,7 +480,7 @@ function AppCentre_GetAllFileDir($dir)
     } else {
         if ($handle = opendir($dir)) {
             while (false !== ($file = readdir($handle))) {
-                if (substr($file, 0, 1) != '.') {
+                if ('.' != substr($file, 0, 1)) {
                     if (is_dir($dir . $file)) {
                         $AppCentre_dirs[] = $dir . $file . '/';
                         AppCentre_GetAllFileDir($dir . $file . '/');
@@ -472,9 +500,9 @@ function AppCentre_Pack($app, $gzip)
 
     if ($gzip) {
         return gzencode($s, 9, FORCE_GZIP);
-    } else {
-        return $s;
     }
+
+    return $s;
 }
 
 function AppCentre_PHPVersion($default)
@@ -482,7 +510,7 @@ function AppCentre_PHPVersion($default)
     global $zbp;
 
     $s = null;
-    $array = array(
+    $array = [
         '7.2' => '7.2',
         '7.3' => '7.3',
         '7.4' => '7.4',
@@ -491,14 +519,15 @@ function AppCentre_PHPVersion($default)
         '8.2' => '8.2',
         '8.3' => '8.3',
         '8.4' => '8.4',
-        '8.5' => '8.5'
-    );
+        '8.5' => '8.5',
+    ];
     $i = 0;
-    if ($default == '') {
+    if ('' == $default) {
         $default = '5.6';
     }
     foreach ($array as $key => $value) {
         $s .= '<option value="' . $key . '" ' . ($default == $key ? 'selected="selected"' : '') . ' >' . $value . '</option>';
     }
+
     return $s;
 }

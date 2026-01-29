@@ -217,9 +217,7 @@ if (count($_POST) > 0) {
 }
 
 if (version_compare(ZC_VERSION, '1.8.0') >= 0) {
-
-    ob_start();
-?>
+    ob_start(); ?>
 <form method="post" action="">
 <?php echo '<input id="token" name="token" type="hidden" value="' . $zbp->GetToken('AppCentre') . '"/>'; ?>
   <table border="1" width="100%" cellspacing="0" cellpadding="0" class="tableBorder tableBorder-thcenter">
@@ -337,11 +335,10 @@ if (version_compare(ZC_VERSION, '1.8.0') >= 0) {
           <select name="app_level" id="app_level" style="width:200px;">
 <?php
 if (function_exists('OutputOptionItemsOfMemberLevel')) {
-    echo OutputOptionItemsOfMemberLevel(1);
-} else {
-    echo CreateOptoinsOfMemberLevel(1);
-}
-?>
+        echo OutputOptionItemsOfMemberLevel(1);
+    } else {
+        echo CreateOptoinsOfMemberLevel(1);
+    } ?>
           </select>
         </p></td>
     </tr>
@@ -401,8 +398,7 @@ if (function_exists('OutputOptionItemsOfMemberLevel')) {
             <?php
             if ($app->sidebars_sidebar1) {
                 echo 'checked="checked"';
-            }
-            ?>
+            } ?>
                                                                               />
             <?php echo $zbp->lang['msg']['sidebar']; ?></label>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -411,8 +407,7 @@ if (function_exists('OutputOptionItemsOfMemberLevel')) {
             <?php
             if ($app->sidebars_sidebar2) {
                 echo 'checked="checked"';
-            }
-            ?>
+            } ?>
                                                                                />
             <?php echo $zbp->lang['msg']['sidebar2']; ?></label>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -421,8 +416,7 @@ if (function_exists('OutputOptionItemsOfMemberLevel')) {
             <?php
             if ($app->sidebars_sidebar3) {
                 echo 'checked="checked"';
-            }
-            ?>
+            } ?>
                                                                                />
             <?php echo $zbp->lang['msg']['sidebar3']; ?></label>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -431,8 +425,7 @@ if (function_exists('OutputOptionItemsOfMemberLevel')) {
             <?php
             if ($app->sidebars_sidebar4) {
                 echo 'checked="checked"';
-            }
-            ?>
+            } ?>
                                                                                />
             <?php echo $zbp->lang['msg']['sidebar4']; ?></label>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -441,8 +434,7 @@ if (function_exists('OutputOptionItemsOfMemberLevel')) {
             <?php
             if ($app->sidebars_sidebar5) {
                 echo 'checked="checked"';
-            }
-            ?>
+            } ?>
                                                                                />
             <?php echo $zbp->lang['msg']['sidebar5']; ?></label>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -451,8 +443,7 @@ if (function_exists('OutputOptionItemsOfMemberLevel')) {
             <?php
             if ($app->sidebars_sidebar6) {
                 echo 'checked="checked"';
-            }
-            ?>
+            } ?>
                                                                                />
             <?php echo $zbp->lang['msg']['sidebar6']; ?></label>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -461,8 +452,7 @@ if (function_exists('OutputOptionItemsOfMemberLevel')) {
             <?php
             if ($app->sidebars_sidebar7) {
                 echo 'checked="checked"';
-            }
-            ?>
+            } ?>
                                                                                />
             <?php echo $zbp->lang['msg']['sidebar7']; ?></label>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -471,8 +461,7 @@ if (function_exists('OutputOptionItemsOfMemberLevel')) {
             <?php
             if ($app->sidebars_sidebar8) {
                 echo 'checked="checked"';
-            }
-            ?>
+            } ?>
                                                                                />
             <?php echo $zbp->lang['msg']['sidebar8']; ?></label>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -481,8 +470,7 @@ if (function_exists('OutputOptionItemsOfMemberLevel')) {
             <?php
             if ($app->sidebars_sidebar9) {
                 echo 'checked="checked"';
-            }
-            ?>
+            } ?>
                                                                                />
             <?php echo $zbp->lang['msg']['sidebar9']; ?></label>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
@@ -521,7 +509,6 @@ if (function_exists('OutputOptionItemsOfMemberLevel')) {
     RunTime();
 
     exit;
-
 }
 
 require $blogpath . 'zb_system/admin/admin_header.php';

@@ -32,9 +32,7 @@ if (count($_POST) > 0) {
 $blogtitle = AppCentre_GetBlogTitle() . '-' . $zbp->lang['AppCentre']['safe_mode'];
 
 if (version_compare(ZC_VERSION, '1.8.0') >= 0) {
-
-    ob_start();
-?>
+    ob_start(); ?>
 <style>
 .warning { 
   font-size: 150%; 
@@ -49,9 +47,9 @@ if (version_compare(ZC_VERSION, '1.8.0') >= 0) {
   <div class="warning">
 <?php
 if (AppCentre_InSecurityMode()) {
-    echo $zbp->lang['AppCentre']['turn_off_safe_mode_note'];
-} else {
-    echo $zbp->lang['AppCentre']['turn_on_safe_mode_note']; ?>
+        echo $zbp->lang['AppCentre']['turn_off_safe_mode_note'];
+    } else {
+        echo $zbp->lang['AppCentre']['turn_on_safe_mode_note']; ?>
 <p>
 <form method="post">
     <?php if (function_exists('CheckIsRefererValid')) { ?>
@@ -59,7 +57,7 @@ if (AppCentre_InSecurityMode()) {
     <?php } ?>
 <input type="submit" class="button" value="<?php echo $zbp->lang['AppCentre']['turn_on_safe_mode']; ?>"></form></p>
 <?php
-}
+    }
     $content = ob_get_clean();
     //内容获取结束
 
@@ -86,7 +84,6 @@ if (AppCentre_InSecurityMode()) {
     RunTime();
 
     exit;
-
 }
 
 require $blogpath . 'zb_system/admin/admin_header.php';

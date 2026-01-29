@@ -49,9 +49,7 @@ if ('save' == GetVars('act')) {
 }
 
 if (version_compare(ZC_VERSION, '1.8.0') >= 0) {
-
-    ob_start();
-?>
+    ob_start(); ?>
             <form action="?act=save" method="post">
             <?php echo '<input id="token" name="token" type="hidden" value="' . $zbp->GetToken('AppCentre') . '"/>'; ?>
               <table width="100%" border="0">
@@ -93,26 +91,24 @@ if (version_compare(ZC_VERSION, '1.8.0') >= 0) {
                   <td>
 <?php
 if (!is_array($zbp->Config('AppCentre')->app_ignores)) {
-    $zbp->Config('AppCentre')->app_ignores = [];
-}
-foreach ($zbp->Config('AppCentre')->app_ignores as $key => $value) {
-    echo "<label><input type=\"checkbox\" name=\"app_ignores[]\" checked=\"checked\" value=\"{$value}\">&nbsp;{$value}</label>&nbsp;&nbsp;&nbsp;";
-}
-if (method_exists($zbp, 'GetPreActivePlugin')) {
-    $aps = $GLOBALS['zbp']->GetPreActivePlugin();
-} else {
-    $aps = array_unique(explode('|', $zbp->option['ZC_USING_PLUGIN_LIST']));
-}
-$aps = array_merge([$zbp->theme], $aps);
-
-foreach ($aps as $key => $value) {
-    if (in_array($value, $zbp->Config('AppCentre')->app_ignores) || 'AppCentre' == $value) {
-        continue;
+        $zbp->Config('AppCentre')->app_ignores = [];
     }
-    echo "<label><input type=\"checkbox\" name=\"app_ignores[]\" value=\"{$value}\">&nbsp;{$value}</label>&nbsp;&nbsp;&nbsp;";
-}
+    foreach ($zbp->Config('AppCentre')->app_ignores as $key => $value) {
+        echo "<label><input type=\"checkbox\" name=\"app_ignores[]\" checked=\"checked\" value=\"{$value}\">&nbsp;{$value}</label>&nbsp;&nbsp;&nbsp;";
+    }
+    if (method_exists($zbp, 'GetPreActivePlugin')) {
+        $aps = $GLOBALS['zbp']->GetPreActivePlugin();
+    } else {
+        $aps = array_unique(explode('|', $zbp->option['ZC_USING_PLUGIN_LIST']));
+    }
+    $aps = array_merge([$zbp->theme], $aps);
 
-?>
+    foreach ($aps as $key => $value) {
+        if (in_array($value, $zbp->Config('AppCentre')->app_ignores) || 'AppCentre' == $value) {
+            continue;
+        }
+        echo "<label><input type=\"checkbox\" name=\"app_ignores[]\" value=\"{$value}\">&nbsp;{$value}</label>&nbsp;&nbsp;&nbsp;";
+    } ?>
                   </td>
                 </tr>
                 <tr height="32">
@@ -167,7 +163,6 @@ foreach ($aps as $key => $value) {
     RunTime();
 
     exit;
-
 }
 
 require $blogpath . 'zb_system/admin/admin_header.php';
