@@ -11,6 +11,7 @@ if (version_compare(ZC_VERSION, '1.8.0') >= 0) {
 $zbp->Load();
 
 $action = 'root';
+$nonce = null;
 if (!$zbp->CheckRights($action)) {
     $zbp->ShowError(6);
 
@@ -44,38 +45,15 @@ if (AppCentre_InSecurityMode()) {
 Add_Filter_Plugin('Filter_Plugin_CSP_Backend', 'AppCentre_UpdateCSP');
 
 if (version_compare(ZC_VERSION, '1.8.0') >= 0) {
-    ob_start();
-    $method = GetVars('method', 'GET');
-
-    if (!$method) {
-        $method = 'view';
-    }
-
-    Server_Open($method);
-    $content = ob_get_clean();
-    $nonce = '';
-    if (preg_match('/nonce="([^"]+)"/', $content, $matches)) {
-        if (isset($matches[1])) {
-            $nonce = $matches[1];
-        }
-    }
-    $content .= '<script nonce="' . $nonce . '">window.plug_list = "' . AddNameInString($option['ZC_USING_PLUGIN_LIST'], $option['ZC_BLOG_THEME']) . '";window.signkey = \'' . $zbp->GetToken() . '\';</script>';
-    //内容获取结束
-
     $ActionInfo = zbp_admin2_GetActionInfo($action, (object) [
         'Title' => $blogtitle,
         'Header' => $blogtitle,
         'HeaderIcon' => $bloghost . 'zb_users/plugin/AppCentre/logo.png',
-        'Content' => $content,
+        'Content' => Get_Content(),
         'Js_Nonce' => @$nonce,
         'ActiveLeftMenu' => 'aAppCentre',
+        'SubMenu' => AppCentre_SubMenus('check' == GetVars('method', 'GET') ? 2 : 1),
     ]);
-    ob_start();
-    foreach ($GLOBALS['hooks']['Filter_Plugin_AppCentre_Client_SubMenu'] as $fpname => &$fpsignal) {
-        $fpname();
-    }
-    AppCentre_SubMenus('check' == GetVars('method', 'GET') ? 2 : 1);
-    $ActionInfo->SubMenu = ob_get_clean();
 
     // 输出页面
     $zbp->template_admin->SetTags('title', $ActionInfo->Title);
@@ -95,22 +73,11 @@ require $blogpath . 'zb_system/admin/admin_top.php';
 <div id="divMain">
 
   <div class="divHeader"><?php echo $blogtitle; ?></div>
-<div class="SubMenu"><?php foreach ($GLOBALS['hooks']['Filter_Plugin_AppCentre_Client_SubMenu'] as $fpname => &$fpsignal) {
-    $fpname();
-}
-AppCentre_SubMenus('check' == GetVars('method', 'GET') ? 2 : 1);
+<div class="SubMenu"><?php echo AppCentre_SubMenus('check' == GetVars('method', 'GET') ? 2 : 1);
 ?></div>
   <div id="divMain2">
-
-
 <?php
-$method = GetVars('method', 'GET');
-
-if (!$method) {
-    $method = 'view';
-}
-
-Server_Open($method);
+echo Get_Content();
 ?>
     <script type="text/javascript">
         window.plug_list = "<?php echo AddNameInString($option['ZC_USING_PLUGIN_LIST'], $option['ZC_BLOG_THEME']); ?>";
@@ -121,6 +88,28 @@ Server_Open($method);
   </div>
 </div>
 <?php
+function Get_Content() {
+    global $zbp, $nonce, $option;
+    ob_start();
+    $method = GetVars('method', 'GET');
+
+    if (!$method) {
+        $method = 'view';
+    }
+    Server_Open($method);
+    //内容获取结束
+    $content = ob_get_clean();
+    $nonce = '';
+    if (preg_match('/nonce="([^"]+)"/', $content, $matches)) {
+        if (isset($matches[1])) {
+            $nonce = $matches[1];
+        }
+    }
+    $content .= '<script nonce="' . $nonce . '">window.plug_list = "' . AddNameInString($option['ZC_USING_PLUGIN_LIST'], $option['ZC_BLOG_THEME']) . '";window.signkey = \'' . $zbp->GetToken() . '\';</script>';
+
+    return $content;
+}
+
 require $blogpath . 'zb_system/admin/admin_footer.php';
 
 RunTime();

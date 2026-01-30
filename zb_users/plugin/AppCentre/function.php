@@ -2,6 +2,7 @@
 
 function AppCentre_SubMenus($id)
 {
+    ob_start();
     //m-now
     global $zbp;
 
@@ -31,6 +32,10 @@ function AppCentre_SubMenus($id)
     }
 
     echo '<a href="security.php"><span class="m-right ' . (7 == $id ? 'm-now' : '') . '">' . $zbp->lang['AppCentre']['safe_mode'] . '</span></a>';
+
+    $content = ob_get_clean();
+
+    return $content;
 }
 
 function AppCentre_GetCheckQueryString($with_ignores = false)
