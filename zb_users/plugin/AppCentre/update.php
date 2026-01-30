@@ -412,6 +412,7 @@ function restore(f,id,hash){
 <?php
     //内容获取结束
     $content = ob_get_clean();
+
     return $content;
 }
 
