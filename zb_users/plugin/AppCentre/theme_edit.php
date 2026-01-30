@@ -809,13 +809,13 @@ if (function_exists('OutputOptionItemsOfMemberLevel')) {
 </div>
 <?php
 function Get_Content()
-{
-    global $zbp, $option;
-    ob_start();
-    $content = ob_get_clean();
-    //内容获取结束
-    return $content;
-}
+            {
+                global $zbp, $option;
+                ob_start();
+                $content = ob_get_clean();
+                //内容获取结束
+                return $content;
+            }
 
 require $blogpath . 'zb_system/admin/admin_footer.php';
 
