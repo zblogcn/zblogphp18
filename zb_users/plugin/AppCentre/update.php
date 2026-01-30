@@ -225,8 +225,63 @@ if ('now' == GetVars('check', 'GET')) {
 
 //1.8
 if (version_compare(ZC_VERSION, '1.8.0') >= 0) {
-    ob_start();
+    $ActionInfo = zbp_admin2_GetActionInfo($action, (object) [
+        'Title' => $blogtitle,
+        'Header' => $blogtitle,
+        'HeaderIcon' => $bloghost . 'zb_users/plugin/AppCentre/logo.png',
+        'Content' => Get_Content(),
+        'Js_Nonce' => @$nonce,
+        'ActiveLeftMenu' => 'aAppCentre',
+        'SubMenu' => AppCentre_SubMenus(3),
+    ]);
 
+    // 输出页面
+    $zbp->template_admin->SetTags('title', $ActionInfo->Title);
+    $zbp->template_admin->SetTags('main', $ActionInfo);
+    $zbp->template_admin->Display('index');
+
+    RunTime();
+
+    exit;
+}
+
+require $blogpath . 'zb_system/admin/admin_header.php';
+
+require $blogpath . 'zb_system/admin/admin_top.php';
+
+$newversion_json = Server_SendRequest(APPCENTRE_SYSTEM_UPDATE . 'check/' . (true == $zbp->Config('AppCentre')->checkbeta ? 'beta/' : ''));
+$newversion_json = json_decode($newversion_json);
+if (!is_object($newversion_json)) {
+    $newversion = $blogversion;
+    $nowbuild = (int) $blogversion;
+    $newbuild = (int) substr($newversion, (strrpos($newversion, ' ') + 1));
+} else {
+    $newversion = $newversion_json->target->name . ' Build ' . $newversion_json->target->build;
+    $nowbuild = (int) $newversion_json->source->build;
+    $newbuild = (int) $newversion_json->target->build;
+    if (0 == $nowbuild) {
+        $nowbuild = (int) $blogversion;
+    }
+}
+?>
+<div id="divMain">
+
+  <div class="divHeader"><?php echo $blogtitle; ?></div>
+<div class="SubMenu"><?php echo AppCentre_SubMenus(3);
+?></div>
+  <div id="divMain2">
+<?php
+echo Get_Content();
+?>
+    <script type="text/javascript">ActiveLeftMenu("aAppCentre");</script>
+    <script type="text/javascript">AddHeaderIcon("<?php echo $bloghost . 'zb_users/plugin/AppCentre/logo.png'; ?>");</script>
+  </div>
+</div>
+<?php
+function Get_Content()
+{
+    global $zbp, $option, $nowxml, $checkbegin;
+    ob_start();
     $newversion_json = Server_SendRequest(APPCENTRE_SYSTEM_UPDATE . 'check/' . (true == $zbp->Config('AppCentre')->checkbeta ? 'beta/' : ''));
     $newversion_json = json_decode($newversion_json);
     if (!is_object($newversion_json)) {
@@ -357,192 +412,6 @@ function restore(f,id,hash){
 <?php
     //内容获取结束
     $content = ob_get_clean();
-
-    $ActionInfo = zbp_admin2_GetActionInfo($action, (object) [
-        'Title' => $blogtitle,
-        'Header' => $blogtitle,
-        'HeaderIcon' => $bloghost . 'zb_users/plugin/AppCentre/logo.png',
-        'Content' => $content,
-        'Js_Nonce' => @$nonce,
-        'ActiveLeftMenu' => 'aAppCentre',
-    ]);
-    ob_start();
-    foreach ($GLOBALS['hooks']['Filter_Plugin_AppCentre_Client_SubMenu'] as $fpname => &$fpsignal) {
-        $fpname();
-    }
-    AppCentre_SubMenus(3);
-    $ActionInfo->SubMenu = ob_get_clean();
-
-    // 输出页面
-    $zbp->template_admin->SetTags('title', $ActionInfo->Title);
-    $zbp->template_admin->SetTags('main', $ActionInfo);
-    $zbp->template_admin->Display('index');
-
-    RunTime();
-
-    exit;
-}
-
-require $blogpath . 'zb_system/admin/admin_header.php';
-
-require $blogpath . 'zb_system/admin/admin_top.php';
-
-$newversion_json = Server_SendRequest(APPCENTRE_SYSTEM_UPDATE . 'check/' . (true == $zbp->Config('AppCentre')->checkbeta ? 'beta/' : ''));
-$newversion_json = json_decode($newversion_json);
-if (!is_object($newversion_json)) {
-    $newversion = $blogversion;
-    $nowbuild = (int) $blogversion;
-    $newbuild = (int) substr($newversion, (strrpos($newversion, ' ') + 1));
-} else {
-    $newversion = $newversion_json->target->name . ' Build ' . $newversion_json->target->build;
-    $nowbuild = (int) $newversion_json->source->build;
-    $newbuild = (int) $newversion_json->target->build;
-    if (0 == $nowbuild) {
-        $nowbuild = (int) $blogversion;
-    }
-}
-?>
-<div id="divMain">
-
-  <div class="divHeader"><?php echo $blogtitle; ?></div>
-<div class="SubMenu"><?php
-foreach ($GLOBALS['hooks']['Filter_Plugin_AppCentre_Client_SubMenu'] as $fpname => &$fpsignal) {
-    $fpname();
-}
-AppCentre_SubMenus(3);
-?></div>
-  <div id="divMain2">
-
-            <form method="post" action="">
-
-<p>
-<?php
-if ($zbp->version >= 150101 && (int) $zbp->option['ZC_LAST_VERSION'] < 150101) {
-    echo '<input id="updatenow" type="button" onclick="location.href=\'?updatedb\';$(this).hide();" value="' . $zbp->lang['AppCentre']['database_update'] . '" />';
-}
-if ($zbp->version >= 162090 && (int) $zbp->option['ZC_LAST_VERSION'] < 162090) {
-    echo '<input id="updatenow" type="button" onclick="location.href=\'?updatedb\';$(this).hide();" value="' . $zbp->lang['AppCentre']['database_update'] . '" />';
-}
-?>
-              </p><hr/>
-
-              <table border="1" width="100%" cellspacing="0" cellpadding="0" class="tableBorder tableBorder-thcenter">
-                <tr>
-                  <th width='50%'><?php echo $zbp->lang['AppCentre']['current_version']; ?></th>
-                  <th><?php echo $zbp->lang['AppCentre']['latest_version']; ?></th>
-                </tr>
-                <tr>
-                  <td align='center' id='now'>Z-BlogPHP 
-<?php
-if (defined('ZC_VERSION_FULL')) {
-    echo ZC_VERSION_FULL;
-} else {
-    echo ZC_BLOG_VERSION;
-}
-?>
-</td>
-                  <td align='center' id='last'>Z-BlogPHP <?php echo $newversion; ?></td>
-                </tr>
-              </table>
-              <p>
-
-<?php
-if (($newbuild - $nowbuild) > 0) {
-    echo '<input id="updatenow" type="button" onclick="location.href=\'?update=' . $nowbuild . '-' . $newbuild . '\';$(this).hide();" value="' . $zbp->lang['AppCentre']['upgrade_program'] . '" />';
-}
-?>
-              </p>
-              <hr/>
-              <div class="divHeader"><?php echo $zbp->lang['AppCentre']['verify_core_file']; ?>&nbsp;&nbsp;<span id="checknow"><a href="?check=now" title="<?php echo $zbp->lang['AppCentre']['start_check']; ?>"><img src="images/refresh.png" width="16" alt="<?php echo $zbp->lang['AppCentre']['check']; ?>" /></a></span></div>
-              <table border="1" width="100%" cellspacing="0" cellpadding="0" class="tableBorder tableBorder-thcenter">
-                <tr>
-                  <th width='78%'><?php echo $zbp->lang['AppCentre']['filename']; ?></th>
-                  <th id="_s"><?php echo $zbp->lang['AppCentre']['states']; ?></th>
-                </tr>
-<?php
-$i = 0;
-//if (file_exists($zbp->usersdir . 'cache/now.xml')) {
-if ('' != $nowxml) {
-    $i = 0;
-    libxml_use_internal_errors(true);
-    //$xml=simplexml_load_file($zbp->usersdir . 'cache/now.xml');
-    $xml = simplexml_load_string($nowxml);
-    if ($xml) {
-        foreach ($xml->children() as $file) {
-            if (file_exists($f = $zbp->path . str_replace('\\', '/', $file['name']))) {
-                $f = file_get_contents($f);
-                $newcrc32 = substr(strtoupper(dechex(AppCentre_crc32_signed($f))), -8);
-                $md5 = strtoupper(md5($f));
-                $f = str_replace("\r\n", "\r", $f);
-                $f = str_replace("\n", "\r", $f);
-                $md5_r = strtoupper(md5($f));
-                $f = str_replace("\r", "\n", $f);
-                $md5_n = strtoupper(md5($f));
-            } else {
-                $newcrc32 = '';
-                $md5 = '';
-                $md5_r = '';
-                $md5_n = '';
-            }
-
-            $ar = [$file['crc32'], $file['md5'], $file['md5_r'], $file['md5_n']];
-
-            if (in_array($newcrc32, $ar) || in_array($md5, $ar) || in_array($md5_r, $ar) || in_array($md5_n, $ar)) {
-                echo '<tr style="display:none;"><td><b>' . str_replace('\\', '/', $file['name']) . '</b></td>';
-                $s = '<img src="' . $zbp->host . 'zb_system/image/admin/ok.png" width="16" alt="" />';
-            } else {
-                ++$i;
-                echo '<tr><td><b>' . str_replace('\\', '/', $file['name']) . '</b></td>';
-                $s = '<a href="javascript:void(0)" onclick="restore(\'' . base64_encode($file['name']) . '\',\'file' . md5($file['name']) . '\',\'' . $file['crc32'] . $file['md5'] . $file['md5_r'] . $file['md5_n'] . '\')" class="resotrefile button" title="还原系统文件"><img src="' . $zbp->host . 'zb_system/image/admin/exclamation.png" width="16" alt=""></a>';
-            }
-            echo '<td class="tdCenter" id="file' . md5($file['name']) . '">' . $s . '</td></tr>';
-        }
-    }
-    echo '<tr><th colspan="2">' . $i . $zbp->lang['AppCentre']['automatically_update_files'] . '.</tr>';
-    //@unlink($zbp->usersdir . 'cache/now.xml');
-}
-?>
-
-              </table>
-<?php if ($i > 0) { ?>
-              <p>
-                <input name="submit" type="button" id="autorestor" onclick="restoreauto();$(this).hide();" value="<?php echo $zbp->lang['AppCentre']['automatically_update_files']; ?>" class="button" />
-              </p>
-    <?php
-}
-?>
-              <p> </p>
-            </form>
-<script type="text/javascript">
-
-$("#autorestor").bind('click', function(){restoresingle();$(this).hide()});
-
-function restoresingle(){
-  if($("a.resotrefile").get(0)){
-    $("a.resotrefile").get(0).click();
-    setTimeout("restoresingle()",1000);
-  }
-}
-
-
-function restore(f,id,hash){
-    $.get(bloghost+"zb_users/plugin/AppCentre/update.php?restore="+f+"&hash="+hash, function(data){
-        //alert(data);
-        $('#'+id).html(data);
-    });
-}
-</script>
-    <script type="text/javascript">ActiveLeftMenu("aAppCentre");</script>
-    <script type="text/javascript">AddHeaderIcon("<?php echo $bloghost . 'zb_users/plugin/AppCentre/logo.png'; ?>");</script>
-  </div>
-</div>
-<?php
-function Get_Content()
-{
-    global $zbp, $option;
-    ob_start();
-    $content = ob_get_clean();
-    //内容获取结束
     return $content;
 }
 
