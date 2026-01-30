@@ -101,15 +101,15 @@ require $blogpath . 'zb_system/admin/admin_top.php';
 <div class="SubMenu"><?php echo AppCentre_SubMenus(9);
 ?></div>
   <div id="divMain2">
-<?php 
-    echo Get_Content();
+<?php echo Get_Content();
 ?>
 <script type="text/javascript">ActiveLeftMenu("aAppCentre");</script>
     <script type="text/javascript">AddHeaderIcon("<?php echo $bloghost . 'zb_users/plugin/AppCentre/logo.png'; ?>");</script>
   </div>
 </div>
 <?php
-function Get_Content() {
+function Get_Content()
+{
     global $zbp;
     ob_start();
     if (!$zbp->Config('AppCentre')->token) { ?>
@@ -139,6 +139,7 @@ function Get_Content() {
     }
     //内容获取结束
     $content = ob_get_clean();
+
     return $content;
 }
 

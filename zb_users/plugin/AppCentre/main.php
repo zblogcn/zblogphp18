@@ -88,7 +88,8 @@ echo Get_Content();
   </div>
 </div>
 <?php
-function Get_Content() {
+function Get_Content()
+{
     global $zbp, $nonce, $option;
     ob_start();
     $method = GetVars('method', 'GET');
