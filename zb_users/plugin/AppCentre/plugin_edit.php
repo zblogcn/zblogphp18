@@ -150,6 +150,46 @@ if (count($_POST) > 0) {
 }
 
 if (version_compare(ZC_VERSION, '1.8.0') >= 0) {
+    $ActionInfo = zbp_admin2_GetActionInfo($action, (object) [
+        'Title' => $blogtitle,
+        'Header' => $blogtitle,
+        'HeaderIcon' => $bloghost . 'zb_users/plugin/AppCentre/logo.png',
+        'Content' => Get_Content(),
+        'Js_Nonce' => @$nonce,
+        'ActiveLeftMenu' => 'aAppCentre',
+        'SubMenu' => AppCentre_SubMenus(5),
+    ]);
+
+    // 输出页面
+    $zbp->template_admin->SetTags('title', $ActionInfo->Title);
+    $zbp->template_admin->SetTags('main', $ActionInfo);
+    $zbp->template_admin->Display('index');
+
+    RunTime();
+
+    exit;
+}
+
+require $blogpath . 'zb_system/admin/admin_header.php';
+
+require $blogpath . 'zb_system/admin/admin_top.php';
+
+?>
+<div id="divMain">
+
+  <div class="divHeader"><?php echo $blogtitle; ?></div>
+<div class="SubMenu"><?php echo AppCentre_SubMenus('' == GetVars('id', 'GET') ? 5 : '');
+?></div>
+  <div id="divMain2">
+
+    <script type="text/javascript">ActiveLeftMenu("aAppCentre");</script>
+    <script type="text/javascript">AddHeaderIcon("<?php echo $bloghost . 'zb_users/plugin/AppCentre/logo.png'; ?>");</script>
+  </div>
+</div>
+<?php
+function Get_Content()
+{
+    global $zbp, $option, $app;
     ob_start(); ?>
 <form method="post" action="">
 <?php echo '<input id="token" name="token" type="hidden" value="' . $zbp->GetToken('AppCentre') . '"/>'; ?>
@@ -313,222 +353,6 @@ if (function_exists('OutputOptionItemsOfMemberLevel')) {
   <p>&nbsp;</p>
 </form>
 <?php
-    $content = ob_get_clean();
-    //内容获取结束
-
-    $ActionInfo = zbp_admin2_GetActionInfo($action, (object) [
-        'Title' => $blogtitle,
-        'Header' => $blogtitle,
-        'HeaderIcon' => $bloghost . 'zb_users/plugin/AppCentre/logo.png',
-        'Content' => $content,
-        'Js_Nonce' => @$nonce,
-        'ActiveLeftMenu' => 'aAppCentre',
-    ]);
-    ob_start();
-    foreach ($GLOBALS['hooks']['Filter_Plugin_AppCentre_Client_SubMenu'] as $fpname => &$fpsignal) {
-        $fpname();
-    }
-    AppCentre_SubMenus(5);
-    $ActionInfo->SubMenu = ob_get_clean();
-
-    // 输出页面
-    $zbp->template_admin->SetTags('title', $ActionInfo->Title);
-    $zbp->template_admin->SetTags('main', $ActionInfo);
-    $zbp->template_admin->Display('index');
-
-    RunTime();
-
-    exit;
-}
-
-require $blogpath . 'zb_system/admin/admin_header.php';
-
-require $blogpath . 'zb_system/admin/admin_top.php';
-
-?>
-<div id="divMain">
-
-  <div class="divHeader"><?php echo $blogtitle; ?></div>
-<div class="SubMenu"><?php
-foreach ($GLOBALS['hooks']['Filter_Plugin_AppCentre_Client_SubMenu'] as $fpname => &$fpsignal) {
-    $fpname();
-}
-AppCentre_SubMenus('' == GetVars('id', 'GET') ? 5 : '');
-?></div>
-  <div id="divMain2">
-
-<form method="post" action="">
-<?php echo '<input id="token" name="token" type="hidden" value="' . $zbp->GetToken('AppCentre') . '"/>'; ?>
-  <table border="1" width="100%" cellspacing="0" cellpadding="0" class="tableBorder tableBorder-thcenter">
-    <tr>
-      <th width='28%'>&nbsp;</th>
-      <th>&nbsp;</th>
-    </tr>
-    <tr>
-      <td><p><b>· <?php echo $zbp->lang['AppCentre']['app_id']; ?></b><br/>
-          <span class="note">&nbsp;&nbsp;<?php echo $zbp->lang['AppCentre']['app_id_note']; ?></span></p></td>
-      <td><p>&nbsp;
-          <input id="app_id" name="app_id" style="width:550px;"  type="text" value="<?php echo $app->id; ?>" <?php echo ($app->id) ? 'readonly="readonly"' : ''; ?> />
-        </p></td>
-    </tr>
-    <tr>
-      <td><p><b>· <?php echo $zbp->lang['AppCentre']['app_name']; ?></b></p></td>
-      <td><p>&nbsp;
-          <input id="app_name" name="app_name" style="width:550px;"  type="text" value="<?php echo $app->name; ?>" />
-        </p></td>
-    </tr>
-    <tr>
-      <td><p><b>· <?php echo $zbp->lang['AppCentre']['publish_url']; ?></b></p></td>
-      <td><p>&nbsp;
-          <input id="app_url" name="app_url" style="width:550px;"  type="text" value="<?php echo $app->url; ?>" />
-        </p></td>
-    </tr>
-    <tr>
-      <td><p><b>· <?php echo $zbp->lang['AppCentre']['app_intro']; ?></b></p></td>
-      <td><p>&nbsp;
-          <input id="app_note" name="app_note" style="width:550px;"  type="text" value="<?php echo $app->note; ?>" />
-        </p></td>
-    </tr>
-    <tr>
-      <td><p><b>· <?php echo $zbp->lang['AppCentre']['adapted_zblog_version']; ?></b></p></td>
-      <td><p>&nbsp;
-          <select name="app_adapted" id="app_adapted" style="width:400px;">
-<?php echo AppCentre_CreateOptionsOfVersion($app->adapted); ?>
-          </select>
-        </p></td>
-    </tr>
-    <tr>
-      <td><p><b>· <?php echo $zbp->lang['AppCentre']['app_version']; ?></b></p></td>
-      <td><p>&nbsp;
-          <input id="app_version1" name="app_version1" style="width:175px;" type="number" min="0" step="1" value="<?php echo SplitAndGet($app->version, '.', 0); ?>" /> .
-          <input id="app_version2" name="app_version2" style="width:175px;" type="number" min="0" step="1" value="<?php echo SplitAndGet($app->version, '.', 1); ?>" /> .
-          <input id="app_version3" name="app_version3" style="width:175px;" type="number" min="0" step="1" value="<?php echo SplitAndGet($app->version, '.', 2); ?>" />
-        </p></td>
-    </tr>
-    <tr>
-      <td><p><b>· <?php echo $zbp->lang['AppCentre']['first_release_date']; ?></b><br/>
-          <span class="note">&nbsp;&nbsp;<?php echo $zbp->lang['AppCentre']['date_format']; ?></span></p></td>
-      <td><p>&nbsp;
-          <input id="app_pubdate" name="app_pubdate" style="width:550px;"  type="text" value="<?php echo $app->pubdate; ?>" />
-        </p></td>
-    </tr>
-    <tr>
-      <td><p><b>· <?php echo $zbp->lang['AppCentre']['last_modified']; ?></b></p></td>
-      <td><p>&nbsp;
-          <input id="app_modified" name="app_modified" style="width:550px;"  type="text" value="<?php echo $app->modified; ?>" readonly />
-        </p></td>
-    </tr>
-    <tr>
-      <td><p><b>· <?php echo $zbp->lang['AppCentre']['author_name']; ?></b></p></td>
-      <td><p>&nbsp;
-          <input id="app_author_name" name="app_author_name" style="width:550px;"  type="text" value="<?php echo $app->author_name; ?>" />
-        </p></td>
-    </tr>
-    <tr>
-      <td><p><b>· <?php echo $zbp->lang['AppCentre']['author_email']; ?></b></p></td>
-      <td><p>&nbsp;
-          <input id="app_author_email" name="app_author_email" style="width:550px;"  type="text" value="<?php echo $app->author_email; ?>" />
-        </p></td>
-    </tr>
-    <tr>
-      <td><p><b>· <?php echo $zbp->lang['AppCentre']['author_website']; ?></b></p></td>
-      <td><p>&nbsp;
-          <input id="app_author_url" name="app_author_url" style="width:550px;"  type="text" value="<?php echo $app->author_url; ?>" />
-        </p></td>
-    </tr>
-    <tr>
-      <td><p><b>· <?php echo $zbp->lang['AppCentre']['app_management_page']; ?></b> (<?php echo $zbp->lang['AppCentre']['optional']; ?>)<br/>
-          <span class="note">&nbsp;&nbsp;<?php echo $zbp->lang['AppCentre']['app_management_page_note']; ?></span></p></td>
-      <td><p>&nbsp;
-          <input id="app_path" name="app_path" style="width:550px;"  type="text" value="<?php echo $app->path; ?>" />
-        </p></td>
-    </tr>
-    <tr>
-      <td><p><b>· <?php echo $zbp->lang['AppCentre']['app_embedding_page']; ?></b> (<?php echo $zbp->lang['AppCentre']['optional']; ?>)<br/>
-          <span class="note">&nbsp;&nbsp;<?php echo $zbp->lang['AppCentre']['app_embedding_page_note']; ?></span></p></td>
-      <td><p>&nbsp;
-          <input id="app_include" name="app_include" style="width:550px;"  type="text" value="<?php echo $app->include; ?>" />
-        </p></td>
-    </tr>
-    <tr>
-      <td><p><b>· <?php echo $zbp->lang['AppCentre']['app_management_permissions']; ?></b> (<?php echo $zbp->lang['AppCentre']['optional']; ?>)</p></td>
-      <td><p>&nbsp;
-          <select name="app_level" id="app_level" style="width:200px;">
-<?php
-if (function_exists('OutputOptionItemsOfMemberLevel')) {
-    echo OutputOptionItemsOfMemberLevel(1);
-} else {
-    echo CreateOptoinsOfMemberLevel(1);
-}
-?>
-          </select>
-        </p></td>
-    </tr>
-<?php if (property_exists($app, 'phpver')) { ?>
-    <tr>
-      <td><p><b>· <?php echo $zbp->lang['AppCentre']['php_required_version']; ?></b> (<?php echo $zbp->lang['AppCentre']['optional']; ?>)</p></td>
-      <td><p>&nbsp;
-          <select name="app_phpver" id="app_phpver" style="width:400px;">
-    <?php echo AppCentre_PHPVersion($app->phpver); ?>
-          </select>
-        </p></td>
-    </tr>
-<?php } ?>
-    <tr>
-      <td><p><b>· <?php echo $zbp->lang['AppCentre']['app_price']; ?></b></p></td>
-      <td><p>&nbsp;
-          <input id="app_price" name="app_price" style="width:550px;"  type="text" value="<?php echo $app->price; ?>" />
-        </p></td>
-    </tr>
-    <tr>
-      <td><p><b>· <?php echo $zbp->lang['AppCentre']['dependent_apps']; ?></b>(<?php echo $zbp->lang['AppCentre']['optional']; ?>)</p></td>
-      <td><p>&nbsp;
-          <input id="app_advanced_dependency" name="app_advanced_dependency" style="width:550px;"  type="text" value="<?php echo $app->advanced_dependency; ?>" />
-        </p></td>
-    </tr>
-    <tr>
-      <td><p><b>· <?php echo $zbp->lang['AppCentre']['conflict_apps']; ?></b>(<?php echo $zbp->lang['AppCentre']['optional']; ?>)</p></td>
-      <td><p>&nbsp;
-          <input id="app_advanced_conflict" name="app_advanced_conflict" style="width:550px;"  type="text" value="<?php echo $app->advanced_conflict; ?>" />
-        </p></td>
-    </tr>
-    <tr style="display: none">
-      <td><p><b>· <?php echo $zbp->lang['AppCentre']['rewrite_functions']; ?></b>(<?php echo $zbp->lang['AppCentre']['optional']; ?>)</p></td>
-      <td><p>&nbsp;
-          <input id="app_advanced_rewritefunctions" name="app_advanced_rewritefunctions" style="width:550px;"  type="text" value="<?php echo $app->advanced_rewritefunctions; ?>" />
-        </p></td>
-    </tr>
-<?php if (property_exists($app, 'advanced_existsfunctions')) { ?>
-    <tr>
-      <td><p><b>· <?php echo $zbp->lang['AppCentre']['exists_functions']; ?></b>(<?php echo $zbp->lang['AppCentre']['optional']; ?>)</p></td>
-      <td><p>&nbsp;
-          <input id="app_advanced_existsfunctions" name="app_advanced_existsfunctions" style="width:550px;"  type="text" value="<?php echo $app->advanced_existsfunctions; ?>" />
-        </p></td>
-    </tr>
-<?php } ?>
-    <tr>
-      <td><p><b>· <?php echo $zbp->lang['AppCentre']['detailed_description']; ?></b> (<?php echo $zbp->lang['AppCentre']['optional']; ?>)</p></td>
-      <td><p>&nbsp;
-          <textarea cols="3" rows="6" id="app_description" name="app_description" style="width:550px;"><?php echo htmlspecialchars($app->description); ?></textarea>
-        </p></td>
-    </tr>
-  </table>
-  <p><?php echo $zbp->lang['AppCentre']['plugin_logo_tips']; ?></p>
-  <p><br/>
-    <input type="submit" class="button" value="<?php echo $zbp->lang['msg']['submit']; ?>" id="btnPost" onclick='' />
-  </p>
-  <p>&nbsp;</p>
-</form>
-
-    <script type="text/javascript">ActiveLeftMenu("aAppCentre");</script>
-    <script type="text/javascript">AddHeaderIcon("<?php echo $bloghost . 'zb_users/plugin/AppCentre/logo.png'; ?>");</script>
-  </div>
-</div>
-<?php
-function Get_Content()
-{
-    global $zbp, $option;
-    ob_start();
     $content = ob_get_clean();
     //内容获取结束
     return $content;
