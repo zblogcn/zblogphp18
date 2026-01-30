@@ -131,6 +131,12 @@ if (isset($_GET['updatedb'])) {
     if (function_exists('sleep')) {
         sleep(1);
     }
+    ZBlogException::SuspendErrorHook();
+    if ('mysql' == $zbp->db->type) {
+        @$zbp->db->Query('ALTER TABLE ' . $table['Post'] . ' DROP INDEX  ' . $zbp->db->dbpre . 'log_VTSC ;');
+    }
+    ZBlogException::ResumeErrorHook();
+
     Redirect('./update.php?ok');
 
     return;
@@ -530,13 +536,15 @@ function restore(f,id,hash){
     <script type="text/javascript">AddHeaderIcon("<?php echo $bloghost . 'zb_users/plugin/AppCentre/logo.png'; ?>");</script>
   </div>
 </div>
-
-
 <?php
-require $blogpath . 'zb_system/admin/admin_footer.php';
-ZBlogException::SuspendErrorHook();
-if ('mysql' == $zbp->db->type) {
-    @$zbp->db->Query('ALTER TABLE ' . $table['Post'] . ' DROP INDEX  ' . $zbp->db->dbpre . 'log_VTSC ;');
+function Get_Content()
+{
+    global $zbp, $option;
+    ob_start();
+    $content = ob_get_clean();
+    //内容获取结束
+    return $content;
 }
-ZBlogException::ResumeErrorHook();
+
+require $blogpath . 'zb_system/admin/admin_footer.php';
 RunTime();

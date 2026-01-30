@@ -272,9 +272,16 @@ foreach ($aps as $key => $value) {
     <script type="text/javascript">AddHeaderIcon("<?php echo $bloghost . 'zb_users/plugin/AppCentre/logo.png'; ?>");</script>
   </div>
 </div>
-
-
 <?php
+function Get_Content()
+{
+    global $zbp, $option;
+    ob_start();
+    $content = ob_get_clean();
+    //内容获取结束
+    return $content;
+}
+
 require $blogpath . 'zb_system/admin/admin_footer.php';
 
 RunTime();
