@@ -29,8 +29,9 @@ foreach ($mod->Links as $link) {
     <input class="edit" size="30" name="content[]" type="text" placeholder="{$zbp->lang['msg']['text']}" value="{FormatString(@$link->content, '[html-format]')}" />
     <input class="edit" size="30" name="target[]" type="text" placeholder="Target" value="{FormatString(@$link->target, '[html-format]')}" />
     {if $mod->FileName == 'navbar'}
-    <input class="edit" size="30" name="li_id[]" type="hidden" value="{FormatString(@$link->li_id, '[html-format]')}" />
+    <input class="edit" name="li_id[]" type="hidden" value="{FormatString(@$link->li_id, '[html-format]')}" />
     {/if}
+    <input class="edit" name="id[]" type="hidden" value="{FormatString(@$link->id, '[html-format]')}" />
     </p>
     {php}<?php
 }
@@ -38,6 +39,7 @@ foreach ($mod->Links as $link) {
     <p><input class="edit" size="50" name="href[]" type="text" placeholder="{$zbp->lang['msg']['href']}" value="" />
     <input class="edit" size="30" name="content[]" type="text" placeholder="{$zbp->lang['msg']['text']}" value="" />
     <input class="edit" size="30" name="target[]" type="text" placeholder="Target" value="" />
+    <input class="edit" name="id[]" type="hidden" value="" />
     </p>
     {/if}
     {if $mod->AutoContent == false && $mod->Type == 'div'}
@@ -64,7 +66,10 @@ foreach ($mod->Links as $link) {
     </label>
     {/if}
     <!-- maxli -->
-    <input type="hidden" name="MaxLi" value="{$mod->MaxLi}" size="40" />
+    <p style="display:none;">
+        <span class="title">{$zbp->lang['msg']['max_li_in_ul']}:</span>
+        <input type="text" id="MaxLi" name="MaxLi" value="{$mod->MaxLi}" />
+    </p>
     <!-- no refresh content -->
     <p style="display:none;" {if $mod->SourceType == 'themeinclude'}class="hidden"{/if}>
         <span class="title">{$zbp->lang['msg']['no_refresh_content']}:</span>

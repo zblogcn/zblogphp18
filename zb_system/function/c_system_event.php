@@ -1934,10 +1934,19 @@ function PostModule()
                 $link->content = $_POST['content'][$i];
                 if (isset($_POST['li_id'], $_POST['li_id'][$i])) {
                     $link->li_id = $_POST['li_id'][$i];
+                    if (empty($link->li_id)) {
+                        unset($link->li_id);
+                    }
+                }
+                if (isset($_POST['id'], $_POST['id'][$i])) {
+                    $link->id = $_POST['id'][$i];
+                    if (empty($link->id)) {
+                        unset($link->id);
+                    }
                 }
                 foreach ($_POST as $key => $post) {
-                    if (is_array($post) && 'href' != $key && 'content' != $key) {
-                        @$link->{$key} = $post[$i];
+                    if (is_array($post) && 'href' != $key && 'content' != $key && 'id' != $key && 'li_id' != $key) {
+                        @$link->{$key} = $post[$i]; 
                     }
                 }
                 if (!empty($link->href) && !empty($link->content)) {
