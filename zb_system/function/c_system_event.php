@@ -1946,7 +1946,7 @@ function PostModule()
                 }
                 foreach ($_POST as $key => $post) {
                     if (is_array($post) && 'href' != $key && 'content' != $key && 'id' != $key && 'li_id' != $key) {
-                        @$link->{$key} = $post[$i]; 
+                        @$link->{$key} = $post[$i];
                     }
                 }
                 if (!empty($link->href) && !empty($link->content)) {
