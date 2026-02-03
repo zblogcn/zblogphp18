@@ -1,4 +1,8 @@
 <?php exit(); ?>
+  <style>
+  #sortable { list-style-type: none; margin: 0; padding: 0; width: auto; }
+  #sortable li { margin: 0.5em 0; padding: 0.5em 0; border-left:0.5em solid gray;padding-left: 1em; font-size: 1em; height: 3em; }
+  </style>
 <div class="edit module_edit">
 <form id="edit" name="edit" method="post" action="#">
     <input id="edtID" name="ID" type="hidden" value="{$mod->ID}" />
@@ -20,27 +24,29 @@
     <input id="edtType" class="edit" size="40" name="Type" type="hidden" value="{FormatString($mod->Type, '[html-format]')}" />
     {if $mod->AutoContent == false && $mod->Type == 'ul'}
     <p>
-        <span class="title">{$zbp->lang['msg']['link']}:</span><span class="star">(*)</span><br />
+        <span class="title">{$zbp->lang['msg']['link']}:</span><span class="star">(*)</span>
     </p>
+    <ul id="sortable">
 {php}<?php
 foreach ($mod->Links as $link) {
     ?>{/php}
-    <p><input class="edit" size="50" name="href[]" type="text" placeholder="{$zbp->lang['msg']['href']}" value="{FormatString(@$link->href, '[html-format]')}" />
+    <li class="ui-state-default"><input class="edit" size="50" name="href[]" type="text" placeholder="{$zbp->lang['msg']['href']}" value="{FormatString(@$link->href, '[html-format]')}" />
     <input class="edit" size="30" name="content[]" type="text" placeholder="{$zbp->lang['msg']['text']}" value="{FormatString(@$link->content, '[html-format]')}" />
     <input class="edit" size="30" name="target[]" type="text" placeholder="Target" value="{FormatString(@$link->target, '[html-format]')}" />
     {if $mod->FileName == 'navbar'}
     <input class="edit" name="li_id[]" type="hidden" value="{FormatString(@$link->li_id, '[html-format]')}" />
     {/if}
     <input class="edit" name="id[]" type="hidden" value="{FormatString(@$link->id, '[html-format]')}" />
-    </p>
+    </li>
     {php}<?php
 }
 ?>{/php}
-    <p><input class="edit" size="50" name="href[]" type="text" placeholder="{$zbp->lang['msg']['href']}" value="" />
+    <li class="ui-state-default"><input class="edit" size="50" name="href[]" type="text" placeholder="{$zbp->lang['msg']['href']}" value="" />
     <input class="edit" size="30" name="content[]" type="text" placeholder="{$zbp->lang['msg']['text']}" value="" />
     <input class="edit" size="30" name="target[]" type="text" placeholder="Target" value="" />
     <input class="edit" name="id[]" type="hidden" value="" />
-    </p>
+    </li>
+    </ul>
     {/if}
     {if $mod->AutoContent == false && $mod->Type == 'div'}
     <p>
@@ -100,5 +106,10 @@ foreach ($mod->Links as $link) {
             return false
         }
     }
+</script>
+<script>
+$( function() {
+$( "#sortable" ).sortable();
+} );
 </script>
 </div>
