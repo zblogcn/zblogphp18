@@ -37,6 +37,7 @@ foreach ($mod->Links as $link) {
     <input class="edit" name="li_id[]" type="hidden" value="{FormatString(@$link->li_id, '[html-format]')}" />
     {/if}
     <input class="edit" name="id[]" type="hidden" value="{FormatString(@$link->id, '[html-format]')}" />
+    &nbsp;<a onclick="$(this).parent().remove();" href="javascript:return false;"><i class="icon-trash"></i></a>
     </li>
     {php}<?php
 }
