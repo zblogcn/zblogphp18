@@ -172,6 +172,9 @@ abstract class Base__Module extends Base
         if (empty($this->HtmlID)) {
             $this->HtmlID = $this->FileName;
         }
+        if (!is_array($this->private_links)) {
+            $this->private_links = [];
+        }
         if (!empty($this->private_links)) {
             $this->Metas->system_links = json_encode($this->private_links, JSON_UNESCAPED_UNICODE);
         }
