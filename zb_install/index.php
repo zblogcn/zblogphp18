@@ -1356,7 +1356,7 @@ function InsertInfo()
     $link = new stdClass();
     $link->href = '{#ZC_BLOG_HOST#}';
     $link->content = $zbp->lang['zb_install']['index'];
-    $link->li_id = "navbar-item-index";
+    $link->li_id = 'navbar-item-index';
     $links[] = $link;
     $link = new stdClass();
     $link->href = '{#ZC_BLOG_HOST#}?id=2';
