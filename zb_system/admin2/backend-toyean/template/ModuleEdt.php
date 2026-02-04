@@ -11,7 +11,7 @@
     <p {if $mod->SourceType == 'themeinclude'}class="hidden"{/if}>
         <span class="title">{$zbp->lang['msg']['title']}:</span><span class="star">(*)</span><br />
         <input id="edtName" class="edit" size="40" name="Name" maxlength="{$zbp->option['ZC_MODULE_NAME_MAX']}" type="text" value="{FormatString($mod->Name, '[html-format]')}" />
-        ({$zbp->lang['msg']['hide_title']}: <input type="text" id="IsHideTitle" name="IsHideTitle" class="checkbox" value="{$mod->IsHideTitle}" />)
+        <span style="display:none;">({$zbp->lang['msg']['hide_title']}: <input type="text" id="IsHideTitle" name="IsHideTitle" class="checkbox" value="{$mod->IsHideTitle}" />)</span>
     </p>
     <!-- filename -->
     <p>
