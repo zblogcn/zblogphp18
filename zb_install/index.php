@@ -1374,7 +1374,6 @@ function InsertInfo()
     $t->HtmlID = 'divCalendar';
     $t->Type = 'div';
     $t->IsHideTitle = true;
-    $t->Build();
     $t->Save();
 
     $t = new Module();
