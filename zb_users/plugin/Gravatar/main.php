@@ -1,8 +1,7 @@
 <?php
 require '../../../zb_system/function/c_system_base.php';
-
 require '../../../zb_system/function/c_system_admin.php';
-
+require '../../../zb_system/admin2/function/admin2_function.php';
 $zbp->Load();
 
 $action = 'root';
@@ -16,36 +15,57 @@ if (!$zbp->CheckPlugin('Gravatar')) {
     die();
 }
 
-$blogtitle = 'Gravatar头像';
-
-if (count($_POST) > 0) {
-    if (function_exists('CheckIsRefererValid')) {
-        CheckIsRefererValid();
-    }
-    $zbp->Config('Gravatar')->default_url = $_POST['default_url'];
-    $zbp->Config('Gravatar')->source = $_POST['source'];
-    $zbp->Config('Gravatar')->local_priority = $_POST['local_priority'];
-    $zbp->SaveConfig('Gravatar');
-
-    $zbp->SetHint('good');
-    Redirect('./main.php');
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    Post_Content();
 }
 
-require $blogpath . 'zb_system/admin/admin_header.php';
-require $blogpath . 'zb_system/admin/admin_top.php';
+$blogtitle = 'Gravatar头像';
 
+$ActionInfo = zbp_admin2_GetActionInfo($action, (object) [
+    'Title' => $blogtitle,
+    'Header' => $blogtitle,
+    'HeaderIcon' => $bloghost . 'zb_users/plugin/Gravatar/logo.png',
+    'Content' => Get_Content(),
+]);
+
+// 输出页面
+$zbp->template_admin->SetTags('title', $ActionInfo->Title);
+$zbp->template_admin->SetTags('main', $ActionInfo);
+$zbp->template_admin->Display('index');
+
+RunTime();
+
+exit;
+
+function Post_Content()
+{
+    global $zbp;
+    if (count($_POST) > 0) {
+        if (function_exists('CheckIsRefererValid')) {
+            CheckIsRefererValid();
+        }
+        $zbp->Config('Gravatar')->default_url = $_POST['default_url'];
+        $zbp->Config('Gravatar')->source = $_POST['source'];
+        $zbp->Config('Gravatar')->local_priority = $_POST['local_priority'];
+        $zbp->SaveConfig('Gravatar');
+
+        $zbp->SetHint('good');
+        Redirect('./main.php');
+    }
+}
+
+function Get_Content()
+{
+    global $zbp, $lang;
+    ob_start();
 ?>
-<div id="divMain">
-  <div class="divHeader"><?php echo $blogtitle; ?></div>
-  <div class="SubMenu"></div>
-  <div id="divMain2">
     <form id="edit" name="edit" method="post" action="#">
         <?php if (function_exists('CheckIsRefererValid')) {
     echo '<input type="hidden" name="csrfToken" value="' . $zbp->GetCSRFToken() . '">';
 }?>
 
 <input id="reset" name="reset" type="hidden" value="" />
-<table border="1" class="tableFull tableBorder tableBorder-thcenter">
+<table class="table_hover table_striped tableFull">
 <tr>
     <th class="td25"></th>
     <th>设置</th>
@@ -58,7 +78,7 @@ require $blogpath . 'zb_system/admin/admin_top.php';
 <td><span class='note'>可选值: </span></td>
 <td>
     <p><b>极客族CDN</b>：<a href="javascript:void(0)" title="点我设置URL" alt="点我设置URL" class="enterGravatar">http://fdn.geekzu.org/avatar/{%emailmd5%}.png?s=60&d=mm&r=G</a></p>
-    <p><b>极客族CDN SSL</b>：<a href="javascript:void(0)" title="点我设置URL" alt="点我设置URL" class="enterGravatar">https://sdn.geekzu.org/avatar/{%emailmd5%}.png?s=60&d=mm&r=G</a></p>	
+    <p><b>极客族CDN SSL</b>：<a href="javascript:void(0)" title="点我设置URL" alt="点我设置URL" class="enterGravatar">https://sdn.geekzu.org/avatar/{%emailmd5%}.png?s=60&d=mm&r=G</a></p>  
     <p><b>七牛Gravatar</b>：<a href="javascript:void(0)" title="点我设置URL" alt="点我设置URL" class="enterGravatar">//dn-qiniu-avatar.qbox.me/avatar/{%emailmd5%}?s=60&amp;d=mm&amp;r=G</a></p>
     <p><b>loli.net SSL</b>：<a href="javascript:void(0)" title="点我设置URL" alt="点我设置URL" class="enterGravatar">https://gravatar.loli.net/avatar/{%emailmd5%}?s=60&amp;d=mm&amp;r=G</a></p>
     <p><b>V2EX SSL</b>：<a href="javascript:void(0)" title="点我设置URL" alt="点我设置URL" class="enterGravatar">https://cdn.v2ex.com/gravatar/{%emailmd5%}.png?s=60&d=mm&r=G</a></p>
@@ -81,16 +101,10 @@ require $blogpath . 'zb_system/admin/admin_top.php';
 
 </table>
     <p>CDN源有不能访问的问题或是有新的CDN源出现，请在插件发布<a target="_blank" href="https://app.zblogcn.com/?id=223">https://app.zblogcn.com/?id=223</a>页面讨论。</p>
-      <hr/>
       <p>
         <input type="submit" class="button" value="<?php echo $lang['msg']['submit'] ?>" />
       </p>
     </form>
-    <script type="text/javascript">ActiveLeftMenu("aPluginMng");</script>
-    <script type="text/javascript">AddHeaderIcon("<?php echo $bloghost . 'zb_users/plugin/Gravatar/logo.png'; ?>");</script>
-  </div>
-</div>
-
 <script>
 $(function() {
     $(".enterGravatar").click(function() {
@@ -100,7 +114,6 @@ $(function() {
 });
 </script>
 <?php
-require $blogpath . 'zb_system/admin/admin_footer.php';
-
-RunTime();
-?>
+    $content = ob_get_clean();
+    return $content;
+}

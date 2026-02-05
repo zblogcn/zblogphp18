@@ -1,6 +1,7 @@
 <?php
 require '../../../zb_system/function/c_system_base.php';
 require '../../../zb_system/function/c_system_admin.php';
+require '../../../zb_system/admin2/function/admin2_function.php';
 $zbp->Load();
 $action = 'root';
 if (!$zbp->CheckRights($action)) {
@@ -12,33 +13,53 @@ if (!$zbp->CheckPlugin('AICommentAntiSpam')) {
     die();
 }
 
-if (count($_POST) > 0) {
-    CheckIsRefererValid();
-    unset($_POST['csrfToken']);
-
-    foreach ($_POST as $key => $value) {
-        $zbp->Config('AICommentAntiSpam')->$key = $value;
-    }
-    $zbp->SaveConfig('AICommentAntiSpam');
-    $zbp->SetHint('good');
-    Redirect('main.php');
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    Post_Content();
 }
 
 $blogtitle = 'AI反垃圾';
-require $blogpath.'zb_system/admin/admin_header.php';
-require $blogpath.'zb_system/admin/admin_top.php';
-?>
-    <div id="divMain">
-        <div class="divHeader"><?php
-            echo $blogtitle; ?></div>
-        <div class="SubMenu">
-        </div>
-        <div id="divMain2">
 
+$ActionInfo = zbp_admin2_GetActionInfo($action, (object) [
+    'Title' => $blogtitle,
+    'Header' => $blogtitle,
+    'HeaderIcon' => $bloghost . 'zb_users/plugin/AICommentAntiSpam/logo.png',
+    'Content' => Get_Content(),
+]);
+
+// 输出页面
+$zbp->template_admin->SetTags('title', $ActionInfo->Title);
+$zbp->template_admin->SetTags('main', $ActionInfo);
+$zbp->template_admin->Display('index');
+
+RunTime();
+
+exit;
+
+function Post_Content()
+{
+    global $zbp;
+    if (count($_POST) > 0) {
+        CheckIsRefererValid();
+        unset($_POST['csrfToken']);
+
+        foreach ($_POST as $key => $value) {
+            $zbp->Config('AICommentAntiSpam')->$key = $value;
+        }
+        $zbp->SaveConfig('AICommentAntiSpam');
+        $zbp->SetHint('good');
+        Redirect('main.php');
+    }
+}
+
+function Get_Content()
+{
+    global $zbp;
+    ob_start();
+?>
             <form method="post" action="">
                 <?php
                 echo '<input type="hidden" name="csrfToken" value="'.$zbp->GetCSRFToken().'">'; ?>
-                <table border="1" width="100%" cellspacing="0" cellpadding="0" class="tableBorder tableBorder-thcenter">
+                <table class="table_hover table_striped tableFull">
                     <tr>
                         <th width='20%'>&nbsp;</th>
                         <th>&nbsp;</th>
@@ -179,10 +200,7 @@ require $blogpath.'zb_system/admin/admin_top.php';
                     <input type="submit" class="button" value="提交" id="btnPost"/>
                 </p>
             </form>
-        </div>
-    </div>
-
 <?php
-require $blogpath.'zb_system/admin/admin_footer.php';
-RunTime();
-?>
+    $content = ob_get_clean();
+    return $content;
+}
