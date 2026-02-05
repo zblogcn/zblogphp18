@@ -1,21 +1,25 @@
 <?php
 require '../../../zb_system/function/c_system_base.php';
+
 require '../../../zb_system/function/c_system_admin.php';
+
 require '../../../zb_system/admin2/function/admin2_function.php';
 $zbp->Load();
 
 $action = 'root';
 if (!$zbp->CheckRights($action)) {
     $zbp->ShowError(6);
-    die();
+
+    exit();
 }
 
 if (!$zbp->CheckPlugin('Gravatar')) {
     $zbp->ShowError(48);
-    die();
+
+    exit();
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ('POST' == $_SERVER['REQUEST_METHOD']) {
     Post_Content();
 }
 
@@ -57,12 +61,11 @@ function Post_Content()
 function Get_Content()
 {
     global $zbp, $lang;
-    ob_start();
-?>
+    ob_start(); ?>
     <form id="edit" name="edit" method="post" action="#">
         <?php if (function_exists('CheckIsRefererValid')) {
-    echo '<input type="hidden" name="csrfToken" value="' . $zbp->GetCSRFToken() . '">';
-}?>
+        echo '<input type="hidden" name="csrfToken" value="' . $zbp->GetCSRFToken() . '">';
+    } ?>
 
 <input id="reset" name="reset" type="hidden" value="" />
 <table class="table_hover table_striped tableFull">
@@ -72,7 +75,7 @@ function Get_Content()
 </tr>
 <tr>
 <td><p align='left'><b>·Gravatar URL</b><br/><span class='note'></span></p></td>
-<td><p><input id='default_url' name='default_url' style='width:90%;' type='text' value='<?php echo $zbp->Config('Gravatar')->default_url ?>' /></p></td>
+<td><p><input id='default_url' name='default_url' style='width:90%;' type='text' value='<?php echo $zbp->Config('Gravatar')->default_url; ?>' /></p></td>
 </tr>
 <tr>
 <td><span class='note'>可选值: </span></td>
@@ -88,7 +91,7 @@ function Get_Content()
 </tr>
 <tr>
 <td><p align='left'><b>·无邮箱时的替换图片地址</b><br/><span class='note'></span></p></td>
-<td><p><input id='source' name='source' style='width:90%;' type='text' value='<?php echo $zbp->Config('Gravatar')->source ?>' /></p></td>
+<td><p><input id='source' name='source' style='width:90%;' type='text' value='<?php echo $zbp->Config('Gravatar')->source; ?>' /></p></td>
 </tr>
 <tr>
 <td><span class='note'>默认值: </span></td>
@@ -96,13 +99,13 @@ function Get_Content()
 </tr>
 <tr>
 <td><p align='left'><b>·注册会员优先查找本地头像</b><br/><span class='note'></span></p></td>
-<td><p><input id='local_priority' name='local_priority' class="checkbox" type='text' value='<?php echo $zbp->Config('Gravatar')->local_priority ?>' /></p></td>
+<td><p><input id='local_priority' name='local_priority' class="checkbox" type='text' value='<?php echo $zbp->Config('Gravatar')->local_priority; ?>' /></p></td>
 </tr>
 
 </table>
     <p>CDN源有不能访问的问题或是有新的CDN源出现，请在插件发布<a target="_blank" href="https://app.zblogcn.com/?id=223">https://app.zblogcn.com/?id=223</a>页面讨论。</p>
       <p>
-        <input type="submit" class="button" value="<?php echo $lang['msg']['submit'] ?>" />
+        <input type="submit" class="button" value="<?php echo $lang['msg']['submit']; ?>" />
       </p>
     </form>
 <script>
@@ -115,5 +118,6 @@ $(function() {
 </script>
 <?php
     $content = ob_get_clean();
+
     return $content;
 }

@@ -1,19 +1,23 @@
 <?php
 require '../../../zb_system/function/c_system_base.php';
+
 require '../../../zb_system/function/c_system_admin.php';
+
 require '../../../zb_system/admin2/function/admin2_function.php';
 $zbp->Load();
 $action = 'root';
 if (!$zbp->CheckRights($action)) {
     $zbp->ShowError(6);
-    die();
+
+    exit();
 }
 if (!$zbp->CheckPlugin('AICommentAntiSpam')) {
     $zbp->ShowError(48);
-    die();
+
+    exit();
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ('POST' == $_SERVER['REQUEST_METHOD']) {
     Post_Content();
 }
 
@@ -43,7 +47,7 @@ function Post_Content()
         unset($_POST['csrfToken']);
 
         foreach ($_POST as $key => $value) {
-            $zbp->Config('AICommentAntiSpam')->$key = $value;
+            $zbp->Config('AICommentAntiSpam')->{$key} = $value;
         }
         $zbp->SaveConfig('AICommentAntiSpam');
         $zbp->SetHint('good');
@@ -54,11 +58,10 @@ function Post_Content()
 function Get_Content()
 {
     global $zbp;
-    ob_start();
-?>
+    ob_start(); ?>
             <form method="post" action="">
                 <?php
-                echo '<input type="hidden" name="csrfToken" value="'.$zbp->GetCSRFToken().'">'; ?>
+                echo '<input type="hidden" name="csrfToken" value="' . $zbp->GetCSRFToken() . '">'; ?>
                 <table class="table_hover table_striped tableFull">
                     <tr>
                         <th width='20%'>&nbsp;</th>
@@ -107,15 +110,15 @@ function Get_Content()
                         <td>
                             <p>
                                 请使用OpenAI的API或者使用兼容的其他服务商API。快速设置常见的API接口：<?php
-                                zbpform::select('quick_set', array('' => '请选择',
-                                                                   'openai' => 'OpenAI',
-                                                                   'doubao' => '豆包',
-                                                                   'lingyi' => '零一万物',
-                                                                   'ollama' => 'Ollama',
-                                                                   'groq' => 'Groq',
-                                                                   'deepseek' => 'Deepseek',
-                                                                   'openrouter' => 'OpenRouter',
-                                ), ''); ?>
+                                zbpform::select('quick_set', ['' => '请选择',
+                                    'openai' => 'OpenAI',
+                                    'doubao' => '豆包',
+                                    'lingyi' => '零一万物',
+                                    'ollama' => 'Ollama',
+                                    'groq' => 'Groq',
+                                    'deepseek' => 'Deepseek',
+                                    'openrouter' => 'OpenRouter',
+                                ], ''); ?>
                             </p>
                             <script>
                                 document.getElementById('quick_set').addEventListener('change', function () {
@@ -202,5 +205,6 @@ function Get_Content()
             </form>
 <?php
     $content = ob_get_clean();
+
     return $content;
 }
