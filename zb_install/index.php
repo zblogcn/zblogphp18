@@ -1439,8 +1439,8 @@ function InsertInfo()
     $t->Type = 'ul';
     $links = [];
     $link = new stdClass();
-    $link->href = 'https://app.zblogcn.com/';
-    $link->content = 'Z-Blog应用中心';
+    $link->href = 'https://www.zblogcn.com/';
+    $link->content = 'Z-Blog主页';
     $link->target = '_blank';
     $links[] = $link;
     $t->Links = $links;

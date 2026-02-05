@@ -341,19 +341,24 @@ abstract class Base__Module extends Base
         $s = '';
         foreach ($this->Links as $link) {
             if (isset($link->li_id)) {
-                $s .= '<li id="' . $link->li_id . '"><' . 'a ';
+                $s .= '<li id="' . $link->li_id . '">';
             } else {
-                $s .= '<li><' . 'a ';
+                $s .= '<li>';
             }
-            foreach ($link as $link_key => $link_value) {
-                if ('content' == $link_key || 'li_id' == $link_key) {
-                } elseif ('target' == $link_key && empty($link_value)) {
-                } else {
-                    $link_key = str_replace('data_', 'data-', $link_key);
-                    $s .= $link_key . '="' . $link_value . '" ';
+            if (isset($link->href)) {
+                $s .= '<' . 'a ';
+                foreach ($link as $link_key => $link_value) {
+                    if ('content' == $link_key || 'li_id' == $link_key) {
+                    } elseif ('target' == $link_key && empty($link_value)) {
+                    } else {
+                        $link_key = str_replace('data_', 'data-', $link_key);
+                        $s .= $link_key . '="' . $link_value . '" ';
+                    }
                 }
+                $s .= '>' . $link->content . '</a></li>';
+            } else {
+                $s .= $link->content . '</li>';
             }
-            $s .= '>' . $link->content . '</a></li>';
         }
         $this->Content = $s;
     }
