@@ -1,7 +1,7 @@
 <?php
 require '../../../zb_system/function/c_system_base.php';
 require '../../../zb_system/function/c_system_admin.php';
-
+require '../../../zb_system/admin2/function/admin2_function.php';
 $zbp->Load();
 $action = 'root';
 if (!$zbp->CheckRights($action)) {
@@ -14,22 +14,39 @@ if (!$zbp->CheckPlugin('Totoro')) {
 }
 Totoro_init();
 $blogtitle = 'Totoro反垃圾评论';
-require $blogpath . 'zb_system/admin/admin_header.php';
+$ActionInfo = zbp_admin2_GetActionInfo($action, (object) [
+    'Title' => $blogtitle,
+    'Header' => $blogtitle,
+    'HeaderIcon' => $bloghost . 'zb_users/plugin/Totoro/logo.png',
+    'Content' => Get_Content(),
+    'SubMenu' => $Totoro->export_submenu('main'),
+]);
+
+// 输出页面
+$zbp->template_admin->SetTags('title', $ActionInfo->Title);
+$zbp->template_admin->SetTags('main', $ActionInfo);
+$zbp->template_admin->Display('index');
+
+RunTime();
+
+exit;
+function Post_Content()
+{
+    global $zbp, $Totoro;
+}
+
+function Get_Content()
+{
+    global $zbp, $lang, $Totoro;
+    ob_start();
 ?>
 <style type="text/css">
     .text-config {
         width: 95%
     }
+    dl.totoro{padding:0em}
+    dl.totoro > dd{padding:1em}
 </style>
-<?php
-require $blogpath . 'zb_system/admin/admin_top.php';
-
-?>
-
-<div id="divMain">
-    <div class="divHeader"><?php echo $blogtitle; ?></div>
-    <div class="SubMenu"><?php echo $Totoro->export_submenu('main'); ?></div>
-    <div id="divMain2">
         <form id="edit" name="edit" method="post" action="save_setting.php">
             <?php if (function_exists('CheckIsRefererValid')) {
     echo '<input type="hidden" name="csrfToken" value="' . $zbp->GetCSRFToken() . '">';
@@ -52,7 +69,7 @@ require $blogpath . 'zb_system/admin/admin_top.php';
                 <!-- End .content-box-header -->
                 <div class="content-box-content" id="totorobox">
                     <div class="tab-content default-tab" style="border:none;padding:0px;margin:0;" id="tab1">
-                        <table border="1" class="tableFull tableBorder table_hover table_striped">
+                        <table class="table_hover table_striped tableFull">
 
                             <thead>
                                 <tr>
@@ -109,7 +126,7 @@ require $blogpath . 'zb_system/admin/admin_top.php';
                     </div>
                     <!-- line -->
                     <div class="tab-content" style="border:none;padding:0px;margin:0;" id="tab2">
-                        <table border="1" class="tableFull tableBorder table_hover table_striped">
+                        <table class="table_hover table_striped tableFull">
                             <thead>
                                 <tr>
                                     <th style="width:25%">
@@ -142,7 +159,7 @@ require $blogpath . 'zb_system/admin/admin_top.php';
                     </div>
                     <!-- line -->
                     <div class="tab-content" style="border:none;padding:0px;margin:0;" id="tab3">
-                        <table border="1" class="tableFull tableBorder table_hover table_striped">
+                        <table class="table_hover table_striped tableFull">
                             <thead>
                                 <tr>
                                     <th style="width:25%">
@@ -173,7 +190,7 @@ require $blogpath . 'zb_system/admin/admin_top.php';
                     </div>
                     <!-- line -->
                     <div class="tab-content" style="border:none;padding:0px;margin:0;" id="tab4">
-                        <table border="1" class="tableFull tableBorder table_hover table_striped">
+                        <table class="table_hover table_striped tableFull">
                             <thead>
                                 <tr>
                                     <th style="width:25%">
@@ -205,7 +222,7 @@ require $blogpath . 'zb_system/admin/admin_top.php';
                     </div>
 
                     <div class="tab-content" style="border:none;padding:0px;margin:0;" id="tab5">
-                        <table border="1" class="tableFull tableBorder table_hover table_striped">
+                        <table class="table_hover table_striped tableFull">
 
                             <thead>
                                 <tr>
@@ -253,7 +270,6 @@ require $blogpath . 'zb_system/admin/admin_top.php';
                                 <br/> TotoroⅢ及Totoro For Z-BlogPHP是由<a href="http://www.zsxsoft.com" target="_blank">zsx</a>将TotoroII升级到2.0版本后增添新特性并移植的版本。</dd>
                             <dd>Spam Value(SV)初始值为0，经过相关运算后的SV分值越高Spam嫌疑越大，超过设定的阈值这条评论就进入审核状态或直接被删除。</dd>
                             <dd>配置完成之后，请一定要测试，切记切记！</dd>
-                            <dd></dd>
                         </dl>
                     </div>
                     <!--<div class="tab-content" style="border:none;padding:0px;margin:0;" id="tab-init">
@@ -266,7 +282,6 @@ require $blogpath . 'zb_system/admin/admin_top.php';
           </div>-->
                 </div>
             </div>
-            <hr/>
             <p>
                 <input type="submit" class="button" value="<?php echo $lang['msg']['submit'] ?>" />
             </p>
@@ -287,14 +302,9 @@ require $blogpath . 'zb_system/admin/admin_top.php';
 
             });
         </script>
-        <script type="text/javascript">
-            ActiveLeftMenu("aPluginMng");
-            AddHeaderIcon("<?php echo $bloghost . 'zb_users/plugin/Totoro/logo.png'; ?>");
-        </script>
-    </div>
-</div>
 <?php
-require $blogpath . 'zb_system/admin/admin_footer.php';
+    $content = ob_get_clean();
 
-RunTime();
+    return $content;
+}
 ?>

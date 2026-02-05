@@ -1,7 +1,7 @@
 <?php
 require '../../../zb_system/function/c_system_base.php';
 require '../../../zb_system/function/c_system_admin.php';
-
+require '../../../zb_system/admin2/function/admin2_function.php';
 $zbp->Load();
 $action = 'root';
 if (!$zbp->CheckRights($action)) {
@@ -16,38 +16,52 @@ Totoro_init();
 $blogtitle = 'Totoro反垃圾评论';
 
 if (GetVars('type', 'GET') == 'test') {
-    $comment = new Comment();
-    $comment->Name = GetVars('name', 'POST');
-    $comment->HomePage = GetVars('url', 'POST');
-    $comment->IP = GetVars('ip', 'POST');
-    $comment->Content = GetVars('string', 'POST');
+    Post_Content();
+}
 
-    //	var_dump($comment);
-    $score = $Totoro->get_score($comment, true);
-    echo "\n" . 'MAX_SCORE: ' . $score;
-    if ($score >= $Totoro->config_array['SV_SETTING']['SV_THRESHOLD']['VALUE']) {
-        echo "\n该评论被审核";
+$ActionInfo = zbp_admin2_GetActionInfo($action, (object) [
+    'Title' => $blogtitle,
+    'Header' => $blogtitle,
+    'HeaderIcon' => $bloghost . 'zb_users/plugin/Totoro/logo.png',
+    'Content' => Get_Content(),
+    'SubMenu' => $Totoro->export_submenu('online_test'),
+]);
+
+// 输出页面
+$zbp->template_admin->SetTags('title', $ActionInfo->Title);
+$zbp->template_admin->SetTags('main', $ActionInfo);
+$zbp->template_admin->Display('index');
+
+RunTime();
+
+exit;
+function Post_Content()
+{
+    global $zbp, $Totoro;
+    if (GetVars('type', 'GET') == 'test') {
+        $comment = new Comment();
+        $comment->Name = GetVars('name', 'POST');
+        $comment->HomePage = GetVars('url', 'POST');
+        $comment->IP = GetVars('ip', 'POST');
+        $comment->Content = GetVars('string', 'POST');
+
+        //  var_dump($comment);
+        $score = $Totoro->get_score($comment, true);
+        echo "\n" . 'MAX_SCORE: ' . $score;
+        if ($score >= $Totoro->config_array['SV_SETTING']['SV_THRESHOLD']['VALUE']) {
+            echo "\n该评论被审核";
+        }
+
+        exit();
     }
-
-    exit();
 }
-require $blogpath . 'zb_system/admin/admin_header.php';
-?>
-<style type="text/css">
-.text-config {
-    width: 95%
-}
-</style>
-<?php
-require $blogpath . 'zb_system/admin/admin_top.php';
 
+function Get_Content()
+{
+    global $zbp, $lang, $Totoro;
+    ob_start();
 ?>
-
-<div id="divMain">
-  <div class="divHeader"><?php echo $blogtitle; ?></div>
-  <div class="SubMenu"><?php echo $Totoro->export_submenu('online_test'); ?></div>
-  <div id="divMain2">
-    <table width="100%" class="table_striped table_hover" style="padding:0px;margin:1px;line-height:20px" cellspacing="0" cellpadding="0">
+    <table style="margin-top:1em;" class="table_hover table_striped tableFull">
       <tr height="40">
         <td width="50%"><label for="username">· 用户名</label>
           <input type="text" name="username" id="username" style="width:90%" /></td>
@@ -94,12 +108,8 @@ require $blogpath . 'zb_system/admin/admin_top.php';
         });
     });
     </script>
-    <script type="text/javascript">ActiveLeftMenu("aPluginMng");</script>
-    <script type="text/javascript">AddHeaderIcon("<?php echo $bloghost . 'zb_users/plugin/Totoro/logo.png'; ?>");</script>
-  </div>
-</div>
 <?php
-require $blogpath . 'zb_system/admin/admin_footer.php';
-
-RunTime();
+    $content = ob_get_clean();
+    return $content;
+}
 ?>
