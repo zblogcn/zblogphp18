@@ -1,16 +1,20 @@
 <?php
 require '../../../zb_system/function/c_system_base.php';
+
 require '../../../zb_system/function/c_system_admin.php';
+
 require '../../../zb_system/admin2/function/admin2_function.php';
 $zbp->Load();
 $action = 'root';
 if (!$zbp->CheckRights($action)) {
     $zbp->ShowError(6);
-    die();
+
+    exit();
 }
 if (!$zbp->CheckPlugin('Totoro')) {
     $zbp->ShowError(48);
-    die();
+
+    exit();
 }
 Totoro_init();
 $blogtitle = 'Totoro反垃圾评论';
@@ -38,8 +42,7 @@ function Post_Content()
 function Get_Content()
 {
     global $zbp, $lang, $Totoro;
-    ob_start();
-?>
+    ob_start(); ?>
 <style type="text/css">
     .text-config {
         width: 95%
@@ -49,8 +52,8 @@ function Get_Content()
 </style>
         <form id="edit" name="edit" method="post" action="save_setting.php">
             <?php if (function_exists('CheckIsRefererValid')) {
-    echo '<input type="hidden" name="csrfToken" value="' . $zbp->GetCSRFToken() . '">';
-}?>
+        echo '<input type="hidden" name="csrfToken" value="' . $zbp->GetCSRFToken() . '">';
+    } ?>
             <input id="reset" name="reset" type="hidden" value="" />
             <div class="content-box">
                 <!-- Start Content Box -->
@@ -90,37 +93,36 @@ function Get_Content()
                             <tbody>
                                 <?php
                                 $i = 1;
-                                foreach ($Totoro->config_array['SV_RULE'] as $name => $value) {
-                                    ?>
+    foreach ($Totoro->config_array['SV_RULE'] as $name => $value) {
+        ?>
                                                                 <tr>
-                                    <td><?php echo $i ?></td>
+                                    <td><?php echo $i; ?></td>
                                     <td>
-                                        <p align="left"><b><?php echo $value['NAME'] ?></b></p>
+                                        <p align="left"><b><?php echo $value['NAME']; ?></b></p>
                                     </td>
                                     <td>
-                                        <input type="text" class="text-config" name="TOTORO_SV_RULE_<?php echo $name ?>" value="<?php echo $Totoro->output_config('SV_RULE', $name) ?>" />
+                                        <input type="text" class="text-config" name="TOTORO_SV_RULE_<?php echo $name; ?>" value="<?php echo $Totoro->output_config('SV_RULE', $name); ?>" />
                                     </td>
-                                    <td>(默认：<?php echo $value['DEFAULT'] ?>) <?php echo $value['DESC'] ?></td>
+                                    <td>(默认：<?php echo $value['DEFAULT']; ?>) <?php echo $value['DESC']; ?></td>
                                 </tr>
                                                                 <?php
-                                                                $i++;
-                                }
-                                foreach ($Totoro->config_array['SV_SETTING'] as $name => $value) {
-                                    ?>
+                                                                ++$i;
+    }
+    foreach ($Totoro->config_array['SV_SETTING'] as $name => $value) {
+        ?>
                                                                 <tr>
-                                    <td><?php echo $i ?></td>
+                                    <td><?php echo $i; ?></td>
                                     <td>
-                                        <p align="left"><b><?php echo $value['NAME'] ?></b></p>
+                                        <p align="left"><b><?php echo $value['NAME']; ?></b></p>
                                     </td>
                                     <td>
-                                        <input type="text" class="text-config" name="TOTORO_SV_SETTING_<?php echo $name ?>" value="<?php echo $Totoro->output_config('SV_SETTING', $name) ?>" />
+                                        <input type="text" class="text-config" name="TOTORO_SV_SETTING_<?php echo $name; ?>" value="<?php echo $Totoro->output_config('SV_SETTING', $name); ?>" />
                                     </td>
-                                    <td>(默认：<?php echo $value['DEFAULT'] ?>) <?php echo $value['DESC'] ?></td>
+                                    <td>(默认：<?php echo $value['DEFAULT']; ?>) <?php echo $value['DESC']; ?></td>
                                 </tr>
                                                                 <?php
-                                                                $i++;
-                                }
-?>
+                                                                ++$i;
+    } ?>
                             </tbody>
                         </table>
                     </div>
@@ -143,17 +145,16 @@ function Get_Content()
                                     ?>
                                                                 <tr>
                                     <td>
-                                        <p align="left"><b><?php echo $value['NAME'] ?></b>
-                                            <br/> · <?php echo $value['DESC'] ?></p>
+                                        <p align="left"><b><?php echo $value['NAME']; ?></b>
+                                            <br/> · <?php echo $value['DESC']; ?></p>
                                     </td>
                                     <td>
-                                        <textarea class="escape-textarea" name="TOTORO_BLACK_LIST_<?php echo $name ?>" style="display:none" id="TOTORO_BLACK_LIST_<?php echo $name ?>" data-tag="TOTORO_BLACK_LIST_UNESCAPE_<?php echo $name ?>"><?php echo urlencode($Totoro->output_config('BLACK_LIST', $name, false)) ?></textarea>
-                                        <textarea class="unescape-textarea" rows="6" style="width:95%" data-tag="TOTORO_BLACK_LIST_<?php echo $name ?>" id="TOTORO_BLACK_LIST_UNESCAPE_<?php echo $name ?>">数据读取中</textarea>
+                                        <textarea class="escape-textarea" name="TOTORO_BLACK_LIST_<?php echo $name; ?>" style="display:none" id="TOTORO_BLACK_LIST_<?php echo $name; ?>" data-tag="TOTORO_BLACK_LIST_UNESCAPE_<?php echo $name; ?>"><?php echo urlencode($Totoro->output_config('BLACK_LIST', $name, false)); ?></textarea>
+                                        <textarea class="unescape-textarea" rows="6" style="width:95%" data-tag="TOTORO_BLACK_LIST_<?php echo $name; ?>" id="TOTORO_BLACK_LIST_UNESCAPE_<?php echo $name; ?>">数据读取中</textarea>
                                     </td>
                                 </tr>
                                                                 <?php
-                                }
-?>
+                                } ?>
                             </tbody>
                         </table>
                     </div>
@@ -176,15 +177,14 @@ function Get_Content()
                                     ?>
                                                                 <tr>
                                     <td>
-                                        <p align="left"><b><?php echo $value['NAME'] ?></b></p>
+                                        <p align="left"><b><?php echo $value['NAME']; ?></b></p>
                                     </td>
                                     <td>
-                                        <textarea class="unescape-textarea" name="TOTORO_STRING_BACK_<?php echo $name ?>" rows="6" style="width:95%"><?php echo $Totoro->output_config('STRING_BACK', $name, false) ?></textarea>
+                                        <textarea class="unescape-textarea" name="TOTORO_STRING_BACK_<?php echo $name; ?>" rows="6" style="width:95%"><?php echo $Totoro->output_config('STRING_BACK', $name, false); ?></textarea>
                                     </td>
                                 </tr>
                                                                 <?php
-                                }
-?>
+                                } ?>
                             </tbody>
                         </table>
                     </div>
@@ -207,16 +207,15 @@ function Get_Content()
                                     ?>
                                                                 <tr>
                                     <td>
-                                        <p align="left"><b><?php echo $value['NAME'] ?></b>
-                                            <br/> · <?php echo $value['DESC'] ?></p>
+                                        <p align="left"><b><?php echo $value['NAME']; ?></b>
+                                            <br/> · <?php echo $value['DESC']; ?></p>
                                     </td>
                                     <td>
-                                        <input type="text" class="checkbox" name="TOTORO_BUILD_CONFIG_<?php echo $name ?>" value="<?php echo $Totoro->output_config('BUILD_CONFIG', $name) ?>" />
+                                        <input type="text" class="checkbox" name="TOTORO_BUILD_CONFIG_<?php echo $name; ?>" value="<?php echo $Totoro->output_config('BUILD_CONFIG', $name); ?>" />
                                     </td>
                                 </tr>
                                                                 <?php
-                                }
-?>
+                                } ?>
                             </tbody>
                         </table>
                     </div>
@@ -243,22 +242,21 @@ function Get_Content()
                             <tbody>
                                 <?php
                                 $i = 1;
-                                foreach ($Totoro->config_array['SIMILAR_CONFIG'] as $name => $value) {
-                                    ?>
+    foreach ($Totoro->config_array['SIMILAR_CONFIG'] as $name => $value) {
+        ?>
                                                                 <tr>
-                                    <td><?php echo $i ?></td>
+                                    <td><?php echo $i; ?></td>
                                     <td>
-                                        <p align="left"><b><?php echo $value['NAME'] ?></b></p>
+                                        <p align="left"><b><?php echo $value['NAME']; ?></b></p>
                                     </td>
                                     <td>
-                                        <input type="text" class="text-config" name="TOTORO_SIMILAR_CONFIG_<?php echo $name ?>" value="<?php echo $Totoro->output_config('SIMILAR_CONFIG', $name) ?>" />
+                                        <input type="text" class="text-config" name="TOTORO_SIMILAR_CONFIG_<?php echo $name; ?>" value="<?php echo $Totoro->output_config('SIMILAR_CONFIG', $name); ?>" />
                                     </td>
-                                    <td>(默认：<?php echo $value['DEFAULT'] ?>) <?php echo $value['DESC'] ?></td>
+                                    <td>(默认：<?php echo $value['DEFAULT']; ?>) <?php echo $value['DESC']; ?></td>
                                 </tr>
                                                                 <?php
-                                                                $i++;
-                                }
-?>
+                                                                ++$i;
+    } ?>
                             </tbody>
                         </table>
                     </div>
@@ -283,7 +281,7 @@ function Get_Content()
                 </div>
             </div>
             <p>
-                <input type="submit" class="button" value="<?php echo $lang['msg']['submit'] ?>" />
+                <input type="submit" class="button" value="<?php echo $lang['msg']['submit']; ?>" />
             </p>
         </form>
         <script type="text/javascript">

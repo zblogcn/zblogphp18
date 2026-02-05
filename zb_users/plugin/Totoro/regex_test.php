@@ -1,21 +1,25 @@
 <?php
 require '../../../zb_system/function/c_system_base.php';
+
 require '../../../zb_system/function/c_system_admin.php';
+
 require '../../../zb_system/admin2/function/admin2_function.php';
 $zbp->Load();
 $action = 'root';
 if (!$zbp->CheckRights($action)) {
     $zbp->ShowError(6);
-    die();
+
+    exit();
 }
 if (!$zbp->CheckPlugin('Totoro')) {
     $zbp->ShowError(48);
-    die();
+
+    exit();
 }
 Totoro_init();
 $blogtitle = 'Totoro反垃圾评论';
 
-if (GetVars('type', 'GET') == 'test') {
+if ('test' == GetVars('type', 'GET')) {
     Post_Content();
 }
 
@@ -38,13 +42,13 @@ exit;
 function Post_Content()
 {
     global $zbp, $Totoro;
-    if (GetVars('type', 'GET') == 'test') {
+    if ('test' == GetVars('type', 'GET')) {
         set_error_handler('emptyFunction');
         set_exception_handler('emptyFunction');
         register_shutdown_function('emptyFunction');
         $regex = GetVars('regexp', 'POST');
-        $regex = "/(" . $regex . ")/si";
-        $matches = array();
+        $regex = '/(' . $regex . ')/si';
+        $matches = [];
         $string = GetVars('string', 'POST');
         $value = preg_match_all($regex, $string, $matches);
         if ($value) {
@@ -57,7 +61,7 @@ function Post_Content()
             $string = str_replace('$$a$fuckd$b$', '</span>', $string);
             echo $string;
         } else {
-            echo "正则有误或未匹配到：<br/><br/>可能的情况是：<ol><li>少打了某个符号</li><li>没有在[ ] ( ) ^ . ? !等符号前加\</li></ol>";
+            echo '正则有误或未匹配到：<br/><br/>可能的情况是：<ol><li>少打了某个符号</li><li>没有在[ ] ( ) ^ . ? !等符号前加\\</li></ol>';
         }
 
         exit();
@@ -67,8 +71,7 @@ function Post_Content()
 function Get_Content()
 {
     global $zbp, $lang, $Totoro;
-    ob_start();
-?>
+    ob_start(); ?>
     <table style="margin-top:1em;" class="table_hover table_striped tableFull">
       <tr height="40">
         <td width="50%">输入待测试内容</td>
@@ -106,6 +109,7 @@ $(document).ready(function(e) {
 </script>
 <?php
     $content = ob_get_clean();
+
     return $content;
 }
 ?>
