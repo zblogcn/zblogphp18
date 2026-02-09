@@ -4,33 +4,30 @@
  * Created by ZBLOGPHP
  * User: zxasd
  * Date: 2026/02/9
- * Time: 17:00
+ * Time: 17:00.
  */
-
 class ZbpAi
 {
+    public $text_url;
+    public $text_model;
+    public $text_apikey;
+    public $image_url;
+    public $image_model;
+    public $image_apikey;
+    public $video_url;
+    public $video_model;
+    public $video_apikey;
 
-    public $text_url = null;
-    public $text_model = null;
-    public $text_apikey = null;
-    public $image_url = null;
-    public $image_model = null;
-    public $image_apikey = null;
-    public $video_url = null;
-    public $video_model = null;
-    public $video_apikey = null;
-
-
-    public $temperature = null;//0.7;
-    public $max_tokens = null;//1024;
-    public $thinking = null;
+    public $temperature; //0.7;
+    public $max_tokens; //1024;
+    public $thinking;
     public $data = [];
-    public $result = null;
+    public $result;
 
     public function chat($prompt, $option = [])
     {
-        global $zbp; 
-        $array = array();
+        global $zbp;
+        $array = [];
         if (is_null($this->text_url)) {
             $this->text_url = $zbp->option['ZC_TEXT_AI_API_URL'];
         }
@@ -48,13 +45,13 @@ class ZbpAi
         }
 
         if (!is_array($prompt)) {
-            $array['messages'] = array(); 
-            $array['messages'][] = array(
-                "role" => "user",
-                "content" => $prompt
-            );
+            $array['messages'] = [];
+            $array['messages'][] = [
+                'role' => 'user',
+                'content' => $prompt,
+            ];
         } else {
-            $array['messages'] =  $prompt;
+            $array['messages'] = $prompt;
         }
 
         $this->data = json_encode($array);
@@ -64,16 +61,15 @@ class ZbpAi
         return $this->result['choices'][0]['message']['content'] ?? null;
     }
 
-
     public function generateImage($prompt, $option = [])
     {
-        global $zbp; 
-        $array = array();
+        global $zbp;
+        $array = [];
         if (is_null($this->image_url)) {
             $this->image_url = $zbp->option['ZC_IMAGE_AI_API_URL'];
         }
         if (is_null($this->image_apikey)) {
-            $this->image_apikey= $zbp->option['ZC_IMAGE_AI_API_KEY'];
+            $this->image_apikey = $zbp->option['ZC_IMAGE_AI_API_KEY'];
         }
         if (is_null($this->image_model)) {
             $this->image_model = $zbp->option['ZC_IMAGE_AI_API_MODEL'];
@@ -82,13 +78,13 @@ class ZbpAi
 
     public function generateVideo($prompt, $option = [])
     {
-        global $zbp; 
-        $array = array();
+        global $zbp;
+        $array = [];
         if (is_null($this->video_url)) {
             $this->video_url = $zbp->option['ZC_VIDEO_AI_API_URL'];
         }
         if (is_null($this->video_apikey)) {
-            $this->video_apikey= $zbp->option['ZC_VIDEO_AI_API_KEY'];
+            $this->video_apikey = $zbp->option['ZC_VIDEO_AI_API_KEY'];
         }
         if (is_null($this->video_model)) {
             $this->video_model = $zbp->option['ZC_VIDEO_AI_API_MODEL'];
@@ -108,9 +104,8 @@ class ZbpAi
         $json = $ajax->responseText;
 
         $this->result = json_decode($json, true);
-        if (json_last_error() === JSON_ERROR_NONE) {
+        if (JSON_ERROR_NONE === json_last_error()) {
             return $this->result;
         }
     }
-
 }
