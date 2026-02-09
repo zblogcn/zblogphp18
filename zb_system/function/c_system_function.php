@@ -1434,3 +1434,31 @@ function include_get_c_admin_js_add_data($src)
         'extraScripts' => $extraScripts,
     ]);
 }
+
+
+/**
+ * zbp_ai_chat
+ *
+ * @param mixed $src
+ */
+function zbp_ai_chat($content, $option = [])
+{
+    global $zbp;
+    $zbpai = new ZbpAi;
+    $option['thinking'] = array("type" => "disabled");
+    if (!is_array($content)) {
+        $messages = [
+            [
+                "content" => $zbp->lang['msg']['you_are_a_helpful_assistant'],
+                "role" => "system"
+            ],
+            [
+                "content" => $content,
+                "role" => "user"
+            ]
+        ];
+
+        $content = $messages;
+    }
+    return $zbpai->chat($content, $option);
+}
