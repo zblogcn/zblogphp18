@@ -41,7 +41,9 @@ class ZbpAi
         $array['model'] = $this->text_model;
 
         foreach ($option as $key => $value) {
-            $array[$key] = $value;
+            if ('messages' != $key && !is_null($value)) {
+                $array[$key] = $value;
+            }
         }
 
         if (!is_array($prompt)) {
@@ -74,6 +76,22 @@ class ZbpAi
         if (is_null($this->image_model)) {
             $this->image_model = $zbp->option['ZC_IMAGE_AI_API_MODEL'];
         }
+
+        $array['model'] = $this->image_model;
+
+        foreach ($option as $key => $value) {
+            if ('prompt' != $key && !is_null($value)) {
+                $array[$key] = $value;
+            }
+        }
+
+        $array['prompt'] = $prompt;
+
+        $this->data = json_encode($array);
+
+        $this->send($this->image_url, $this->image_apikey, $this->data);
+
+        return $this->result['data'][0]['url'] ?? null;
     }
 
     public function generateVideo($prompt, $option = [])

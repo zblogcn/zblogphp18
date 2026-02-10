@@ -1436,17 +1436,18 @@ function include_get_c_admin_js_add_data($src)
 }
 
 /**
- * zbp_ai_chat.
+ * zbp_ai_chat
  *
- * @param mixed $src
  * @param mixed $content
- * @param mixed $option
+ * @param array $option
  */
-function zbp_ai_chat($content, $option = [])
+function zbp_ai_chat($content, $option = [], &$result = null)
 {
     global $zbp;
     $zbpai = new ZbpAi();
-    $option['thinking'] = ['type' => 'disabled'];
+    if (!array_key_exists('thinking', $option)) {
+        $option['thinking'] = ['type' => 'disabled'];
+    }
     if (!is_array($content)) {
         $messages = [
             [
@@ -1462,5 +1463,37 @@ function zbp_ai_chat($content, $option = [])
         $content = $messages;
     }
 
-    return $zbpai->chat($content, $option);
+    $r = $zbpai->chat($content, $option);
+    $result = $zbpai->result;
+
+    return $r;
+}
+
+
+/**
+ * zbp_ai_image
+ *
+ * @param mixed $content
+ * @param array $option
+ */
+function zbp_ai_image($prompt, $option = [], &$result = null)
+{
+    global $zbp;
+    $zbpai = new ZbpAi();
+    if (!array_key_exists('size', $option)) {
+        $option['size'] = '1280x1280';
+    }
+    if (!array_key_exists('watermark_enabled', $option)) {
+        $option['watermark_enabled'] = false;
+    }
+    if (!array_key_exists('watermark', $option)) {
+        $option['watermark'] = false;
+    }
+    if (!array_key_exists('n', $option)) {
+        $option['n'] = 1;
+    }
+    $r = $zbpai->generateImage($prompt, $option);
+    $result = $zbpai->result;
+
+    return $r;
 }
