@@ -18,10 +18,9 @@ class ZbpAi
     public $video_model;
     public $video_apikey;
 
-    public $temperature; //0.7;
-    public $max_tokens; //1024;
-    public $thinking;
-    public $data = [];
+    //public $temperature; //0.7;
+    //public $max_tokens; //1024;
+    //public $thinking;
     public $result;
 
     public function chat($prompt, $option = [])
