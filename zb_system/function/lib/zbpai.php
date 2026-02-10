@@ -137,6 +137,8 @@ class ZbpAi
         if (!is_null($task_id)) {
             return $task_id;
         }
+
+        return $this->result;
     }
 
     public function send($url, $key, $data)
