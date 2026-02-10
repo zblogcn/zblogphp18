@@ -55,9 +55,7 @@ class ZbpAi
             $array['messages'] = $prompt;
         }
 
-        $this->data = json_encode($array);
-
-        $this->send($this->text_url, $this->text_apikey, $this->data);
+        $this->send($this->text_url, $this->text_apikey, $array);
 
         return $this->result['choices'][0]['message']['content'] ?? null;
     }
@@ -86,9 +84,7 @@ class ZbpAi
 
         $array['prompt'] = $prompt;
 
-        $this->data = json_encode($array);
-
-        $this->send($this->image_url, $this->image_apikey, $this->data);
+        $this->send($this->image_url, $this->image_apikey, $array);
 
         return $this->result['data'][0]['url'] ?? null;
     }
@@ -117,9 +113,9 @@ class ZbpAi
 
         $array['prompt'] = $prompt;
 
-        $this->data = json_encode($array);
+        $this->send($this->video_url, $this->video_apikey, $array);
 
-        $this->send($this->video_url, $this->video_apikey, $this->data);
+        return $this->result;
 
         $task_id = $this->result['task_id'] ?? null;
         if (!is_null($task_id)) {
@@ -148,6 +144,7 @@ class ZbpAi
         $ajax->setTimeOuts(120, 120, 0, 0);
         $ajax->setRequestHeader('Content-Type', 'application/json; charset=utf-8');
         $ajax->setRequestHeader('Authorization', 'Bearer ' . $key);
+        $data = json_encode($data);
         $ajax->send($data);
 
         $json = $ajax->responseText;
