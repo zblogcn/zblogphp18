@@ -1502,7 +1502,7 @@ function zbp_ai_image($prompt, $option = [], &$result = null)
 }
 
 /**
- * zbp_ai_video
+ * zbp_ai_video.
  *
  * @param mixed      $content
  * @param array      $option
