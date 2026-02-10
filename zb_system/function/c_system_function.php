@@ -1436,10 +1436,11 @@ function include_get_c_admin_js_add_data($src)
 }
 
 /**
- * zbp_ai_chat
+ * zbp_ai_chat.
  *
- * @param mixed $content
- * @param array $option
+ * @param mixed      $content
+ * @param array      $option
+ * @param null|mixed $result
  */
 function zbp_ai_chat($content, $option = [], &$result = null)
 {
@@ -1469,12 +1470,13 @@ function zbp_ai_chat($content, $option = [], &$result = null)
     return $r;
 }
 
-
 /**
- * zbp_ai_image
+ * zbp_ai_image.
  *
- * @param mixed $content
- * @param array $option
+ * @param mixed      $content
+ * @param array      $option
+ * @param mixed      $prompt
+ * @param null|mixed $result
  */
 function zbp_ai_image($prompt, $option = [], &$result = null)
 {
