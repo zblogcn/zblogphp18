@@ -107,11 +107,41 @@ class ZbpAi
         if (is_null($this->video_model)) {
             $this->video_model = $zbp->option['ZC_VIDEO_AI_API_MODEL'];
         }
+
+        $array['model'] = $this->video_model;
+
+        foreach ($option as $key => $value) {
+            if ('prompt' != $key && !is_null($value)) {
+                $array[$key] = $value;
+            }
+        }
+
+        $array['prompt'] = $prompt;
+
+        $this->data = json_encode($array);
+
+        $this->send($this->video_url, $this->video_apikey, $this->data);
+
+        $task_id = $this->result['task_id'] ?? null;
+        if (!is_null($task_id)) {
+            return $task_id;
+        }
+        $task_id = $this->result['output']['task_id'] ?? null;
+        if (!is_null($task_id)) {
+            return $task_id;
+        }
+        $task_id = $this->result['data']['task_id'] ?? null;
+        if (!is_null($task_id)) {
+            return $task_id;
+        }
+        $task_id = $this->result['id'] ?? null;
+        if (!is_null($task_id)) {
+            return $task_id;
+        }
     }
 
     public function send($url, $key, $data)
     {
-        //var_dump($url, $key, $data);die;
         $ajax = Network::Create();
         $ajax->open('POST', $url);
         $ajax->setTimeOuts(120, 120, 0, 0);

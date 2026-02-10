@@ -1494,7 +1494,27 @@ function zbp_ai_image($prompt, $option = [], &$result = null)
     if (!array_key_exists('n', $option)) {
         $option['n'] = 1;
     }
+
     $r = $zbpai->generateImage($prompt, $option);
+    $result = $zbpai->result;
+
+    return $r;
+}
+
+/**
+ * zbp_ai_video
+ *
+ * @param mixed      $content
+ * @param array      $option
+ * @param mixed      $prompt
+ * @param null|mixed $result
+ */
+function zbp_ai_video($prompt, $option = [], &$result = null)
+{
+    global $zbp;
+    $zbpai = new ZbpAi();
+
+    $r = $zbpai->generateVideo($prompt, $option);
     $result = $zbpai->result;
 
     return $r;
