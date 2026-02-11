@@ -67,9 +67,9 @@ function Get_Content()
                         <th width='20%'>&nbsp;</th>
                         <th>&nbsp;<label><input <?php if ('system' == $zbp->Config('AICommentAntiSpam')->ai_source) {
                     echo 'checked="checked"';
-                } ?> name="ai_source" value="system" type="radio" onclick="$('.user_ai').hide();">使用系统AI配置</input></label>&nbsp;<label><input <?php if ('system' != $zbp->Config('AICommentAntiSpam')->ai_source) {
+                } ?> name="ai_source" value="system" type="radio" onclick="$('.user_ai').hide();">&nbsp;使用系统AI配置</input></label>&nbsp;&nbsp;&nbsp;&nbsp;<label><input <?php if ('system' != $zbp->Config('AICommentAntiSpam')->ai_source) {
                     echo 'checked="checked"';
-                } ?> name="ai_source" value="user" type="radio" onclick="$('.user_ai').show();">自定义AI配置</input></label></th>
+                } ?> name="ai_source" value="user" type="radio" onclick="$('.user_ai').show();">&nbsp;自定义AI配置</input></label></th>
                     </tr>
                     <tr class="user_ai" <?php if ('user' != $zbp->Config('AICommentAntiSpam')->ai_source) {
                     echo 'style="display:none;"';
