@@ -39,9 +39,9 @@ function AICommentAntiSpam_Core(&$cmt)
 {
     global $zbp;
 
-    $api_key = $zbp->Config('AICommentAntiSpam')->api_key;
-    $model = $zbp->Config('AICommentAntiSpam')->model;
     $api_url = $zbp->Config('AICommentAntiSpam')->api_url . $zbp->Config('AICommentAntiSpam')->url_path;
+    $model = $zbp->Config('AICommentAntiSpam')->model;
+    $api_key = $zbp->Config('AICommentAntiSpam')->api_key;
 
     $save_log = $zbp->Config('AICommentAntiSpam')->save_log;
     $is_checking = $zbp->Config('AICommentAntiSpam')->checking;
@@ -51,8 +51,8 @@ function AICommentAntiSpam_Core(&$cmt)
 
     if ('user' == $zbp->Config('AICommentAntiSpam')->ai_source) {
         $zbpai->text_url = $api_url;
-        $zbpai->{$text_model} = $model;
-        $zbpai->{$text_apikey} = $api_key;
+        $zbpai->text_model = $model;
+        $zbpai->text_apikey = $api_key;
     }
 
     //提示词
