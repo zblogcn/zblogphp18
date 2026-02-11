@@ -65,9 +65,9 @@ function Get_Content()
                 <table class="table_hover table_striped tableFull">
                     <tr>
                         <th width='20%'>&nbsp;</th>
-                        <th>&nbsp;</th>
+                        <th>&nbsp;<label><input <?php if($zbp->Config('AICommentAntiSpam')->ai_source=='system'){echo 'checked="checked"';} ?> name="ai_source" value="system" type="radio" onclick="$('.user_ai').hide();">使用系统AI配置</input></label>&nbsp;<label><input <?php if($zbp->Config('AICommentAntiSpam')->ai_source!='system'){echo 'checked="checked"';} ?> name="ai_source" value="user" type="radio" onclick="$('.user_ai').show();">自定义AI配置</input></label></th>
                     </tr>
-                    <tr>
+                    <tr class="user_ai" <?php if($zbp->Config('AICommentAntiSpam')->ai_source!='user'){echo 'style="display:none;"';} ?>>
                         <td><p><b>· API网址</b><br/>
                             </p></td>
                         <td>
@@ -77,7 +77,7 @@ function Get_Content()
                             </p>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="user_ai" <?php if($zbp->Config('AICommentAntiSpam')->ai_source!='user'){echo 'style="display:none;"';} ?>>
                         <td><p><b>· API路径</b><br/>
                             </p></td>
                         <td>
@@ -87,7 +87,7 @@ function Get_Content()
                             </p>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="user_ai" <?php if($zbp->Config('AICommentAntiSpam')->ai_source!='user'){echo 'style="display:none;"';} ?>>
                         <td><p><b>· 模型名称</b></p></td>
                         <td>
                             <p>&nbsp;
@@ -96,7 +96,7 @@ function Get_Content()
                             </p>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="user_ai" <?php if($zbp->Config('AICommentAntiSpam')->ai_source!='user'){echo 'style="display:none;"';} ?>>
                         <td><p><b>· API密钥</b></p></td>
                         <td>
                             <p>&nbsp;
@@ -105,7 +105,7 @@ function Get_Content()
                             </p>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="user_ai" <?php if($zbp->Config('AICommentAntiSpam')->ai_source!='user'){echo 'style="display:none;"';} ?>>
                         <td></td>
                         <td>
                             <p>
@@ -170,7 +170,7 @@ function Get_Content()
                             </script>
                         </td>
                     </tr>
-                    <tr>
+                    <tr style="display:none;">
                         <td><p><b>· 是否记录日志</b></p></td>
                         <td>
                             <p>&nbsp;
