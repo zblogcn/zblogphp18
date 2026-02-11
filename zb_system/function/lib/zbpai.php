@@ -116,7 +116,6 @@ class ZbpAi
         $this->send($this->video_url, $this->video_apikey, $array);
 
         return $this->result;
-
         //$task_id = $this->result['task_id'] ?? null;
         //if (!is_null($task_id)) {
         //    return $task_id;
