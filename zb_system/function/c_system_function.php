@@ -1438,9 +1438,9 @@ function include_get_c_admin_js_add_data($src)
 /**
  * zbp_ai_chat.
  *
- * @param mixed      $content
- * @param array      $option
- * @param boolean    $return_full
+ * @param mixed $content
+ * @param array $option
+ * @param bool  $return_full
  */
 function zbp_ai_chat($content, $option = [], $return_full = false)
 {
@@ -1476,10 +1476,10 @@ function zbp_ai_chat($content, $option = [], $return_full = false)
 /**
  * zbp_ai_image.
  *
- * @param mixed      $content
- * @param array      $option
- * @param mixed      $prompt
- * @param boolean    $return_full
+ * @param mixed $content
+ * @param array $option
+ * @param mixed $prompt
+ * @param bool  $return_full
  */
 function zbp_ai_image($prompt, $option = [], $return_full = false)
 {
@@ -1510,9 +1510,9 @@ function zbp_ai_image($prompt, $option = [], $return_full = false)
 /**
  * zbp_ai_video.
  *
- * @param mixed      $prompt
- * @param array      $option
- * @param boolean    $return_full
+ * @param mixed $prompt
+ * @param array $option
+ * @param bool  $return_full
  */
 function zbp_ai_video($prompt, $option = [], $return_full = false)
 {
