@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 插件挂接接口
+ * 插件挂接接口.
  */
 function ActivePlugin_AICommentAntiSpam()
 {
@@ -9,7 +9,7 @@ function ActivePlugin_AICommentAntiSpam()
 }
 
 /**
- * 插件安装
+ * 插件安装.
  */
 function InstallPlugin_AICommentAntiSpam()
 {
@@ -29,7 +29,7 @@ function InstallPlugin_AICommentAntiSpam()
 }
 
 /**
- * 插件卸载
+ * 插件卸载.
  */
 function UninstallPlugin_AICommentAntiSpam()
 {
@@ -49,21 +49,21 @@ function AICommentAntiSpam_Core(&$cmt)
     $zbpai = new ZbpAi();
     $option['thinking'] = ['type' => 'disabled'];
 
-    if ($zbp->Config('AICommentAntiSpam')->ai_source == 'user') {
+    if ('user' == $zbp->Config('AICommentAntiSpam')->ai_source) {
         $zbpai->text_url = $api_url;
-        $zbpai->$text_model = $model;
-        $zbpai->$text_apikey = $api_key;
+        $zbpai->{$text_model} = $model;
+        $zbpai->{$text_apikey} = $api_key;
     }
 
     //提示词
     $system_content = $zbp->Config('AICommentAntiSpam')->system_content;
 
-    $content = '文章标题：'.$cmt->Post->Title;
-    $content .= '\n评论内容：'.$cmt->Content;
-    $content .= '\n评论人名称：'.$cmt->Author->Name;
+    $content = '文章标题：' . $cmt->Post->Title;
+    $content .= '\n评论内容：' . $cmt->Content;
+    $content .= '\n评论人名称：' . $cmt->Author->Name;
 //    $content .= '\n评论人IP：'.$cmt->Author->IP;
 
-    if ($cmt->Author->ID == 0) {
+    if (0 == $cmt->Author->ID) {
         $content .= '\n类型：这是一条游客评论';
     }
 
@@ -84,9 +84,9 @@ function AICommentAntiSpam_Core(&$cmt)
     //$result = json_decode($result->getBody()->getContents(), true);
 
     if ($save_log) {
-        $text = '请求内容：'.$content;
-        $text .= '\n返回内容：'.json_encode($result, JSON_UNESCAPED_UNICODE);
-        Logs('AICommentAntiSpam:'.$text);
+        $text = '请求内容：' . $content;
+        $text .= '\n返回内容：' . json_encode($result, JSON_UNESCAPED_UNICODE);
+        Logs('AICommentAntiSpam:' . $text);
     }
 
     if (isset($result['choices'][0]['message']['content'])) {
