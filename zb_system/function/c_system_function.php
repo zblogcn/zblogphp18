@@ -1440,9 +1440,9 @@ function include_get_c_admin_js_add_data($src)
  *
  * @param mixed      $content
  * @param array      $option
- * @param null|mixed $result
+ * @param boolean    $return_full
  */
-function zbp_ai_chat($content, $option = [], &$result = null)
+function zbp_ai_chat($content, $option = [], $return_full = false)
 {
     global $zbp;
     $zbpai = new ZbpAi();
@@ -1466,6 +1466,9 @@ function zbp_ai_chat($content, $option = [], &$result = null)
 
     $r = $zbpai->chat($content, $option);
     $result = $zbpai->result;
+    if ($return_full) {
+        return $result;
+    }
 
     return $r;
 }
@@ -1476,9 +1479,9 @@ function zbp_ai_chat($content, $option = [], &$result = null)
  * @param mixed      $content
  * @param array      $option
  * @param mixed      $prompt
- * @param null|mixed $result
+ * @param boolean    $return_full
  */
-function zbp_ai_image($prompt, $option = [], &$result = null)
+function zbp_ai_image($prompt, $option = [], $return_full = false)
 {
     global $zbp;
     $zbpai = new ZbpAi();
@@ -1497,6 +1500,9 @@ function zbp_ai_image($prompt, $option = [], &$result = null)
 
     $r = $zbpai->generateImage($prompt, $option);
     $result = $zbpai->result;
+    if ($return_full) {
+        return $result;
+    }
 
     return $r;
 }
@@ -1504,12 +1510,11 @@ function zbp_ai_image($prompt, $option = [], &$result = null)
 /**
  * zbp_ai_video.
  *
- * @param mixed      $content
- * @param array      $option
  * @param mixed      $prompt
- * @param null|mixed $result
+ * @param array      $option
+ * @param boolean    $return_full
  */
-function zbp_ai_video($prompt, $option = [], &$result = null)
+function zbp_ai_video($prompt, $option = [], $return_full = false)
 {
     global $zbp;
     $zbpai = new ZbpAi();
@@ -1528,6 +1533,9 @@ function zbp_ai_video($prompt, $option = [], &$result = null)
 
     $r = $zbpai->generateVideo($prompt, $option);
     $result = $zbpai->result;
+    if ($return_full) {
+        return $result;
+    }
 
     return $r;
 }

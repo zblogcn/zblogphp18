@@ -115,23 +115,23 @@ class ZbpAi
 
         $this->send($this->video_url, $this->video_apikey, $array);
 
-        return $this->result;
-        //$task_id = $this->result['task_id'] ?? null;
-        //if (!is_null($task_id)) {
-        //    return $task_id;
-        //}
-        //$task_id = $this->result['output']['task_id'] ?? null;
-        //if (!is_null($task_id)) {
-        //    return $task_id;
-        //}
-        //$task_id = $this->result['data']['task_id'] ?? null;
-        //if (!is_null($task_id)) {
-        //    return $task_id;
-        //}
-        //$task_id = $this->result['id'] ?? null;
-        //if (!is_null($task_id)) {
-        //    return $task_id;
-        //}
+        //return $this->result;
+        $task_id = $this->result['task_id'] ?? null;
+        if (!is_null($task_id)) {
+            return $task_id;
+        }
+        $task_id = $this->result['output']['task_id'] ?? null;
+        if (!is_null($task_id)) {
+            return $task_id;
+        }
+        $task_id = $this->result['data']['task_id'] ?? null;
+        if (!is_null($task_id)) {
+            return $task_id;
+        }
+        $task_id = $this->result['id'] ?? null;
+        if (!is_null($task_id)) {
+            return $task_id;
+        }
 
         return $this->result;
     }
