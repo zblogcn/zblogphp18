@@ -1513,6 +1513,18 @@ function zbp_ai_video($prompt, $option = [], &$result = null)
 {
     global $zbp;
     $zbpai = new ZbpAi();
+    //if (!array_key_exists('size', $option)) {
+    //    $option['size'] = '1920x1080';
+    //}
+    //if (!array_key_exists('with_audio', $option)) {
+    //    $option['with_audio'] = true;
+    //}
+    //if (!array_key_exists('quality', $option)) {
+    //    $option['quality'] = 'quality';
+    //}
+    //if (!array_key_exists('fps', $option)) {
+    //    $option['fps'] = 30;
+    //}
 
     $r = $zbpai->generateVideo($prompt, $option);
     $result = $zbpai->result;
