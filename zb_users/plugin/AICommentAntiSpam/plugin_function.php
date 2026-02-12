@@ -78,8 +78,7 @@ function AICommentAntiSpam_Core(&$cmt)
         ],
     ];
 
-    $zbpai->chat($messages, $option);
-    $result = $zbpai->result;
+    $result = $zbpai->chat($messages, $option, true);
 
     //$result = json_decode($result->getBody()->getContents(), true);
 

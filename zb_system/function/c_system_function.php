@@ -1464,11 +1464,7 @@ function zbp_ai_chat($content, $option = [], $return_full = false)
         $content = $messages;
     }
 
-    $r = $zbpai->chat($content, $option);
-    $result = $zbpai->result;
-    if ($return_full) {
-        return $result;
-    }
+    $r = $zbpai->chat($content, $option, $return_full);
 
     return $r;
 }
@@ -1498,11 +1494,7 @@ function zbp_ai_image($prompt, $option = [], $return_full = false)
         $option['n'] = 1;
     }
 
-    $r = $zbpai->generateImage($prompt, $option);
-    $result = $zbpai->result;
-    if ($return_full) {
-        return $result;
-    }
+    $r = $zbpai->generateImage($prompt, $option, $return_full);
 
     return $r;
 }
@@ -1531,11 +1523,7 @@ function zbp_ai_video($prompt, $option = [], $return_full = false)
     //    $option['fps'] = 30;
     //}
 
-    $r = $zbpai->generateVideo($prompt, $option);
-    $result = $zbpai->result;
-    if ($return_full) {
-        return $result;
-    }
+    $r = $zbpai->generateVideo($prompt, $option, $return_full);
 
     return $r;
 }

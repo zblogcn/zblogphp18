@@ -23,7 +23,7 @@ class ZbpAi
     //public $thinking;
     public $result;
 
-    public function chat($prompt, $option = [])
+    public function chat($prompt, $option = [], $return_full = false)
     {
         global $zbp;
         $array = [];
@@ -57,10 +57,14 @@ class ZbpAi
 
         $this->send($this->text_url, $this->text_apikey, $array);
 
+        if ($return_full) {
+            return $this->result;
+        }
+
         return $this->result['choices'][0]['message']['content'] ?? null;
     }
 
-    public function generateImage($prompt, $option = [])
+    public function generateImage($prompt, $option = [], $return_full = false)
     {
         global $zbp;
         $array = [];
@@ -86,10 +90,14 @@ class ZbpAi
 
         $this->send($this->image_url, $this->image_apikey, $array);
 
+        if ($return_full) {
+            return $this->result;
+        }
+
         return $this->result['data'][0]['url'] ?? null;
     }
 
-    public function generateVideo($prompt, $option = [])
+    public function generateVideo($prompt, $option = [], $return_full = false)
     {
         global $zbp;
         $array = [];
@@ -115,7 +123,10 @@ class ZbpAi
 
         $this->send($this->video_url, $this->video_apikey, $array);
 
-        //return $this->result;
+        if ($return_full) {
+            return $this->result;
+        }
+
         $task_id = $this->result['task_id'] ?? null;
         if (!is_null($task_id)) {
             return $task_id;
