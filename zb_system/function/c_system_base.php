@@ -195,7 +195,7 @@ $file_base = GetVarsFromEnv('ZBP_PRESET_ENV', 'constant|environment|server');
 if (!empty($file_base) && is_readable($file_base) && class_exists('ZbpEnv')) {
     ZbpEnv::LoadByPath($file_base);
 }
-$GLOBALS['option'] = include ZBP_PATH . 'zb_system/defend/option.php';
+$GLOBALS['zbp_option'] = $GLOBALS['option'] = include ZBP_PATH . 'zb_system/defend/option.php';
 $GLOBALS['option_user_file'] = array();
 if (!ZBP_HOOKERROR && is_readable($file_base = GetVarsFromEnv('ZBP_USER_OPTION'))) {
     $GLOBALS['option_user_file'] = include $file_base;
