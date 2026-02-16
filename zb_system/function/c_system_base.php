@@ -312,7 +312,7 @@ if (ZBP_SAFEMODE === false) {
 //从ZC_BACKEND_ID取值
 $backend_id = $GLOBALS['zbp']->option['ZC_BACKEND_ID'];
 //系统自带的后台主题
-if ('backend-legacy' == $backend_id or 'backend-nexus' == $backend_id or 'backend-toyean' == $backend_id) {
+if ('backend-legacy' == $backend_id or 'backend-toyean' == $backend_id) {
     if (is_readable($GLOBALS['systemdir'] . 'admin2/' . $backend_id . '/include.php')) {
         require_once $GLOBALS['systemdir'] . 'admin2/' . $backend_id . '/include.php';
     }
