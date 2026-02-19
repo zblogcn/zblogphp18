@@ -398,17 +398,20 @@ abstract class Base__Module extends Base
     }
 
     /**
-     * 添加链接
+     * 添加链接.
      *
      * @param $href $href可以是stdClass
      * @param $content
-     * 
+     * @param mixed $id
+     * @param mixed $target
+     *
      * @return bool|mixed|string
      */
     public function AddLink($href = '', $content = '', $id = '', $target = '')
     {
         if (is_object($href)) {
             $this->Links[] = $href;
+
             return $this->Links;
         }
 
