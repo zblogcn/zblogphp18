@@ -2665,12 +2665,12 @@ class ZBlogPHP
      */
     public function AddBuildModule($moduleFileName, $parameters = null)
     {
-        $p = func_get_args();
         if ('archives' == $moduleFileName && isset($this->modulesbyfilename['archives'])) {
             if ([] == $this->modulesbyfilename['archives']->GetSideBarInUsed()) {
                 return;
             }
         }
+        $p = func_get_args();
         call_user_func_array(['ModuleBuilder', 'Add'], $p);
     }
 

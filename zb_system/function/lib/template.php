@@ -1159,4 +1159,14 @@ class Template
             }
         }
     }
+
+    /**
+     * @param $template_name
+     *
+     * @return boolean
+     */
+    public function Compiled_File_Exists($template_name)
+    {
+        return file_exists($this->path . $template_name . '.php');
+    }
 }

@@ -281,6 +281,8 @@ abstract class Base__Module extends Base
 
     public function Build()
     {
+        global $zbp;
+
         if (true == $this->NoRefresh) {
             return;
         }
@@ -298,10 +300,8 @@ abstract class Base__Module extends Base
         }
         if (isset($this->Metas->system_function)) {
             $f = $this->Metas->system_function;
-            $p = $this->Metas->system_parameters;
-            $p = is_array($p) ? $p : [$p];
 
-            $this->Content = call_user_func_array(ParseFilterPlugin($f), $p);
+            $this->Content = call_user_func(ParseFilterPlugin($f));
 
             return true;
         }
@@ -395,5 +395,36 @@ abstract class Base__Module extends Base
         $this->private_links = $item;
 
         return $item;
+    }
+
+    /**
+     * 添加链接
+     *
+     * @param $href $href可以是stdClass
+     * @param $content
+     * 
+     * @return bool|mixed|string
+     */
+    public function AddLink($href = '', $content = '', $id = '', $target = '')
+    {
+        if (is_object($href)) {
+            $this->Links[] = $href;
+            return $this->Links;
+        }
+
+        if (empty($href) && empty($content)) {
+            return $this->Links;
+        }
+
+        $link = new stdClass();
+        $link->href = $href;
+        $link->content = $content;
+        $link->id = $id;
+        $link->target = $target;
+        $links = $this->Links;
+        $links[] = $link;
+        $this->Links = $links;
+
+        return $this->Links;
     }
 }
