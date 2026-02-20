@@ -1894,7 +1894,7 @@ function PostModule()
     }
 
     if (isset($_POST['Content'])) {
-        $Content_class  = new XssHtml($_POST['Content']);
+        $Content_class = new XssHtml($_POST['Content']);
         $_POST['Content'] = trim($Content_class->getHtml());
     }
 
@@ -1937,7 +1937,7 @@ function PostModule()
                 $link = new stdClass();
                 $link->href = strip_tags($_POST['href'][$i]);
 
-                $class  = new XssHtml($_POST['content'][$i]);
+                $class = new XssHtml($_POST['content'][$i]);
                 $source = trim($class->getHtml());
 
                 $link->content = $source;
