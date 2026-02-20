@@ -1893,6 +1893,11 @@ function PostModule()
         $_POST['Type'] = 'ul';
     }
 
+    if (isset($_POST['Content'])) {
+        $Content_class  = new XssHtml($_POST['Content']);
+        $_POST['Content'] = trim($Content_class->getHtml());
+    }
+
     /* @var Module $mod */
     $mod = $zbp->GetModuleByID(GetVars('ID', 'POST'));
 
@@ -1930,22 +1935,32 @@ function PostModule()
             $j = count($_POST['href']);
             for ($i = 0; $i <= $j - 1; ++$i) {
                 $link = new stdClass();
-                $link->href = $_POST['href'][$i];
-                $link->content = $_POST['content'][$i];
+                $link->href = strip_tags($_POST['href'][$i]);
+
+                $class  = new XssHtml($_POST['content'][$i]);
+                $source = trim($class->getHtml());
+
+                $link->content = $source;
                 if (isset($_POST['li_id'], $_POST['li_id'][$i])) {
-                    $link->li_id = $_POST['li_id'][$i];
+                    $link->li_id = strip_tags($_POST['li_id'][$i]);
                     if (empty($link->li_id)) {
                         unset($link->li_id);
                     }
                 }
                 if (isset($_POST['id'], $_POST['id'][$i])) {
-                    $link->id = $_POST['id'][$i];
+                    $link->id = strip_tags($_POST['id'][$i]);
                     if (empty($link->id)) {
                         unset($link->id);
                     }
                 }
+                if (isset($_POST['target'], $_POST['target'][$i])) {
+                    $link->target = strip_tags($_POST['target'][$i]);
+                    if (empty($link->target)) {
+                        unset($link->target);
+                    }
+                }
                 foreach ($_POST as $key => $post) {
-                    if (is_array($post) && 'href' != $key && 'content' != $key && 'id' != $key && 'li_id' != $key) {
+                    if (is_array($post) && 'href' != $key && 'content' != $key && 'id' != $key && 'li_id' != $key && 'target' != $key) {
                         @$link->{$key} = $post[$i];
                     }
                 }
