@@ -1961,7 +1961,7 @@ function PostModule()
                 }
                 foreach ($_POST as $key => $post) {
                     if (is_array($post) && 'href' != $key && 'content' != $key && 'id' != $key && 'li_id' != $key && 'target' != $key) {
-                        @$link->{$key} = $post[$i];
+                        @$link->{$key} = strip_tags($post[$i]);
                     }
                 }
                 if (!empty($link->href) && !empty($link->content)) {
