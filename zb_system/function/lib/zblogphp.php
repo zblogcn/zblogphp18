@@ -421,8 +421,6 @@ class ZBlogPHP
      */
     public $activedapps = [];
 
-    public $activeapps;
-
     //不保存进Option的单次开关
     public $cookie_tooken_httponly = true; //已废弃
 
@@ -570,6 +568,8 @@ class ZBlogPHP
     //Cache相关
     private $cache_hash;
 
+    private $global_vars = [];
+
     /**
      * 构造函数，加载基本配置到$zbp.
      */
@@ -633,7 +633,6 @@ class ZBlogPHP
         $this->theme = &$blogtheme;
         $this->style = &$blogstyle;
 
-        $this->activeapps = &$this->activedapps;
         $this->t = &$this->table;
         $this->d = &$this->datainfo;
         $this->guid = &$this->option['ZC_BLOG_CLSID'];
@@ -979,8 +978,8 @@ class ZBlogPHP
 
         $this->islegacy_login_page = $this->option['ZC_LOGIN_USE_LEGACY_PAGE'];
 
-        $this->option = &$GLOBALS['zbp_option'];
-        $this->option = $GLOBALS['option'];
+        $this->global_vars['zbp_option'] = $GLOBALS['option'];
+        $this->option = &$this->global_vars['zbp_option'];
 
         $this->isinitialized = true;
 
