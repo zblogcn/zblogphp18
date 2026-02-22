@@ -62,7 +62,8 @@
                     <input type="{$input_type}" id="{$input_id}" name="{$input_id}" size="20" tabindex="{$input_tabindex}" style="{$input_style}"/>
                 </dd>
                 {php}<?php
-                        } else { $input_html = $input_id; ?>{/php}
+                        } else {
+                            $input_html = $input_id; ?>{/php}
                 <dd class="{$input_classname}">
                     {$input_html}
                 </dd>

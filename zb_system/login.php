@@ -66,8 +66,7 @@ HookFilterPlugin('Filter_Plugin_Login_Header');
       </dd>
       <?php
       } else {
-        $input_html = $input_id;
-          ?>
+          $input_html = $input_id; ?>
           <dd class="<?php echo $input_classname; ?>">
                     <?php echo $input_html; ?>
                 </dd>
