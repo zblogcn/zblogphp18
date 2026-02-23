@@ -347,11 +347,8 @@ abstract class Base__Module extends Base
             }
 
             if ('<dl' == substr($link->content, 0, 3) || '<ul' == substr($link->content, 0, 3) || '<ol' == substr($link->content, 0, 3)) {
-
                 $s .= $link->content . '';
-
             } else {
-
                 if (isset($link->href) && !empty($link->href)) {
                     $s .= '<' . 'a ';
                     foreach ($link as $link_key => $link_value) {
@@ -366,7 +363,6 @@ abstract class Base__Module extends Base
                 } else {
                     $s .= $link->content . '';
                 }
-
             }
 
             $s .= '</li>';
