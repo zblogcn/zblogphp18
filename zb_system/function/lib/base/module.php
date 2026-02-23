@@ -345,20 +345,31 @@ abstract class Base__Module extends Base
             } else {
                 $s .= '<li>';
             }
-            if (isset($link->href)) {
-                $s .= '<' . 'a ';
-                foreach ($link as $link_key => $link_value) {
-                    if ('content' == $link_key || 'li_id' == $link_key) {
-                    } elseif ('target' == $link_key && empty($link_value)) {
-                    } else {
-                        $link_key = str_replace('data_', 'data-', $link_key);
-                        $s .= $link_key . '="' . $link_value . '" ';
-                    }
-                }
-                $s .= '>' . $link->content . '</a></li>';
+
+            if ('<dl' == substr($link->content, 0, 3) || '<ul' == substr($link->content, 0, 3) || '<ol' == substr($link->content, 0, 3)) {
+
+                $s .= $link->content . '';
+
             } else {
-                $s .= $link->content . '</li>';
+
+                if (isset($link->href) && !empty($link->href)) {
+                    $s .= '<' . 'a ';
+                    foreach ($link as $link_key => $link_value) {
+                        if ('content' == $link_key || 'li_id' == $link_key) {
+                        } elseif ('target' == $link_key && empty($link_value)) {
+                        } else {
+                            $link_key = str_replace('data_', 'data-', $link_key);
+                            $s .= $link_key . '="' . $link_value . '" ';
+                        }
+                    }
+                    $s .= '>' . $link->content . '</a>';
+                } else {
+                    $s .= $link->content . '';
+                }
+
             }
+
+            $s .= '</li>';
         }
         $this->Content = $s;
     }
@@ -378,7 +389,12 @@ abstract class Base__Module extends Base
         if ($aNodes->length > 0) {
             foreach ($aNodes as $a) {
                 $href = [];
-                $href['content'] = $a->nodeValue;
+                //$href['content'] = $a->nodeValue;
+                if (isset($a->childNodes[0])) {
+                    $href['content'] = $dom->saveHTML($a->childNodes[0]);
+                } else {
+                    $href['content'] = $a->nodeValue;
+                }
                 $attributes = $a->attributes;
                 if ($attributes->length > 0) {
                     // 遍历属性集合
