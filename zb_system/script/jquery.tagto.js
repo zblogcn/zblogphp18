@@ -25,7 +25,7 @@ jQuery.fn.tagTo = function (target, seperator, tclass) {
     var tagname = target.get(0).nodeName.toLowerCase();
     if (tagname == "input" || tagname == "textarea") {
         jQuery('a', this).click(function () {
-            if (jQuery.trim(target.val()) == '') {
+            if (String.prototype.trim(target.val()) == '') {
                 target.val(jQuery(this).text());
                 jQuery(this).addClass(tclass);
             } else {
@@ -33,7 +33,7 @@ jQuery.fn.tagTo = function (target, seperator, tclass) {
                 var isInArr = false;
                 var position;
                 for (var i = 0, n = arr.length; i < n; ++i) {
-                    if (jQuery.trim(arr[i]) == jQuery(this).text()) {
+                    if (String.prototype.trim(arr[i]) == jQuery(this).text()) {
                         isInArr = true;
                         position = i;
                         break;
