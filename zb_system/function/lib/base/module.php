@@ -123,6 +123,7 @@ abstract class Base__Module extends Base
             $pattern = '/id\s*=\s*(["\'][^"\']*["\'])/i';
             $replacement = '';
             $s = @preg_replace($pattern, $replacement, $this->Content);
+
             return (string) $s;
         }
         if ('AutoContent' == $name) {
