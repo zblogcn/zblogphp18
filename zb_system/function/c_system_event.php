@@ -311,10 +311,12 @@ function PostPost()
 
     if ('0' === GetVars('AddNavbar', 'POST')) {
         $zbp->DelItemToNavbar('page', $post->ID);
+        $zbp->AddBuildModule('navbar');
     }
 
     if ('1' === GetVars('AddNavbar', 'POST')) {
         $zbp->AddItemToNavbar('page', $post->ID, $post->Title, $post->Url);
+        $zbp->AddBuildModule('navbar');
     }
 
     foreach ($GLOBALS['hooks']['Filter_Plugin_PostPost_Succeed'] as $fpname => &$fpsignal) {
@@ -360,6 +362,7 @@ function DelPost()
         DelArticle_Comments($post->ID);
 
         $zbp->DelItemToNavbar($zbp->GetPostType($post->Type, 'name'), $post->ID);
+        $zbp->AddBuildModule('navbar');
 
         foreach ($GLOBALS['hooks']['Filter_Plugin_DelPost_Succeed'] as $fpname => &$fpsignal) {
             $fpname($post);
@@ -851,10 +854,12 @@ function PostPage()
 
     if ('0' === GetVars('AddNavbar', 'POST')) {
         $zbp->DelItemToNavbar('page', $article->ID);
+        $zbp->AddBuildModule('navbar');
     }
 
     if ('1' === GetVars('AddNavbar', 'POST')) {
         $zbp->AddItemToNavbar('page', $article->ID, $article->Title, $article->Url);
+        $zbp->AddBuildModule('navbar');
     }
 
     foreach ($GLOBALS['hooks']['Filter_Plugin_PostPage_Succeed'] as $fpname => &$fpsignal) {
@@ -898,6 +903,7 @@ function DelPage()
         $zbp->AddBuildModule('comments');
 
         $zbp->DelItemToNavbar('page', $article->ID);
+        $zbp->AddBuildModule('navbar');
 
         foreach ($GLOBALS['hooks']['Filter_Plugin_DelPage_Succeed'] as $fpname => &$fpsignal) {
             $fpname($article);
@@ -1435,10 +1441,12 @@ function PostCategory()
 
     if ('0' === GetVars('AddNavbar', 'POST')) {
         $zbp->DelItemToNavbar('category', $cate->ID);
+        $zbp->AddBuildModule('navbar');
     }
 
     if ('1' === GetVars('AddNavbar', 'POST')) {
         $zbp->AddItemToNavbar('category', $cate->ID, $cate->Name, $cate->Url);
+        $zbp->AddBuildModule('navbar');
     }
 
     foreach ($GLOBALS['hooks']['Filter_Plugin_PostCategory_Succeed'] as $fpname => &$fpsignal) {
@@ -1477,6 +1485,7 @@ function DelCategory()
         $zbp->LoadCategories();
         $zbp->AddBuildModule('catalog');
         $zbp->DelItemToNavbar('category', $cate->ID);
+        $zbp->AddBuildModule('navbar');
 
         foreach ($GLOBALS['hooks']['Filter_Plugin_DelCategory_Succeed'] as $fpname => &$fpsignal) {
             $fpname($cate);
@@ -1576,10 +1585,12 @@ function PostTag()
 
     if ('0' === GetVars('AddNavbar', 'POST')) {
         $zbp->DelItemToNavbar('tag', $tag->ID);
+        $zbp->AddBuildModule('navbar');
     }
 
     if ('1' === GetVars('AddNavbar', 'POST')) {
         $zbp->AddItemToNavbar('tag', $tag->ID, $tag->Name, $tag->Url);
+        $zbp->AddBuildModule('navbar');
     }
 
     $zbp->AddBuildModule('tags');
@@ -1609,6 +1620,8 @@ function DelTag()
         $tag->Del();
         $zbp->DelItemToNavbar('tag', $tag->ID);
         $zbp->AddBuildModule('tags');
+        $zbp->AddBuildModule('navbar');
+
         foreach ($GLOBALS['hooks']['Filter_Plugin_DelTag_Succeed'] as $fpname => &$fpsignal) {
             $fpname($tag);
         }

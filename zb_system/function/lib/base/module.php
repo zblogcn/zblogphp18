@@ -119,6 +119,12 @@ abstract class Base__Module extends Base
 
             return $this->private_links;
         }
+        if ('ContentWithoutId' == $name) {
+            $pattern = '/id\s*=\s*(["\'][^"\']*["\'])/i';
+            $replacement = '';
+            $s = @preg_replace($pattern, $replacement, $this->Content);
+            return (string) $s;
+        }
         if ('AutoContent' == $name) {
             if ('navbar' == $this->FileName) {
                 return false;

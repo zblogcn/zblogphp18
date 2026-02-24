@@ -5039,8 +5039,6 @@ class ZBlogPHP
             $links[] = $link;
         }
         $m->Links = $links;
-        $m->Build();
-        $m->Save();
     }
 
     /**
@@ -5063,8 +5061,6 @@ class ZBlogPHP
             }
         }
         $m->Links = $links;
-        $m->Build();
-        $m->Save();
     }
 
     /**
