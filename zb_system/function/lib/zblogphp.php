@@ -2333,6 +2333,9 @@ class ZBlogPHP
      */
     public function PrepareTemplate($theme = null, $template_dirname = 'template')
     {
+        //从1.8起，终于是调整和理顺了PrepareTemplate和BuildTemplate
+        //不要挂BuildTemplate的接口
+        //如需要修改$zbp->template类，请挂Filter_Plugin_Zbp_PrepareTemplate2对模板进行增加
         if (is_null($theme) || empty($theme)) {
             $theme = &$this->theme;
         }
@@ -2396,25 +2399,7 @@ class ZBlogPHP
      */
     public function BuildTemplateMore($theme = null, $template_dirname = 'template')
     {
-        if (is_null($theme) || empty($theme)) {
-            $theme = &$this->theme;
-        }
-        $this->template->theme = $theme;
-        $this->template->template_dirname = $template_dirname;
-        $this->template->SetPath();
-        $this->template->LoadTemplates();
-
-        //不要挂Filter_Plugin_Zbp_BuildTemplate了，建议用Filter_Plugin_Zbp_PrepareTemplate2
-        foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_BuildTemplate'] as $fpname => &$fpsignal) {
-            $fpname($this->template->templates);
-        }
-
-        $s = implode($this->template->templates);
-        $md5 = md5($s);
-        $this->cache->templates_md5_array = serialize([$this->template->template_dirname => $md5]);
-        $this->SaveCache();
-
-        return $this->template->BuildTemplate();
+        //从1.8起清除了这个无用的函数
     }
 
     /**
