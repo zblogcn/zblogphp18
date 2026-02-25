@@ -2334,8 +2334,9 @@ class ZBlogPHP
     public function PrepareTemplate($theme = null, $template_dirname = 'template')
     {
         //从1.8起，终于是调整和理顺了PrepareTemplate和BuildTemplate
-        //不要挂BuildTemplate的接口
-        //如需要修改$zbp->template类，请挂Filter_Plugin_Zbp_PrepareTemplate2对模板进行增加
+        //不要挂BuildTemplate里的接口，BuildTemplate是在模板编译时期调用的
+        //不要挂Filter_Plugin_Zbp_PrepareTemplate和Filter_Plugin_Zbp_MakeTemplatetags
+        //如需要修改$template，请挂Filter_Plugin_Zbp_PrepareTemplate_Core对模板进行增加修改
         if (is_null($theme) || empty($theme)) {
             $theme = &$this->theme;
         }
@@ -2360,8 +2361,8 @@ class ZBlogPHP
         $template->SetPath();
         $template->LoadTemplates();
 
-        //从1.8起，增加了Filter_Plugin_Zbp_PrepareTemplate2，不要再用上边的接口
-        foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_PrepareTemplate2'] as $fpname => &$fpsignal) {
+        //从1.8起，增加了Filter_Plugin_Zbp_PrepareTemplate_Core，不要再用上边的接口
+        foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_PrepareTemplate_Core'] as $fpname => &$fpsignal) {
             $fpname($template);
         }
 
@@ -2478,7 +2479,7 @@ class ZBlogPHP
         $this->autofill_template_htmltags = false;
         $this->backendtheme = $template_admin->theme;
 
-        foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_PrepareTemplateAdmin'] as $fpname => &$fpsignal) {
+        foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_PrepareTemplateAdmin_Core'] as $fpname => &$fpsignal) {
             $fpname($template_admin);
         }
 

@@ -756,7 +756,7 @@ DefinePluginFilter('Filter_Plugin_Zbp_Load_Pre');
 '名称:Filter_Plugin_Zbp_PrepareTemplate
 '参数:&$theme, &$template_dirname
 '说明:Zbp类的PrepareTemplate接口
-'调用:
+'调用:已废弃
 '**************************************************>
  */
 DefinePluginFilter('Filter_Plugin_Zbp_PrepareTemplate');
@@ -764,24 +764,24 @@ DefinePluginFilter('Filter_Plugin_Zbp_PrepareTemplate');
 /*
 '**************************************************<
 '类型:Filter
-'名称:Filter_Plugin_Zbp_PrepareTemplate2
+'名称:Filter_Plugin_Zbp_PrepareTemplate_Core
 '参数:&$template
 '说明:Zbp类的PrepareTemplate接口
 '调用:1.8新增，Filter_Plugin_Zbp_PrepareTemplate不要再用
 '**************************************************>
  */
-DefinePluginFilter('Filter_Plugin_Zbp_PrepareTemplate2');
+DefinePluginFilter('Filter_Plugin_Zbp_PrepareTemplate_Core');
 
 /*
 '**************************************************<
 '类型:Filter
-'名称:Filter_Plugin_Zbp_PrepareTemplateAdmin
+'名称:Filter_Plugin_Zbp_PrepareTemplateAdmin_Core
 '参数:&$template_admin
 '说明:Zbp类的PrepareTemplateAdmin接口
 '调用:
 '**************************************************>
  */
-DefinePluginFilter('Filter_Plugin_Zbp_PrepareTemplateAdmin');
+DefinePluginFilter('Filter_Plugin_Zbp_PrepareTemplateAdmin_Core');
 
 /*
 '**************************************************<
