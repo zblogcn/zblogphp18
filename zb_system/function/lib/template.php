@@ -547,8 +547,8 @@ class Template
             $this->templates_Name[$template_name] = $a[0];
             $this->templates_Type[$template_name] = $a[1];
         } else {
-            $this->templates_Name[$template_name] = $title;
-            $this->templates_Type[$template_name] = $type;
+            $this->templates_Name[$template_name] = (string) $title;
+            $this->templates_Type[$template_name] = (string) $type;
         }
 
         return true;
