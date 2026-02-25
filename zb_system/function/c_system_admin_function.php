@@ -499,8 +499,8 @@ function OutputOptionItemsOfTemplate($default, $refuse_file_filter = array(), $a
             continue;
         }
 
-        $name = $zbp->template->templates_Name[$key];
-        $type = $zbp->template->templates_Type[$key];
+        $name = @$zbp->template->templates_Name[$key];
+        $type = @$zbp->template->templates_Type[$key];
         $typeArray = explode('|', $type);
 
         if (strtolower($type) == 'none') {

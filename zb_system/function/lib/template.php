@@ -530,29 +530,26 @@ class Template
     }
 
     /**
-     * 添加模板
+     * 添加模板含Info ($template_name名称ID, $content, $title标题, $type类型).
      *
-     * @param mixed $name
-     * @param mixed $content
+     * @param string $name
+     * @param string $content
+     * @param string $title
+     * @param string $type
      */
-    public function AddTemplate($name, $content)
+    public function AddTemplate($template_name, $content, $title = null, $type = null)
     {
-        $this->templates[$name] = $content;
 
-        return true;
-    }
+        $this->templates[$template_name] = $content;
 
-    /**
-     * 添加模板Info ($name名称ID, $title标题, $type类型).
-     *
-     * @param mixed $name
-     * @param mixed $title
-     * @param mixed $type
-     */
-    public function AddTemplateInfo($name, $title, $type)
-    {
-        $this->templates_Name[$name] = $title;
-        $this->templates_Type[$name] = $type;
+        if (is_null($title) && is_null($type)) {
+            $a = $this->GetTemplateNameAndType($template_name, $content);
+            $this->templates_Name[$template_name] = $a[0];
+            $this->templates_Type[$template_name] = $a[1];
+        } else {
+            $this->templates_Name[$template_name] = $title;
+            $this->templates_Type[$template_name] = $type;
+        }
 
         return true;
     }
@@ -1098,7 +1095,7 @@ class Template
         $name = trim($name);
         $type = trim($type);
         $type = str_replace([',', '，', ';', '；', '、'], '|', $type);
-        if (null != $type) {
+        if (!empty($type)) {
             $this->isuse_nameandtype = true;
         }
         if ('index' == $filename && null == $type) {

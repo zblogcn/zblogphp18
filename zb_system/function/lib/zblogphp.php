@@ -2345,15 +2345,20 @@ class ZBlogPHP
             $fpname($template->templateTags);
         }
 
+        //此接口不建议使用，1.8以下用Filter_Plugin_Zbp_Load接口直接修改$zbp->template
+        //此处接口可以在Load时，对$theme, $template_dirname参数可以进行修改
+        foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_PrepareTemplate'] as $fpname => &$fpsignal) {
+            $fpname($theme, $template_dirname);
+        }
+
         $template->theme = $theme;
         $template->template_dirname = $template_dirname;
 
         $template->SetPath();
         $template->LoadTemplates();
 
-        //从1.8起，传参变成 $template 对象
-        //1.8之前传参（$theme, $template_dirname）
-        foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_PrepareTemplate'] as $fpname => &$fpsignal) {
+        //从1.8起，增加了Filter_Plugin_Zbp_PrepareTemplate2，不要再用上边的接口
+        foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_PrepareTemplate2'] as $fpname => &$fpsignal) {
             $fpname($template);
         }
 
@@ -2368,6 +2373,7 @@ class ZBlogPHP
      */
     public function BuildTemplate()
     {
+        //不要挂Filter_Plugin_Zbp_BuildTemplate了，建议用Filter_Plugin_Zbp_PrepareTemplate2
         foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_BuildTemplate'] as $fpname => &$fpsignal) {
             $fpname($this->template->templates);
         }
@@ -2398,6 +2404,7 @@ class ZBlogPHP
         $this->template->SetPath();
         $this->template->LoadTemplates();
 
+        //不要挂Filter_Plugin_Zbp_BuildTemplate了，建议用Filter_Plugin_Zbp_PrepareTemplate2
         foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_BuildTemplate'] as $fpname => &$fpsignal) {
             $fpname($this->template->templates);
         }

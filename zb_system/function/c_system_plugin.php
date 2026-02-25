@@ -754,12 +754,24 @@ DefinePluginFilter('Filter_Plugin_Zbp_Load_Pre');
 '**************************************************<
 '类型:Filter
 '名称:Filter_Plugin_Zbp_PrepareTemplate
-'参数:&$template
+'参数:&$theme, &$template_dirname
 '说明:Zbp类的PrepareTemplate接口
 '调用:
 '**************************************************>
  */
 DefinePluginFilter('Filter_Plugin_Zbp_PrepareTemplate');
+
+
+/*
+'**************************************************<
+'类型:Filter
+'名称:Filter_Plugin_Zbp_PrepareTemplate2
+'参数:&$template
+'说明:Zbp类的PrepareTemplate接口
+'调用:1.8新增，Filter_Plugin_Zbp_PrepareTemplate不要再用
+'**************************************************>
+ */
+DefinePluginFilter('Filter_Plugin_Zbp_PrepareTemplate2');
 
 /*
 '**************************************************<
