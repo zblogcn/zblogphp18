@@ -391,6 +391,8 @@ class ZBlogPHP
 
     public $islegacy_login_page = false;
 
+    public $isignore_valid_code = false;
+
     /**
      * @var Template 当前模板
      */
