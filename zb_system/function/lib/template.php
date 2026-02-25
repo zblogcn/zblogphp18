@@ -536,10 +536,10 @@ class Template
      * @param string $content
      * @param string $title
      * @param string $type
+     * @param mixed  $template_name
      */
     public function AddTemplate($template_name, $content, $title = null, $type = null)
     {
-
         $this->templates[$template_name] = $content;
 
         if (is_null($title) && is_null($type)) {

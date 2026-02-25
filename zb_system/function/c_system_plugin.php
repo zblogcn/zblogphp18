@@ -761,7 +761,6 @@ DefinePluginFilter('Filter_Plugin_Zbp_Load_Pre');
  */
 DefinePluginFilter('Filter_Plugin_Zbp_PrepareTemplate');
 
-
 /*
 '**************************************************<
 '类型:Filter
