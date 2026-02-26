@@ -2337,7 +2337,7 @@ class ZBlogPHP
         //BuildTemplate的设计失误，不要挂BuildTemplate里的接口，BuildTemplate是在模板编译时期调用的
         //不要挂Filter_Plugin_Zbp_PrepareTemplate和Filter_Plugin_Zbp_MakeTemplatetags
         //如需要修改$template，请挂Filter_Plugin_Zbp_PrepareTemplate_Core对模板进行增加修改
-        //1.8一下应该挂挂上Filter_Plugin_Zbp_Load，直接修改$zbp->$template
+        //1.8以下应该挂上Filter_Plugin_Zbp_Load，直接修改$zbp->$template
         if (is_null($theme) || empty($theme)) {
             $theme = &$this->theme;
         }
@@ -2345,7 +2345,7 @@ class ZBlogPHP
         $template = new Template();
         $template->MakeTemplateTags();
 
-        //老接口，只改templateTags的
+        //此接口不建议使用，只改templateTags的
         foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_MakeTemplatetags'] as $fpname => &$fpsignal) {
             $fpname($template->templateTags);
         }
