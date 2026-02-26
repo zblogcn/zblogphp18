@@ -2334,9 +2334,10 @@ class ZBlogPHP
     public function PrepareTemplate($theme = null, $template_dirname = 'template')
     {
         //从1.8起，终于是调整和理顺了PrepareTemplate和BuildTemplate
-        //不要挂BuildTemplate里的接口，BuildTemplate是在模板编译时期调用的
+        //BuildTemplate的设计失误，不要挂BuildTemplate里的接口，BuildTemplate是在模板编译时期调用的
         //不要挂Filter_Plugin_Zbp_PrepareTemplate和Filter_Plugin_Zbp_MakeTemplatetags
         //如需要修改$template，请挂Filter_Plugin_Zbp_PrepareTemplate_Core对模板进行增加修改
+        //1.8一下应该挂挂上Filter_Plugin_Zbp_Load，直接修改$zbp->$template
         if (is_null($theme) || empty($theme)) {
             $theme = &$this->theme;
         }
@@ -2371,13 +2372,13 @@ class ZBlogPHP
 
     /**
      * 针对有同一主题下有多套模板的解析
-     * 直接在接口中直接调用$zbp->BuildTemplateMore进行重新编译其它模板
      *
      * @return bool
      */
     public function BuildTemplate()
     {
-        //不要挂Filter_Plugin_Zbp_BuildTemplate了，建议用Filter_Plugin_Zbp_PrepareTemplate2
+        //该接口已废弃了，以前设计的流程和接口有问题，这里的接口应该放在PrepareTemplate的
+        //不要挂Filter_Plugin_Zbp_BuildTemplate了，建议用Filter_Plugin_Zbp_PrepareTemplate_Core
         foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_BuildTemplate'] as $fpname => &$fpsignal) {
             $fpname($this->template->templates);
         }
