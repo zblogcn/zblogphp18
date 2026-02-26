@@ -22,7 +22,7 @@ $zbp->template_admin->Display('index');
 
 function Get_Content()
 {
-  global $zbpdk, $zbp;
+    global $zbpdk, $zbp;
     ob_start(); ?>
     <div class="DIVBlogConfig">
       <div class="DIVBlogConfignav" name="tree" id="tree">
