@@ -21,15 +21,144 @@
     {$header}
     {php}HookFilterPlugin('Filter_Plugin_Login_Header');{/php}
 </head>
+<style>
+/* 超级简单的极简样式 - 无logo版本 */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f8f9fa;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-container {
+    max-width: 400px;
+    width: 100%;
+    padding: 2rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.login-form h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #2d3748;
+    font-weight: 600;
+}
+
+.login-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #2d3748;
+    font-weight: 500;
+}
+
+.login-form .checkbox {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.login-form .checkbox input {
+    margin-right: 0.5rem;
+    flex-shrink: 0;
+}
+
+.login-form .checkbox label {
+    display: inline;
+    margin-bottom: 0;
+    cursor: pointer;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    font-size: 1rem;
+    margin: 0.5rem 0;
+    transition: border-color 0.2s;
+}
+
+.login-form input[type="text"]:focus,
+.login-form input[type="password"]:focus {
+    outline: none;
+    border-color: #4299e1;
+}
+
+.login-form .submit {
+    text-align: center;
+}
+
+.login-form .button {
+    background: #4299e1;
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.login-form .button:hover {
+    background: #3182ce;
+}
+
+.validcode-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.validcode-input-wrapper input {
+    flex: 1;
+    margin-bottom: 0;
+    height: 40px;
+    padding: 0 0.75rem;
+    line-height: 40px;
+}
+
+.captcha-img {
+    vertical-align: middle;
+    cursor: pointer;
+    height: 40px;
+}
+
+@media (max-width: 480px) {
+    .login-container {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+    
+    .validcode-input-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+    }
+    
+    .validcode-input-wrapper input {
+        height: auto;
+        padding: 0.75rem;
+        line-height: normal;
+    }
+    
+    .captcha-img {
+        width: 100%;
+        height: auto;
+    }
+}
+</style>
 
 <body class="admin-login body-login">
-    <header class="login-header">
-        <h1 class="brand"><img src="{$host}zb_system/image/admin/none.gif" title="{htmlspecialchars($blogname)}" alt="{htmlspecialchars($blogname)}" /></h1>
-    </header>
-
-
     <main class="login-container login">
         <form class="login-form" method="post" action="#">
+            <h2>{$lang['msg']['login']}</h2>
             <input type="hidden" name="csrfToken" value="{$zbp.GetCSRFToken('login','minute')}">
             <dl>
                 <dd class="username">
@@ -45,8 +174,10 @@
                 {if $zbp->option['ZC_LOGIN_VERIFY_ENABLE']}
                 <dd class="validcode">
                     <label for="edtValidcode">{$lang['msg']['validcode']}</label>
-                    <input type="text" maxlength="{$zbp.option['ZC_VERIFYCODE_LENGTH']}" id="edtValidcode" name="verify" size="20" tabindex="10" />
-                    <img class="captcha-img" src="{$host}zb_system/script/c_validcode.php?id=login&time=m" onClick="javascript:this.src='{$host}zb_system/script/c_validcode.php?id=login&time=m&tm='+Math.random();" alt="validcode" />
+                    <div class="validcode-input-wrapper">
+                        <input type="text" maxlength="{$zbp.option['ZC_VERIFYCODE_LENGTH']}" id="edtValidcode" name="verify" size="20" tabindex="10" />
+                        <img class="captcha-img" src="{$host}zb_system/script/c_validcode.php?id=login&time=m" onClick="javascript:this.src='{$host}zb_system/script/c_validcode.php?id=login&time=m&tm='+Math.random();" alt="validcode" />
+                    </div>
                 </dd>
                 {/if}
 
