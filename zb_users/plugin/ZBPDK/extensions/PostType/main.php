@@ -20,11 +20,13 @@ $zbpdk->scan_extensions();
 $action = 'root';
 if (!$zbp->CheckRights($action)) {
     $zbp->ShowError(6);
-    die();
+
+    exit();
 }
 if (!$zbp->CheckPlugin('ZBPDK')) {
     $zbp->ShowError(48);
-    die();
+
+    exit();
 }
 
 if (version_compare(ZC_VERSION, '1.8.0') >= 0) {

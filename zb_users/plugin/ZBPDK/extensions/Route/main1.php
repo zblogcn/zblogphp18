@@ -26,8 +26,8 @@ require $blogpath . 'zb_system/admin/admin_top.php';
     <form id="form1" onSubmit="return false">
 <?php
 
-$defined_route = array("active"=>'Active动态路由',"rewrite"=>'Rewrite伪静路由',"default"=>'Default默认路由');
-$replace_array = array(
+$defined_route = ['active'=>'Active动态路由', 'rewrite'=>'Rewrite伪静路由', 'default'=>'Default默认路由'];
+$replace_array = [
     '\'type\' =' => "//路由类型\r\n" . '\'type\' =',
     '\'name\' =' => "//路由名称(同类型下不可重复否则会覆盖，名称必须是post_类型名_打头，后面接路由作用名)\r\n" . '\'name\' =',
     '\'call\' =' => "//路由调用的函数(可以为'函数名'或是'变量名@方法名'或是'变量名::静态方法')\r\n" . '\'call\' =',
@@ -48,58 +48,60 @@ $replace_array = array(
     '\'only_active\' =' => "//default类型的路由，为true时只在动态模式下生效\r\n" . '\'only_active\' =',
     '\'only_rewrite\' =' => "//default类型的路由，为true时只在伪静模式下生效\r\n" . '\'only_rewrite\' =',
     '\'verify_permalink\' =' => "//设为false时会跳过对比当前url和目标url是否一致\r\n" . '\'verify_permalink\' =',
-);
+];
 
 foreach ($defined_route as $route_type => $route_note) {
-    echo '<table class="tableFull tableBorder table_striped table_hover"><tbody><tr><th>'.$route_note.'</th></tr>';
-    foreach ($zbp->routes as $key => $value) {if($value['type'] == $route_type){
-        echo '<tr><td title="点击查看详细信息" style="cursor:pointer;" onclick="$(this).find(\'div\').toggle();">'.$value['name'].' => ' . $value['call'] . '(';
-        $s = '';
-        if (isset($value['args'])) {
-            foreach ($value['args'] as $key2 => $value2) {
-                if (is_integer($key2)) {
-                    if (is_array($value2)) {
-                        $s .= '$'. current($value2) . ', ';
+    echo '<table class="tableFull tableBorder table_striped table_hover"><tbody><tr><th>' . $route_note . '</th></tr>';
+    foreach ($zbp->routes as $key => $value) {
+        if ($value['type'] == $route_type) {
+            echo '<tr><td title="点击查看详细信息" style="cursor:pointer;" onclick="$(this).find(\'div\').toggle();">' . $value['name'] . ' => ' . $value['call'] . '(';
+            $s = '';
+            if (isset($value['args'])) {
+                foreach ($value['args'] as $key2 => $value2) {
+                    if (is_integer($key2)) {
+                        if (is_array($value2)) {
+                            $s .= '$' . current($value2) . ', ';
+                        } else {
+                            $s .= '$' . $value2 . ', ';
+                        }
                     } else {
-                        $s .=  '$'. $value2 . ', ';
+                        $s .= '$' . $key2 . ', ';
                     }
-                } else {
-                    $s .=  '$'. $key2 . ', ';
                 }
             }
-        }
-        if (isset($value['args_get'])) {
-            foreach ($value['args_get'] as $key2 => $value2) {
-                $s .=  '$'. $value2 . ', ';
+            if (isset($value['args_get'])) {
+                foreach ($value['args_get'] as $key2 => $value2) {
+                    $s .= '$' . $value2 . ', ';
+                }
             }
+            echo trim(trim($s), ',');
+            //echo $s;
+            echo ')';
+            $backargs = null;
+            if (isset($value['args'])) {
+                $backargs = $value['args'];
+                unset($value['args']);
+            }
+            $t = var_export($value, true);
+            if ('active' == $value['type']) {
+                $replace_array['\'type\' ='] = "//路由类型 (active类型不匹配规则，只从过滤\$_GET和从\$_GET中取值并传入Call，不匹配将跳出本规则进入下一条)\r\n" . '\'type\' =';
+            }
+            if ('rewrite' == $value['type']) {
+                $replace_array['\'type\' ='] = "//路由类型 (rewrite类型使用Route规则进行匹配，从规则中取得参数并传入Call，不匹配将跳出本规则进入下一条)\r\n" . '\'type\' =';
+            }
+            if ('default' == $value['type']) {
+                $replace_array['\'type\' ='] = "//路由类型 (default类型为默认路由，不检查Regex规则是否匹配，只会传入get参数就调用Call，前面不能匹配的规则都会进入默认路由，如果没有匹配到请返回false，让下一条路由生效！)\r\n" . '\'type\' =';
+            }
+            foreach ($replace_array as $key => $value) {
+                $t = str_replace('  ' . $key, $value, $t);
+            }
+            if (null !== $backargs) {
+                $t .= PHP_EOL . "// 从伪静规则匹配到的数组中取值传给call的参数(示例为array('id', 'page') or array('cate@alias', 'page') )或是更复杂的配置" . PHP_EOL . '\'args\' => ' . var_export($backargs, true);
+            }
+            echo '<div style="display:none;margin:1em;box-shadow: 0px 0px 5px gray;padding:1em;background-color:#f8f8f8;"><pre>' . $t . '</pre></div>';
+            echo '</td></tr>';
         }
-        echo trim(trim($s), ',');
-        //echo $s;
-        echo ')';
-        $backargs = null;
-        if (isset($value['args'])) {
-            $backargs = $value['args'];
-            unset($value['args']);
-        }
-        $t = var_export($value,true);
-        if ($value['type'] == 'active') {
-            $replace_array['\'type\' ='] = "//路由类型 (active类型不匹配规则，只从过滤\$_GET和从\$_GET中取值并传入Call，不匹配将跳出本规则进入下一条)\r\n" . '\'type\' =';
-        }
-        if ($value['type'] == 'rewrite') {
-            $replace_array['\'type\' ='] = "//路由类型 (rewrite类型使用Route规则进行匹配，从规则中取得参数并传入Call，不匹配将跳出本规则进入下一条)\r\n" . '\'type\' =';
-        }
-        if ($value['type'] == 'default') {
-            $replace_array['\'type\' ='] = "//路由类型 (default类型为默认路由，不检查Regex规则是否匹配，只会传入get参数就调用Call，前面不能匹配的规则都会进入默认路由，如果没有匹配到请返回false，让下一条路由生效！)\r\n" . '\'type\' =';
-        }
-        foreach ($replace_array as $key => $value) {
-            $t = str_replace('  ' . $key, $value, $t);
-        }
-        if ($backargs !== null) {
-            $t .= PHP_EOL . "// 从伪静规则匹配到的数组中取值传给call的参数(示例为array('id', 'page') or array('cate@alias', 'page') )或是更复杂的配置" . PHP_EOL . '\'args\' => ' . var_export($backargs,true);
-        }
-        echo '<div style="display:none;margin:1em;box-shadow: 0px 0px 5px gray;padding:1em;background-color:#f8f8f8;"><pre>'.$t.'</pre></div>';
-        echo '</td></tr>';
-    }}
+    }
     echo '</tbody></table>';
 }
 
