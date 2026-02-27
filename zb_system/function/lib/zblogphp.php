@@ -2334,9 +2334,8 @@ class ZBlogPHP
     public function PrepareTemplate($theme = null, $template_dirname = 'template')
     {
         //从1.8起，终于是调整和理顺了PrepareTemplate和BuildTemplate
-        //BuildTemplate的设计失误，不要挂BuildTemplate里的接口，BuildTemplate是在模板编译时期调用的
-        //不要挂Filter_Plugin_Zbp_PrepareTemplate和Filter_Plugin_Zbp_MakeTemplatetags
-        //如需要修改$template，请挂Filter_Plugin_Zbp_PrepareTemplate_Core对模板进行增加修改
+        //BuildTemplate的设计失误，把BuildTemplate里的接口转到PrepareTemplate
+        //如需要修改$zbp->template，请挂Filter_Plugin_Zbp_PrepareTemplate_Core对模板进行增加修改
         //1.8以下应该挂上Filter_Plugin_Zbp_Load，直接修改$zbp->$template
         if (is_null($theme) || empty($theme)) {
             $theme = &$this->theme;
@@ -2345,13 +2344,12 @@ class ZBlogPHP
         $template = new Template();
         $template->MakeTemplateTags();
 
-        //此接口不建议使用，只改templateTags的
+        //只改templateTags的
         foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_MakeTemplatetags'] as $fpname => &$fpsignal) {
             $fpname($template->templateTags);
         }
 
-        //此接口不建议使用，1.8以下用Filter_Plugin_Zbp_Load接口直接修改$zbp->template
-        //此处接口可以在Load时，对$theme, $template_dirname参数可以进行修改
+        //此接口可以在加载模板时，对$theme, $template_dirname参数可以进行修改
         foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_PrepareTemplate'] as $fpname => &$fpsignal) {
             $fpname($theme, $template_dirname);
         }
@@ -2362,7 +2360,12 @@ class ZBlogPHP
         $template->SetPath();
         $template->LoadTemplates();
 
-        //从1.8起，增加了Filter_Plugin_Zbp_PrepareTemplate_Core，不要再用上边的接口
+        //此接口不建议使用，以前设计的流程和接口有问题，把这个接口从BuildTemplate转到PrepareTemplate
+        foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_BuildTemplate'] as $fpname => &$fpsignal) {
+            $fpname($template->templates);
+        }
+
+        //从1.8起，增加了Filter_Plugin_Zbp_PrepareTemplate_Core，函数内其他3个接口可以被替代！
         foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_PrepareTemplate_Core'] as $fpname => &$fpsignal) {
             $fpname($template);
         }
@@ -2371,18 +2374,12 @@ class ZBlogPHP
     }
 
     /**
-     * 针对有同一主题下有多套模板的解析.
+     * 编译模板.
      *
      * @return bool
      */
     public function BuildTemplate()
     {
-        //该接口已废弃了，以前设计的流程和接口有问题，这里的接口应该放在PrepareTemplate的
-        //不要挂Filter_Plugin_Zbp_BuildTemplate了，建议用Filter_Plugin_Zbp_PrepareTemplate_Core
-        foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_BuildTemplate'] as $fpname => &$fpsignal) {
-            $fpname($this->template->templates);
-        }
-
         $s = implode($this->template->templates);
         $md5 = md5($s);
         $this->cache->templates_md5_array = serialize([$this->template->template_dirname => $md5]);
@@ -2392,7 +2389,7 @@ class ZBlogPHP
     }
 
     /**
-     * 更新模板缓存.
+     * 检查模板更新并缓存MD5.
      *
      * @param bool $onlycheck  为真时，返回值为false表示需要BuildTemplate
      * @param bool $forcebuild 强制BuildTemplate
@@ -2417,13 +2414,15 @@ class ZBlogPHP
         $new_md5 = GetValueInArray($array_md5, $this->template->template_dirname);
 
         if (true == $onlycheck) {
-            return $md5 == $new_md5;
+            //$onlycheck为真时，不Rebuild模板，比对不同只返回 false;
+            if ($md5 != $new_md5) {
+                return false;
+            }
         }
         if (false == $onlycheck) {
             //$onlycheck = false时
             if ($md5 != $new_md5) {
                 $this->BuildTemplate();
-
                 return true;
             }
         }
@@ -2453,11 +2452,6 @@ class ZBlogPHP
             $this->backendinfo = $this->backendapp->GetInfoArray();
         }
 
-        //只改templateTags的
-        foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_MakeTemplatetags_Admin'] as $fpname => &$fpsignal) {
-            $fpname($template_admin->templateTags);
-        }
-
         $template_admin->theme = $theme;
         $template_admin->template_dirname = 'template';
 
@@ -2481,10 +2475,6 @@ class ZBlogPHP
      */
     public function BuildTemplateAdmin()
     {
-        foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_BuildTemplateAdmin'] as $fpname => &$fpsignal) {
-            $fpname($this->template_admin->templates);
-        }
-
         $b = $this->template_admin->BuildTemplate();
         $this->cache->templates_admin_files_hash_array = serialize($this->template_admin->compileFiles_hash);
         $s = implode($this->template_admin->templates);
