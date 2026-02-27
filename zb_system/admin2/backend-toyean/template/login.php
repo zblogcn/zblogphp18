@@ -22,7 +22,7 @@
     {php}HookFilterPlugin('Filter_Plugin_Login_Header');{/php}
 </head>
 <style>
-/* 超级简单的极简样式 - 无logo版本 */
+
 body {
     margin: 0;
     padding: 0;
@@ -48,11 +48,12 @@ body {
     margin-bottom: 2rem;
     color: #2d3748;
     font-weight: 600;
+    font-size: 1.5em;
 }
 
 .login-form label {
     display: block;
-    margin-bottom: 0.5rem;
+    margin: 0.5rem 0;
     color: #2d3748;
     font-weight: 500;
 }
@@ -70,7 +71,6 @@ body {
 
 .login-form .checkbox label {
     display: inline;
-    margin-bottom: 0;
     cursor: pointer;
 }
 
@@ -83,6 +83,8 @@ body {
     font-size: 1rem;
     margin: 0.5rem 0;
     transition: border-color 0.2s;
+    height: 40px;
+    line-height: 40px;
 }
 
 .login-form input[type="text"]:focus,
@@ -93,17 +95,6 @@ body {
 
 .login-form .submit {
     text-align: center;
-}
-
-.login-form .button {
-    background: #4299e1;
-    color: white;
-    border: none;
-    padding: 0.75rem 2rem;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.2s;
 }
 
 .login-form .button:hover {
