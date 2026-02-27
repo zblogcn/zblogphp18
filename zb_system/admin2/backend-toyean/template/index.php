@@ -22,7 +22,7 @@
     <script src="{$host}zb_system/admin2/{$backendtheme}/script/common.js"></script>
     <script>
         window.toyean = Object.assign(window.toyean || {}, {
-            night: true,
+            night: false,
             setnightstart: '22',
             setnightover: '6',
             backtotop: true,
