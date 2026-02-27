@@ -23,28 +23,26 @@ function Get_Content()
     ob_start(); ?>
 <script type="text/javascript">
 <?php
-$defined_interface = array(
-    "action"   => array(),
-    "filter"   => array(),
-    "response" => array(),
-);
-if (isset($hooks)) {
-    $zbpdk_allhooks = &$hooks;
-} else {
-    $zbpdk_allhooks = $GLOBALS;
-}
-
-foreach ($zbpdk_allhooks as $temp_name => $temp_value) {
-    if (preg_match("/^(Action|Filter|Response)_/i", $temp_name, $matches)) {
-        array_push($defined_interface[strtolower($matches[1])], '"' . $temp_name . '"');
+$defined_interface = [
+    'action'   => [],
+    'filter'   => [],
+    'response' => [],
+];
+    if (isset($hooks)) {
+        $zbpdk_allhooks = &$hooks;
+    } else {
+        $zbpdk_allhooks = $GLOBALS;
     }
-}
 
-?>
+    foreach ($zbpdk_allhooks as $temp_name => $temp_value) {
+        if (preg_match('/^(Action|Filter|Response)_/i', $temp_name, $matches)) {
+            array_push($defined_interface[strtolower($matches[1])], '"' . $temp_name . '"');
+        }
+    } ?>
 var defined_interface = {
-    "action":[<?php echo implode(",", $defined_interface['action']); ?>],
-    "filter":["Filter_ZBPDK_Display_All",<?php echo implode(",", $defined_interface['filter']); ?>],
-    "response":[<?php echo implode(",", $defined_interface['response']); ?>],
+    "action":[<?php echo implode(',', $defined_interface['action']); ?>],
+    "filter":["Filter_ZBPDK_Display_All",<?php echo implode(',', $defined_interface['filter']); ?>],
+    "response":[<?php echo implode(',', $defined_interface['response']); ?>],
 }
 function write_list(type_name)
 {
