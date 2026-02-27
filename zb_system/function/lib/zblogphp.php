@@ -5140,6 +5140,9 @@ class ZBlogPHP
 
     /**
      * 以下部分为已废弃，但考虑到兼容性保留的代码**************************************************************.
+     *
+     * @param null|mixed $theme
+     * @param mixed      $template_dirname
      */
 
     /**
