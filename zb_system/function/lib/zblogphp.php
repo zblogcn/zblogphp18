@@ -2392,19 +2392,6 @@ class ZBlogPHP
     }
 
     /**
-     * 快捷重新编译指定主题模板目录名的模板
-     *
-     * @param null|mixed $theme
-     * @param mixed      $template_dirname
-     *
-     * @return bool
-     */
-    public function BuildTemplateMore($theme = null, $template_dirname = 'template')
-    {
-        //从1.8起清除了这个无用的函数
-    }
-
-    /**
      * 更新模板缓存.
      *
      * @param bool $onlycheck  为真时，返回值为false表示需要BuildTemplate
@@ -5154,6 +5141,14 @@ class ZBlogPHP
     /**
      * 以下部分为已废弃，但考虑到兼容性保留的代码**************************************************************.
      */
+
+    /**
+     * 快捷重新编译指定主题模板目录名的模板
+     */
+    public function BuildTemplateMore($theme = null, $template_dirname = 'template')
+    {
+        //从1.8起清除了这个无用的函数
+    }
 
     /**
      * 检测当前url，如果不符合设置就跳转到固定域名的链接.
