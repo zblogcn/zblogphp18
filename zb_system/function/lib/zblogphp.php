@@ -2423,6 +2423,7 @@ class ZBlogPHP
             //$onlycheck = false时
             if ($md5 != $new_md5) {
                 $this->BuildTemplate();
+
                 return true;
             }
         }
