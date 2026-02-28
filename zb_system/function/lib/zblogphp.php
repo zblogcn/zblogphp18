@@ -2387,19 +2387,18 @@ class ZBlogPHP
 
         $array_md5 = @unserialize($this->cache->templates_md5_array);
         if (!is_array($array_md5)) {
-            $array_md5 = array();
+            $array_md5 = [];
         }
         $old_md5 = GetValueInArray($array_md5, $this->template->template_dirname);
 
         if ($now_md5 != $old_md5) {
-            $this->cache->templates_md5_array = serialize(array($this->template->template_dirname => $now_md5));
+            $this->cache->templates_md5_array = serialize([$this->template->template_dirname => $now_md5]);
             $this->SaveCache();
 
             return $this->template->BuildTemplate();
-        } else {
-            if ($forcebuild == true) {
-                return $this->template->BuildTemplate();
-            }
+        }
+        if (true == $forcebuild) {
+            return $this->template->BuildTemplate();
         }
     }
 
@@ -2412,11 +2411,11 @@ class ZBlogPHP
      */
     public function CheckTemplate($forcebuild = false)
     {
-        if (func_num_args() == 2) {
+        if (2 == func_num_args()) {
             $arg_list = func_get_args();
             $forcebuild = $arg_list[1];
-
         }
+
         return $this->BuildTemplate($forcebuild);
     }
 
@@ -2467,7 +2466,6 @@ class ZBlogPHP
      */
     public function BuildTemplateAdmin($forcebuild = false)
     {
-
         //检查缺编译后文件
         $hash_compare = null;
         $array_files_hash_md5 = @unserialize($this->cache->templates_admin_files_hash_array);
@@ -2478,6 +2476,7 @@ class ZBlogPHP
             if (!file_exists($this->template_admin->GetPath() . $file . '.php')) {
                 //缺编译后的文件
                 $hash_compare = false;
+
                 break;
             }
         }
@@ -2491,16 +2490,16 @@ class ZBlogPHP
         }
         $old_md5 = GetValueInArray($array_md5, $this->template_admin->template_dirname);
 
-        if (($now_md5 != $old_md5) || (false === $hash_compare) || ($forcebuild == true)) {
+        if (($now_md5 != $old_md5) || (false === $hash_compare) || (true == $forcebuild)) {
             $this->template_admin->BuildTemplate();
             $this->cache->templates_admin_files_hash_array = serialize($this->template_admin->compileFiles_hash);
             $s = implode($this->template_admin->templates);
             $md5 = md5($s);
             $this->cache->templates_admin_md5_array = serialize([$this->template_admin->template_dirname => $md5]);
             $this->SaveCache();
+
             return true;
         }
-
     }
 
     /**
