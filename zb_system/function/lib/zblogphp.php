@@ -2493,6 +2493,7 @@ class ZBlogPHP
         if (($now_md5 == $old_md5) && (null === $hash_compare) && (true == $forcebuild)) {
             $this->template_admin->BuildTemplate();
             $this->SaveCache();
+
             return true;
         }
 
@@ -2503,6 +2504,7 @@ class ZBlogPHP
             $md5 = md5($s);
             $this->cache->templates_admin_md5_array = serialize([$this->template_admin->template_dirname => $md5]);
             $this->SaveCache();
+
             return true;
         }
     }

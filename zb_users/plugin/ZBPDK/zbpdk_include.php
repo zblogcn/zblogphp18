@@ -4,9 +4,9 @@ $blogtitle = 'Z-Blog PHP Development Kit';
 
 class zbpdk_t
 {
-    public $submenu = null;
-    public $objects = array();
-    private $actions = array();
+    public $submenu;
+    public $objects = [];
+    private $actions = [];
 
     public function __construct()
     {
@@ -21,7 +21,7 @@ class zbpdk_t
         $current_path = $blogpath . '/zb_users/plugin/ZBPDK/extensions/';
         if ($handle = opendir($current_path)) {
             while (false !== ($filename = readdir($handle))) {
-                if ($filename[0] == '.') {
+                if ('.' == $filename[0]) {
                     continue;
                 }
 
@@ -76,19 +76,19 @@ class zbpdk_extension
 class zbpdk_submenu
 {
     public static $html = '';
-    private $actions = array();
+    private $actions = [];
     private $template = '';
 
     public function __construct()
     {
         global $zbp;
         $this->template = '<a href="' . $zbp->host . 'zb_users/plugin/ZBPDK/extensions/$url"><span class="m-$float$light">$title</span></a>';
-        $this->add(array(
+        $this->add([
             'url'   => '../main.php',
             'float' => 'left',
             'title' => '首页',
             'id'    => 'main',
-        ));
+        ]);
     }
 
     public function add(array $ary)
@@ -116,7 +116,7 @@ class zbpdk_submenu
     {
         $html = '';
         $temp = '';
-        for ($i = 0; $i < count($this->actions); $i++) {
+        for ($i = 0; $i < count($this->actions); ++$i) {
             $temp = $this->template;
             $temp = str_replace('$url', $this->actions[$i]['url'], $temp);
             $temp = str_replace('$float', $this->actions[$i]['float'], $temp);
