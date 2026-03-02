@@ -2380,7 +2380,7 @@ class ZBlogPHP
      *
      * @return bool
      */
-    public function BuildTemplate($forcebuild = false)
+    public function BuildTemplate($forcebuild = true)
     {
         $s = implode($this->template->templates);
         $now_md5 = md5($s);
@@ -2464,7 +2464,7 @@ class ZBlogPHP
      *
      * @return bool
      */
-    public function BuildTemplateAdmin($forcebuild = false)
+    public function BuildTemplateAdmin($forcebuild = true)
     {
         //检查缺编译后文件
         $hash_compare = null;
@@ -2490,6 +2490,12 @@ class ZBlogPHP
         }
         $old_md5 = GetValueInArray($array_md5, $this->template_admin->template_dirname);
 
+        if (($now_md5 == $old_md5) && (null === $hash_compare) && (true == $forcebuild)) {
+            $this->template_admin->BuildTemplate();
+            $this->SaveCache();
+            return true;
+        }
+
         if (($now_md5 != $old_md5) || (false === $hash_compare) || (true == $forcebuild)) {
             $this->template_admin->BuildTemplate();
             $this->cache->templates_admin_files_hash_array = serialize($this->template_admin->compileFiles_hash);
@@ -2497,7 +2503,6 @@ class ZBlogPHP
             $md5 = md5($s);
             $this->cache->templates_admin_md5_array = serialize([$this->template_admin->template_dirname => $md5]);
             $this->SaveCache();
-
             return true;
         }
     }

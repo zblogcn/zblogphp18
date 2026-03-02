@@ -6,6 +6,7 @@ class zbpdk_t
 {
     public $submenu = null;
     public $objects = array();
+    private $actions = array();
 
     public function __construct()
     {

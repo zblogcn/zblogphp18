@@ -142,7 +142,11 @@ function Debug_Error_Handler($errno, $errstr, $errfile, $errline)
 
     if (ZbpErrorControl::$islogerror == true) {
         $err = ZbpErrorControl::$errarray[$errno];
-        Logs(var_export(array($err, $errno, $errstr, $errfile, $errline), true), 'ERROR');
+        if (error_reporting() == 0 || !(error_reporting() & $errno)) {
+            //
+        } else {
+            Logs(var_export(array($err, $errno, $errstr, $errfile, $errline), true), 'ERROR');
+        }
     }
 
     //@符号的错误抑制功能的实现 php7 || php8

@@ -249,22 +249,22 @@ function AppCentre_Get_Cookies()
 
     $c = '';
 
-    $c .= 'apptype=' . urlencode($zbp->Config('AppCentre')->apptype);
+    $c .= 'apptype=' . urlencode((string) $zbp->Config('AppCentre')->apptype);
     $c .= '; app_guestver=' . urlencode('2.0');
-    $c .= '; app_host=' . urlencode($zbp->host);
-    $c .= '; app_email=' . urlencode($zbp->user->Email);
-    $c .= '; app_user=' . urlencode($zbp->user->Name);
+    $c .= '; app_host=' . urlencode((string) $zbp->host);
+    $c .= '; app_email=' . urlencode((string) $zbp->user->Email);
+    $c .= '; app_user=' . urlencode((string) $zbp->user->Name);
 
     $token = substr($zbp->Config('AppCentre')->token, 0, 100);
     $uniq_id = substr($zbp->Config('AppCentre')->uniq_id, 0, 100);
     if ($token) {
-        $c .= '; token=' . urlencode($token);
+        $c .= '; token=' . urlencode((string) $token);
         if ('true' === $zbp->Config('AppCentre')->old_token) {
-            $c .= '; sign=' . urlencode($uniq_id);
+            $c .= '; sign=' . urlencode((string) $uniq_id);
         } else {
-            $c .= '; sign=' . urlencode(AppCentre_Get_Sign($token));
+            $c .= '; sign=' . urlencode((string) AppCentre_Get_Sign($token));
         }
-        $c .= '; uniq_id=' . urlencode($uniq_id);
+        $c .= '; uniq_id=' . urlencode((string) $uniq_id);
     }
 
     return $c;

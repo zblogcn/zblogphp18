@@ -606,7 +606,7 @@ class ValidateCode
             $value = current($this->fingerprint);
             next($this->fingerprint);
         } else {
-            $value = mt_rand($min, $max);
+            $value = mt_rand((int) $min, (int) $max);
             $this->fingerprint[] = $value;
         }
 

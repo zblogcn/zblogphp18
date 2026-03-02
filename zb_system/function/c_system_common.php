@@ -1956,11 +1956,11 @@ function SerializeString2Array($list)
 function FormatString($source, $para)
 {
     if (strpos($para, '[html-format]') !== false) {
-        $source = htmlspecialchars($source);
+        $source = htmlspecialchars((string) $source);
         //if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
-        //    $source = htmlspecialchars($source, (ENT_COMPAT | ENT_HTML401 | ENT_SUBSTITUTE), "UTF-8");
+        //    $source = htmlspecialchars((string) $source, (ENT_COMPAT | ENT_HTML401 | ENT_SUBSTITUTE), "UTF-8");
         //} else {
-        //    $source = htmlspecialchars($source, ENT_COMPAT, "UTF-8");
+        //    $source = htmlspecialchars((string) $source, ENT_COMPAT, "UTF-8");
         //}
     }
 
@@ -2049,11 +2049,11 @@ function htmlspecialchars_array($array)
 {
     $newArray = array();
     foreach ($array as $key => $value) {
-        $newKey = htmlspecialchars($key);
+        $newKey = htmlspecialchars((string) $key);
         if (is_array($value)) {
             $newArray[$newKey] = htmlspecialchars_array($value);
         } elseif (is_string($value)) {
-            $newArray[$newKey] = htmlspecialchars($value);
+            $newArray[$newKey] = htmlspecialchars((string) $value);
         }
     }
 
@@ -2072,7 +2072,7 @@ function RecHtmlSpecialChars(&$arr)
             if (is_array($value)) {
                 RecHtmlSpecialChars($value);
             } elseif (is_string($value)) {
-                $value = htmlspecialchars($value);
+                $value = htmlspecialchars((string) $value);
             }
         }
     }
