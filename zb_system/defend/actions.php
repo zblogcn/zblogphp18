@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     'login'  => 6,
     'logout' => 6,
     'verify' => 6,
@@ -89,4 +89,4 @@ return array(
     'AiChat'  => 1,
 
     'root' => 1,
-);
+];
