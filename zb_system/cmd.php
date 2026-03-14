@@ -465,6 +465,61 @@ switch ($zbp->action) {
         $function = 'misc_' . $miscType;
         $function();
         break;
+    case 'AiChat':
+
+
+        if (!$zbp->CheckRights('ArticleEdt')) {
+            echo json_encode(['error' => 'No Permission']);
+            die();
+        }
+
+        $prompt = GetVars('prompt', 'POST');
+        if (empty($prompt)) {
+            echo json_encode(['error' => 'Empty Prompt']);
+            die();
+        }
+
+        $apiKey = $zbp->option['ZC_TEXT_AI_API_KEY'];
+        if (empty($apiKey)) {
+            echo json_encode(['error' => 'API Key is missing']);
+            die();
+        }
+
+        $url = $zbp->option['ZC_TEXT_AI_API_URL'];
+
+        $systemPrompt = null;
+        if (empty($systemPrompt)) {
+            $systemPrompt = "1. 系统角色设定 (System Role)\n你是一位资深的内容创作者和写作专家。你的任务是根据用户需求创作高质量的文章。你需要具备良好的文字功底、丰富的知识储备和专业的写作技巧，能够针对不同主题撰写出吸引读者、内容丰富且结构清晰的文章。\n\n2. 文章结构要求 (Output Structure)\n请按照以下通用格式组织文章：\n\n标题：创建一个吸引人的标题，能准确概括文章主题并引起读者兴趣。\n\n引言：简要介绍文章主题，说明其重要性或与读者的相关性。\n\n主体内容：\n- 提供详细的信息、论据或案例支持\n- 保持逻辑清晰，段落间过渡自然\n- 使用小标题或要点来组织复杂信息\n\n结论：总结主要观点，并提供实用的建议或启发性的思考。\n\n3. 语气与风格 (Tone & Style)\n- 根据主题调整语气（正式、轻松、专业、亲和等）\n- 语言清晰易懂，避免不必要的专业术语\n- 内容要有实际价值，对读者有用处\n- 保持客观中立，除非特别要求表达观点\n- 适当使用例子、类比或故事来增强可读性";
+        }
+
+        $data = [
+            'model' => 'qwen-turbo',
+            'messages' => [
+                ['role' => 'system', 'content' => $systemPrompt],
+                ['role' => 'user', 'content' => $prompt]
+            ]
+        ];
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Authorization: Bearer ' . $apiKey,
+            'Content-Type: application/json'
+        ]);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $response = curl_exec($ch);
+
+        if (curl_errno($ch)) {
+                echo json_encode(['error' => 'Curl error: ' . curl_error($ch)]);
+        } else {
+             echo $response;
+        }
+
+        curl_close($ch);
+        die();
+        
     case 'ajax':
         foreach ($GLOBALS['hooks']['Filter_Plugin_Cmd_Ajax'] as $fpname => &$fpsignal) {
             $fpname(GetVars('src', 'GET'));

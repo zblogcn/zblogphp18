@@ -86,5 +86,7 @@ return array(
     'RewriteMng'  => 1,
     'NoValidCode' => 5,
 
+    'AiChat'  => 1,
+
     'root' => 1,
 );
