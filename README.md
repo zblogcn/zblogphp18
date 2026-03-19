@@ -16,7 +16,7 @@ GitHub: https://github.com/zblogcn/zblogphp18
 
 ## 说明
 
-· 后台模板化
+· 后台模板化（**已默认开启**）
 
 ```php
 <?php
