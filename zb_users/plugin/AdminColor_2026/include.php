@@ -11,7 +11,7 @@ function ActivePlugin_AdminColor_2026()
         Add_Filter_Plugin('Filter_Plugin_Admin_SettingMng_SubMenu', 'AdminColor_2026_submenu');
         Add_Filter_Plugin('Filter_Plugin_Admin_Header', 'AdminColor_2026_Main_Header');
         Add_Filter_Plugin('Filter_Plugin_Admin_Footer', 'AdminColor_2026_Main_Footer');
-        Add_Filter_Plugin('Filter_Plugin_Zbp_PrepareTemplateAdmin', 'AdminColor_2026_GenTpl');
+        Add_Filter_Plugin('Filter_Plugin_Zbp_PrepareTemplateAdmin_Core', 'AdminColor_2026_GenTpl');
         Add_Filter_Plugin('Filter_Plugin_Login_Header', 'AdminColor_2026_Main_Header');
     }
 }
